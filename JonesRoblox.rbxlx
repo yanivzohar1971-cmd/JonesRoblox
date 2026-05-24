@@ -935,7 +935,9 @@ JonesFoodItems.Water = {
 	EnergyRestore = 5,
 	HungerRestore = 0,
 	FullnessMinutes = 10,
-	ImageAssetId = "rbxassetid://6031094678",
+	-- Custom PNG source: Assets/FoodIcons/water.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://103271145720137",
 	ThemeColor = Color3.fromRGB(100, 180, 255),
 	EmojiFallback = "💧",
 } :: FoodItem
@@ -947,7 +949,9 @@ JonesFoodItems.Apple = {
 	EnergyRestore = 5,
 	HungerRestore = 10,
 	FullnessMinutes = 30,
-	ImageAssetId = "rbxassetid://6031224321",
+	-- Custom PNG source: Assets/FoodIcons/apple.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://79360984269983",
 	ThemeColor = Color3.fromRGB(220, 80, 80),
 	EmojiFallback = "🍎",
 } :: FoodItem
@@ -959,7 +963,9 @@ JonesFoodItems.Bread = {
 	EnergyRestore = 10,
 	HungerRestore = 18,
 	FullnessMinutes = 45,
-	ImageAssetId = "rbxassetid://6031250864",
+	-- Custom PNG source: Assets/FoodIcons/bread.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://84892713452962",
 	ThemeColor = Color3.fromRGB(210, 170, 100),
 	EmojiFallback = "🍞",
 } :: FoodItem
@@ -971,7 +977,9 @@ JonesFoodItems.Sandwich = {
 	EnergyRestore = 25,
 	HungerRestore = 35,
 	FullnessMinutes = 90,
-	ImageAssetId = "rbxassetid://6031255092",
+	-- Custom PNG source: Assets/FoodIcons/sandwich.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://91888167350450",
 	ThemeColor = Color3.fromRGB(180, 140, 90),
 	EmojiFallback = "🥪",
 } :: FoodItem
@@ -983,7 +991,9 @@ JonesFoodItems.HotMeal = {
 	EnergyRestore = 40,
 	HungerRestore = 60,
 	FullnessMinutes = 180,
-	ImageAssetId = "rbxassetid://6031280882",
+	-- Custom PNG source: Assets/FoodIcons/hot_meal.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://97078004998911",
 	ThemeColor = Color3.fromRGB(255, 140, 60),
 	EmojiFallback = "🍲",
 } :: FoodItem
@@ -995,7 +1005,9 @@ JonesFoodItems.FamilyMeal = {
 	EnergyRestore = 60,
 	HungerRestore = 100,
 	FullnessMinutes = 300,
-	ImageAssetId = "rbxassetid://6031286352",
+	-- Custom PNG source: Assets/FoodIcons/family_meal.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
+	ImageAssetId = "rbxassetid://99673651923906",
 	ThemeColor = Color3.fromRGB(200, 100, 120),
 	EmojiFallback = "🍖",
 } :: FoodItem
@@ -2863,6 +2875,16 @@ local WAREHOUSE_HUNGER_COST = 10
 local CLEANUP_ENERGY_COST = 10
 local CLEANUP_HUNGER_COST = 5
 
+local jobBoardLabel = Instance.new("TextLabel")
+jobBoardLabel.Name = "JobBoardLabel"
+jobBoardLabel.LayoutOrder = 2
+jobBoardLabel.Size = UDim2.new(1, 0, 0, 18)
+jobBoardLabel.BackgroundTransparency = 1
+jobBoardLabel.Font = Enum.Font.GothamMedium
+jobBoardLabel.TextSize = 13
+jobBoardLabel.TextColor3 = Color3.fromRGB(150, 175, 210)
+jobBoardLabel.TextXAlignment = Enum.TextXAlignment.Left
+jobBoardLabel.Text = "Available Jobs"
 jobBoardLabel.Visible = false
 jobBoardLabel.Parent = actionsFrame
 
@@ -2988,20 +3010,34 @@ local function addCorner(parent: GuiObject, radius: number)
 	corner.Parent = parent
 end
 
-local function stylePanel(panel: Frame)
-	panel.BackgroundColor3 = Color3.fromRGB(32, 34, 42)
-	panel.BackgroundTransparency = 0.08
-	addCorner(panel, 10)
+local function styleGlassPanel(panel: Frame)
+	panel.BackgroundColor3 = Color3.fromRGB(24, 26, 34)
+	panel.BackgroundTransparency = 0.1
+	addCorner(panel, 14)
+
+	local gradient = Instance.new("UIGradient")
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(38, 40, 52)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(22, 24, 32)),
+	})
+	gradient.Rotation = 90
+	gradient.Parent = panel
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(255, 255, 255)
+	stroke.Transparency = 0.78
+	stroke.Thickness = 1
+	stroke.Parent = panel
 end
 
 local function styleCard(card: Frame, themeColor: Color3)
 	card.BackgroundColor3 = Color3.fromRGB(
-		math.clamp(math.floor(themeColor.R * 255 * 0.22 + 42), 0, 255),
-		math.clamp(math.floor(themeColor.G * 255 * 0.22 + 42), 0, 255),
-		math.clamp(math.floor(themeColor.B * 255 * 0.22 + 46), 0, 255)
+		math.clamp(math.floor(themeColor.R * 255 * 0.18 + 36), 0, 255),
+		math.clamp(math.floor(themeColor.G * 255 * 0.18 + 36), 0, 255),
+		math.clamp(math.floor(themeColor.B * 255 * 0.18 + 40), 0, 255)
 	)
-	card.BackgroundTransparency = 0.12
-	addCorner(card, 8)
+	card.BackgroundTransparency = 0.08
+	addCorner(card, 10)
 end
 
 local function applyButtonHover(button: TextButton, baseColor: Color3, hoverColor: Color3)
@@ -3038,21 +3074,21 @@ addCorner(restButton, 8)
 addCorner(depositAllButton, 8)
 addCorner(withdraw25Button, 8)
 
-local MODAL_MAX_WIDTH = 560
-local MODAL_WIDTH_SCALE = 0.92
-local MODAL_HEIGHT_SCALE = 0.78
+local MODAL_MAX_WIDTH = 700
+local MODAL_WIDTH_SCALE = 0.9
+local MODAL_HEIGHT_SCALE = 0.82
 local MODAL_SAFE_MARGIN = 24
-local MODAL_MIN_WIDTH = 280
-local MODAL_MIN_HEIGHT = 220
-local MODAL_HEADER_HEIGHT = 44
-local FOOD_ACTION_BUTTON_WIDTH = 64
-local FOOD_ACTION_BUTTON_HEIGHT = 44
-local FOOD_GRID_GAP = 10
-local FOOD_CARD_HEIGHT = 224
-local FOOD_CARD_MIN_WIDTH = 148
+local MODAL_MIN_WIDTH = 300
+local MODAL_MIN_HEIGHT = 240
+local MODAL_HEADER_HEIGHT = 48
+local MODAL_CLOSE_SIZE = 36
+local FOOD_GRID_GAP = 12
+local FOOD_CARD_HEIGHT = 208
+local FOOD_CARD_MIN_WIDTH = 140
 local FOOD_GRID_THREE_COL_MIN = 500
-local FOOD_CARD_BUTTON_HEIGHT = 44
+local FOOD_CARD_BUTTON_HEIGHT = 40
 local FOOD_CARD_INNER_PADDING = 10
+local FOOD_THUMB_HEIGHT = 54
 
 type ModalController = {
 	root: Frame,
@@ -3084,7 +3120,12 @@ local function refreshAllModalSizes()
 	end
 end
 
-local function createCenteredModal(modalName: string, titleText: string, titleColor: Color3): ModalController
+local function createCenteredModal(
+	modalName: string,
+	titleText: string,
+	titleIcon: string,
+	titleColor: Color3
+): ModalController
 	local root = Instance.new("Frame")
 	root.Name = modalName
 	root.Size = UDim2.fromScale(1, 1)
@@ -3096,8 +3137,8 @@ local function createCenteredModal(modalName: string, titleText: string, titleCo
 	local overlay = Instance.new("TextButton")
 	overlay.Name = "Overlay"
 	overlay.Size = UDim2.fromScale(1, 1)
-	overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	overlay.BackgroundTransparency = 0.45
+	overlay.BackgroundColor3 = Color3.fromRGB(8, 10, 16)
+	overlay.BackgroundTransparency = 0.35
 	overlay.BorderSizePixel = 0
 	overlay.Text = ""
 	overlay.AutoButtonColor = false
@@ -3112,7 +3153,7 @@ local function createCenteredModal(modalName: string, titleText: string, titleCo
 	panel.BorderSizePixel = 0
 	panel.ZIndex = 2
 	panel.Parent = root
-	stylePanel(panel)
+	styleGlassPanel(panel)
 
 	local sizeConstraint = Instance.new("UISizeConstraint")
 	sizeConstraint.MinSize = Vector2.new(MODAL_MIN_WIDTH, MODAL_MIN_HEIGHT)
@@ -3132,10 +3173,10 @@ local function createCenteredModal(modalName: string, titleText: string, titleCo
 	refreshPanelSize()
 
 	local panelPadding = Instance.new("UIPadding")
-	panelPadding.PaddingTop = UDim.new(0, 12)
-	panelPadding.PaddingBottom = UDim.new(0, 12)
-	panelPadding.PaddingLeft = UDim.new(0, 12)
-	panelPadding.PaddingRight = UDim.new(0, 12)
+	panelPadding.PaddingTop = UDim.new(0, 14)
+	panelPadding.PaddingBottom = UDim.new(0, 14)
+	panelPadding.PaddingLeft = UDim.new(0, 16)
+	panelPadding.PaddingRight = UDim.new(0, 16)
 	panelPadding.Parent = panel
 
 	local header = Instance.new("Frame")
@@ -3146,12 +3187,26 @@ local function createCenteredModal(modalName: string, titleText: string, titleCo
 	header.ZIndex = 3
 	header.Parent = panel
 
+	local titleIconLabel = Instance.new("TextLabel")
+	titleIconLabel.Name = "TitleIcon"
+	titleIconLabel.Size = UDim2.fromOffset(28, MODAL_HEADER_HEIGHT)
+	titleIconLabel.BackgroundTransparency = 1
+	titleIconLabel.Font = Enum.Font.GothamBold
+	titleIconLabel.TextSize = 20
+	titleIconLabel.TextColor3 = titleColor
+	titleIconLabel.TextXAlignment = Enum.TextXAlignment.Center
+	titleIconLabel.TextYAlignment = Enum.TextYAlignment.Center
+	titleIconLabel.Text = titleIcon
+	titleIconLabel.ZIndex = 3
+	titleIconLabel.Parent = header
+
 	local titleLabel = Instance.new("TextLabel")
 	titleLabel.Name = "TitleLabel"
-	titleLabel.Size = UDim2.new(1, -FOOD_ACTION_BUTTON_WIDTH - 8, 1, 0)
+	titleLabel.Size = UDim2.new(1, -(28 + MODAL_CLOSE_SIZE + 12), 1, 0)
+	titleLabel.Position = UDim2.fromOffset(32, 0)
 	titleLabel.BackgroundTransparency = 1
 	titleLabel.Font = Enum.Font.GothamBold
-	titleLabel.TextSize = 20
+	titleLabel.TextSize = 21
 	titleLabel.TextColor3 = titleColor
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 	titleLabel.TextYAlignment = Enum.TextYAlignment.Center
@@ -3161,19 +3216,25 @@ local function createCenteredModal(modalName: string, titleText: string, titleCo
 
 	local closeButton = Instance.new("TextButton")
 	closeButton.Name = "CloseButton"
-	closeButton.Size = UDim2.fromOffset(FOOD_ACTION_BUTTON_WIDTH, FOOD_ACTION_BUTTON_HEIGHT)
+	closeButton.Size = UDim2.fromOffset(MODAL_CLOSE_SIZE, MODAL_CLOSE_SIZE)
 	closeButton.AnchorPoint = Vector2.new(1, 0.5)
 	closeButton.Position = UDim2.new(1, 0, 0.5, 0)
-	closeButton.BackgroundColor3 = Color3.fromRGB(70, 70, 80)
+	closeButton.BackgroundColor3 = Color3.fromRGB(52, 54, 64)
+	closeButton.BackgroundTransparency = 0.15
 	closeButton.BorderSizePixel = 0
 	closeButton.Font = Enum.Font.GothamBold
-	closeButton.TextSize = 15
-	closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	closeButton.Text = "Close"
+	closeButton.TextSize = 18
+	closeButton.TextColor3 = Color3.fromRGB(230, 230, 240)
+	closeButton.Text = "×"
 	closeButton.ZIndex = 3
 	closeButton.Parent = header
 	addCorner(closeButton, 8)
-	applyButtonHover(closeButton, Color3.fromRGB(70, 70, 80), Color3.fromRGB(95, 95, 110))
+	local closeStroke = Instance.new("UIStroke")
+	closeStroke.Color = Color3.fromRGB(255, 255, 255)
+	closeStroke.Transparency = 0.82
+	closeStroke.Thickness = 1
+	closeStroke.Parent = closeButton
+	applyButtonHover(closeButton, Color3.fromRGB(52, 54, 64), Color3.fromRGB(72, 74, 88))
 
 	local scrollFrame = Instance.new("ScrollingFrame")
 	scrollFrame.Name = "ScrollFrame"
@@ -3308,7 +3369,7 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 5,
 		HungerRestore = 0,
 		FullnessMinutes = 10,
-		ImageAssetId = "rbxassetid://6031094678",
+		ImageAssetId = "rbxassetid://103271145720137",
 		ThemeColor = Color3.fromRGB(100, 180, 255),
 		EmojiFallback = "💧",
 	},
@@ -3319,7 +3380,7 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 5,
 		HungerRestore = 10,
 		FullnessMinutes = 30,
-		ImageAssetId = "rbxassetid://6031224321",
+		ImageAssetId = "rbxassetid://79360984269983",
 		ThemeColor = Color3.fromRGB(220, 80, 80),
 		EmojiFallback = "🍎",
 	},
@@ -3330,7 +3391,7 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 10,
 		HungerRestore = 18,
 		FullnessMinutes = 45,
-		ImageAssetId = "rbxassetid://6031250864",
+		ImageAssetId = "rbxassetid://84892713452962",
 		ThemeColor = Color3.fromRGB(210, 170, 100),
 		EmojiFallback = "🍞",
 	},
@@ -3341,7 +3402,7 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 25,
 		HungerRestore = 35,
 		FullnessMinutes = 90,
-		ImageAssetId = "rbxassetid://6031255092",
+		ImageAssetId = "rbxassetid://91888167350450",
 		ThemeColor = Color3.fromRGB(180, 140, 90),
 		EmojiFallback = "🥪",
 	},
@@ -3352,7 +3413,7 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 40,
 		HungerRestore = 60,
 		FullnessMinutes = 180,
-		ImageAssetId = "rbxassetid://6031280882",
+		ImageAssetId = "rbxassetid://97078004998911",
 		ThemeColor = Color3.fromRGB(255, 140, 60),
 		EmojiFallback = "🍲",
 	},
@@ -3363,21 +3424,35 @@ local FOOD_SHOP_DISPLAY_ITEMS = {
 		EnergyRestore = 60,
 		HungerRestore = 100,
 		FullnessMinutes = 300,
-		ImageAssetId = "rbxassetid://6031286352",
+		ImageAssetId = "rbxassetid://99673651923906",
 		ThemeColor = Color3.fromRGB(200, 100, 120),
 		EmojiFallback = "🍖",
 	},
 }
 
 local foodShopOwnedLabels: { [string]: TextLabel } = {}
-local foodInventoryCards: { [string]: { card: Frame, countLabel: TextLabel } } = {}
+local foodInventoryCards: { [string]: { card: Frame, countLabel: TextLabel, eatButton: TextButton } } = {}
 
 local function addCardStroke(card: Frame)
 	local stroke = Instance.new("UIStroke")
 	stroke.Color = Color3.fromRGB(255, 255, 255)
-	stroke.Transparency = 0.86
+	stroke.Transparency = 0.84
 	stroke.Thickness = 1
 	stroke.Parent = card
+end
+
+local function setActionButtonEnabled(button: TextButton, enabled: boolean, baseColor: Color3, hoverColor: Color3)
+	button.Active = enabled
+	button.AutoButtonColor = enabled
+	if enabled then
+		button.BackgroundColor3 = baseColor
+		button.TextColor3 = Color3.fromRGB(255, 255, 255)
+		button.BackgroundTransparency = 0
+	else
+		button.BackgroundColor3 = Color3.fromRGB(58, 60, 68)
+		button.TextColor3 = Color3.fromRGB(150, 150, 158)
+		button.BackgroundTransparency = 0.2
+	end
 end
 
 local function createCardMetaLabel(
@@ -3385,11 +3460,12 @@ local function createCardMetaLabel(
 	layoutOrder: number,
 	text: string,
 	textSize: number,
-	color: Color3
+	color: Color3,
+	height: number?
 ): TextLabel
 	local label = Instance.new("TextLabel")
 	label.LayoutOrder = layoutOrder
-	label.Size = UDim2.new(1, 0, 0, textSize + 2)
+	label.Size = UDim2.new(1, 0, 0, height or (textSize + 3))
 	label.BackgroundTransparency = 1
 	label.Font = Enum.Font.Gotham
 	label.TextSize = textSize
@@ -3404,28 +3480,36 @@ local function createFoodThumbnailArea(parent: Frame, layoutOrder: number, item:
 	local thumbFrame = Instance.new("Frame")
 	thumbFrame.Name = "ThumbFrame"
 	thumbFrame.LayoutOrder = layoutOrder
-	thumbFrame.Size = UDim2.new(1, 0, 0, 56)
-	thumbFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 24)
-	thumbFrame.BackgroundTransparency = 0.15
+	thumbFrame.Size = UDim2.new(1, 0, 0, FOOD_THUMB_HEIGHT)
+	thumbFrame.BackgroundColor3 = Color3.fromRGB(14, 15, 20)
+	thumbFrame.BackgroundTransparency = 0.1
 	thumbFrame.BorderSizePixel = 0
 	thumbFrame.Parent = parent
 	addCorner(thumbFrame, 8)
 
+	local thumbInnerStroke = Instance.new("UIStroke")
+	thumbInnerStroke.Color = Color3.fromRGB(255, 255, 255)
+	thumbInnerStroke.Transparency = 0.9
+	thumbInnerStroke.Thickness = 1
+	thumbInnerStroke.Parent = thumbFrame
+
 	local thumbImage = Instance.new("ImageLabel")
 	thumbImage.Name = "ThumbImage"
-	thumbImage.Size = UDim2.fromOffset(44, 44)
-	thumbImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	thumbImage.Position = UDim2.fromScale(0.5, 0.5)
+	thumbImage.Size = UDim2.fromOffset(46, 46)
+	thumbImage.Position = UDim2.fromOffset(6, 4)
 	thumbImage.BackgroundTransparency = 1
 	thumbImage.ScaleType = Enum.ScaleType.Fit
 	thumbImage.Parent = thumbFrame
 
 	local thumbEmoji = Instance.new("TextLabel")
 	thumbEmoji.Name = "ThumbEmoji"
-	thumbEmoji.Size = UDim2.fromScale(1, 1)
+	thumbEmoji.Size = UDim2.fromOffset(46, 46)
+	thumbEmoji.Position = UDim2.fromOffset(6, 4)
 	thumbEmoji.BackgroundTransparency = 1
 	thumbEmoji.Font = Enum.Font.GothamBold
-	thumbEmoji.TextSize = 28
+	thumbEmoji.TextSize = 30
+	thumbEmoji.TextXAlignment = Enum.TextXAlignment.Center
+	thumbEmoji.TextYAlignment = Enum.TextYAlignment.Center
 	thumbEmoji.Visible = false
 	thumbEmoji.Parent = thumbFrame
 	bindFoodThumbnail(thumbImage, thumbEmoji, item.ImageAssetId, item.EmojiFallback)
@@ -3433,7 +3517,7 @@ local function createFoodThumbnailArea(parent: Frame, layoutOrder: number, item:
 	return thumbFrame
 end
 
-local foodShopModal = createCenteredModal("FoodShopModal", "Food Shop", Color3.fromRGB(255, 220, 160))
+local foodShopModal = createCenteredModal("FoodShopModal", "Food Shop", "🛒", Color3.fromRGB(255, 215, 140))
 local foodShopGridHost = foodShopModal.gridHost
 
 for index, item in FOOD_SHOP_DISPLAY_ITEMS do
@@ -3441,7 +3525,7 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	card.Name = item.Id .. "ShopCard"
 	card.LayoutOrder = index
 	card.BorderSizePixel = 0
-	card.ClipsDescendants = true
+	card.ClipsDescendants = false
 	card.Parent = foodShopGridHost
 	styleCard(card, item.ThemeColor)
 	addCardStroke(card)
@@ -3454,7 +3538,7 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	cardPadding.Parent = card
 
 	local cardLayout = Instance.new("UIListLayout")
-	cardLayout.Padding = UDim.new(0, 3)
+	cardLayout.Padding = UDim.new(0, 2)
 	cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	cardLayout.Parent = card
 
@@ -3463,44 +3547,55 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	local nameLabel = Instance.new("TextLabel")
 	nameLabel.Name = "NameLabel"
 	nameLabel.LayoutOrder = 2
-	nameLabel.Size = UDim2.new(1, 0, 0, 18)
+	nameLabel.Size = UDim2.new(1, 0, 0, 17)
 	nameLabel.BackgroundTransparency = 1
 	nameLabel.Font = Enum.Font.GothamBold
-	nameLabel.TextSize = 15
-	nameLabel.TextColor3 = Color3.fromRGB(255, 240, 210)
+	nameLabel.TextSize = 14
+	nameLabel.TextColor3 = Color3.fromRGB(255, 245, 225)
 	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
 	nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
 	nameLabel.Text = item.DisplayName
 	nameLabel.Parent = card
 
-	local ownedLabel = createCardMetaLabel(card, 3, "Owned: 0", 12, Color3.fromRGB(160, 200, 255))
+	local ownedLabel = createCardMetaLabel(card, 3, "Owned: 0", 12, Color3.fromRGB(165, 200, 255), 14)
 	ownedLabel.Name = "OwnedLabel"
 	foodShopOwnedLabels[item.Id] = ownedLabel
 
-	createCardMetaLabel(card, 4, ("Price: %d"):format(item.Price), 12, Color3.fromRGB(255, 220, 120))
-	createCardMetaLabel(card, 5, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140))
-	createCardMetaLabel(card, 6, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100))
-	createCardMetaLabel(card, 7, ("%d min"):format(item.FullnessMinutes), 12, Color3.fromRGB(200, 200, 210))
+	createCardMetaLabel(card, 4, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140), 14)
+	createCardMetaLabel(card, 5, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100), 14)
+	createCardMetaLabel(
+		card,
+		6,
+		("%d min fullness"):format(item.FullnessMinutes),
+		12,
+		Color3.fromRGB(195, 195, 205),
+		14
+	)
 
 	local buyItemButton = Instance.new("TextButton")
 	buyItemButton.Name = "BuyButton"
-	buyItemButton.LayoutOrder = 8
+	buyItemButton.LayoutOrder = 7
 	buyItemButton.Size = UDim2.new(1, 0, 0, FOOD_CARD_BUTTON_HEIGHT)
 	buyItemButton.BorderSizePixel = 0
 	buyItemButton.Font = Enum.Font.GothamBold
-	buyItemButton.TextSize = 15
+	buyItemButton.TextSize = 14
 	buyItemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	buyItemButton.Text = "Buy"
+	buyItemButton.Text = ("🪙 %d  Buy"):format(item.Price)
 	buyItemButton.Parent = card
 	addCorner(buyItemButton, 8)
-	applyButtonHover(buyItemButton, Color3.fromRGB(180, 110, 40), Color3.fromRGB(210, 140, 60))
+	applyButtonHover(buyItemButton, Color3.fromRGB(210, 135, 45), Color3.fromRGB(235, 165, 70))
 
 	buyItemButton.MouseButton1Click:Connect(function()
 		performActionRemote:FireServer("BuyFoodItem", item.Id)
 	end)
 end
 
-local foodInventoryModal = createCenteredModal("FoodInventoryModal", "Food Inventory", Color3.fromRGB(210, 190, 255))
+local foodInventoryModal = createCenteredModal(
+	"FoodInventoryModal",
+	"Food Inventory",
+	"🎒",
+	Color3.fromRGB(210, 190, 255)
+)
 local foodInventoryGridHost = foodInventoryModal.gridHost
 
 local foodInventoryEmptyLabel = Instance.new("TextLabel")
@@ -3523,7 +3618,7 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	card.Name = item.Id .. "InventoryCard"
 	card.LayoutOrder = index
 	card.BorderSizePixel = 0
-	card.ClipsDescendants = true
+	card.ClipsDescendants = false
 	card.Visible = false
 	card.Parent = foodInventoryGridHost
 	styleCard(card, item.ThemeColor)
@@ -3537,7 +3632,7 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	cardPadding.Parent = card
 
 	local cardLayout = Instance.new("UIListLayout")
-	cardLayout.Padding = UDim.new(0, 3)
+	cardLayout.Padding = UDim.new(0, 2)
 	cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	cardLayout.Parent = card
 
@@ -3546,23 +3641,30 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	local nameLabel = Instance.new("TextLabel")
 	nameLabel.Name = "NameLabel"
 	nameLabel.LayoutOrder = 2
-	nameLabel.Size = UDim2.new(1, 0, 0, 18)
+	nameLabel.Size = UDim2.new(1, 0, 0, 17)
 	nameLabel.BackgroundTransparency = 1
 	nameLabel.Font = Enum.Font.GothamBold
-	nameLabel.TextSize = 15
-	nameLabel.TextColor3 = Color3.fromRGB(255, 240, 210)
+	nameLabel.TextSize = 14
+	nameLabel.TextColor3 = Color3.fromRGB(255, 245, 225)
 	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
 	nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
 	nameLabel.Text = item.DisplayName
 	nameLabel.Parent = card
 
-	local countLabel = createCardMetaLabel(card, 3, "x0", 13, Color3.fromRGB(160, 200, 255))
+	local countLabel = createCardMetaLabel(card, 3, "x0", 12, Color3.fromRGB(165, 200, 255), 14)
 	countLabel.Name = "CountLabel"
 	countLabel.Font = Enum.Font.GothamMedium
 
-	createCardMetaLabel(card, 4, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140))
-	createCardMetaLabel(card, 5, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100))
-	createCardMetaLabel(card, 6, ("%d min"):format(item.FullnessMinutes), 12, Color3.fromRGB(200, 200, 210))
+	createCardMetaLabel(card, 4, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140), 14)
+	createCardMetaLabel(card, 5, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100), 14)
+	createCardMetaLabel(
+		card,
+		6,
+		("%d min fullness"):format(item.FullnessMinutes),
+		12,
+		Color3.fromRGB(195, 195, 205),
+		14
+	)
 
 	local eatButton = Instance.new("TextButton")
 	eatButton.Name = "EatButton"
@@ -3570,18 +3672,23 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	eatButton.Size = UDim2.new(1, 0, 0, FOOD_CARD_BUTTON_HEIGHT)
 	eatButton.BorderSizePixel = 0
 	eatButton.Font = Enum.Font.GothamBold
-	eatButton.TextSize = 15
+	eatButton.TextSize = 14
 	eatButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 	eatButton.Text = "Eat"
 	eatButton.Parent = card
 	addCorner(eatButton, 8)
-	applyButtonHover(eatButton, Color3.fromRGB(70, 130, 95), Color3.fromRGB(90, 160, 115))
+	local eatBaseColor = Color3.fromRGB(62, 145, 98)
+	local eatHoverColor = Color3.fromRGB(82, 170, 118)
+	applyButtonHover(eatButton, eatBaseColor, eatHoverColor)
+	setActionButtonEnabled(eatButton, false, eatBaseColor, eatHoverColor)
 
 	eatButton.MouseButton1Click:Connect(function()
-		performActionRemote:FireServer("EatFoodItem", item.Id)
+		if eatButton.Active then
+			performActionRemote:FireServer("EatFoodItem", item.Id)
+		end
 	end)
 
-	foodInventoryCards[item.Id] = { card = card, countLabel = countLabel }
+	foodInventoryCards[item.Id] = { card = card, countLabel = countLabel, eatButton = eatButton }
 end
 
 local function refreshFoodInventoryUi(inventoryFolder: Folder)
@@ -3603,6 +3710,12 @@ local function refreshFoodInventoryUi(inventoryFolder: Folder)
 		if invCard then
 			invCard.card.Visible = count > 0
 			invCard.countLabel.Text = ("x%d"):format(count)
+			setActionButtonEnabled(
+				invCard.eatButton,
+				count > 0,
+				Color3.fromRGB(62, 145, 98),
+				Color3.fromRGB(82, 170, 118)
+			)
 			if count > 0 then
 				anyOwned = true
 			end

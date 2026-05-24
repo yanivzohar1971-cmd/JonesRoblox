@@ -6,13 +6,21 @@ local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local TextChatService = game:GetService("TextChatService")
 
--- HUD layout: below Roblox top bar, offset right so buttons stay clear of menu/chat area.
-local HUD_OFFSET_LEFT = 28
-local HUD_OFFSET_TOP = 56
+local UserInputService = game:GetService("UserInputService")
+
+-- HUD layout: bottom-right dock, screen-safe margins, draggable stats/actions headers.
+local HUD_SAFE_MARGIN = 16
+local HUD_PANEL_WIDTH = 260
+local HUD_INVENTORY_WIDTH = 188
+local HUD_INVENTORY_HEIGHT = 48
+local HUD_HEADER_HEIGHT = 26
+local HUD_STACK_GAP = 8
+local HUD_STATS_MAX_HEIGHT = 320
+local HUD_ACTIONS_MAX_HEIGHT = 240
 local HUD_DISPLAY_ORDER = 100
-local HUD_WIDTH = 300
-local HUD_SECTION_GAP = 8
-local HUD_COMPACT_PADDING = 4
+local HUD_COMPACT_PADDING = 3
+local HUD_STAT_ROW = 17
+local HUD_INNER_PADDING = 8
 
 local function disableDefaultChat()
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
@@ -37,113 +45,164 @@ screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.DisplayOrder = HUD_DISPLAY_ORDER
 screenGui.Parent = playerGui
 
-local hudRoot = Instance.new("Frame")
-hudRoot.Name = "HudRoot"
-hudRoot.Size = UDim2.fromOffset(HUD_WIDTH, 0)
-hudRoot.AutomaticSize = Enum.AutomaticSize.Y
-hudRoot.Position = UDim2.fromOffset(HUD_OFFSET_LEFT, HUD_OFFSET_TOP)
-hudRoot.BackgroundTransparency = 1
-hudRoot.BorderSizePixel = 0
-hudRoot.Parent = screenGui
-
-local hudRootLayout = Instance.new("UIListLayout")
-hudRootLayout.Padding = UDim.new(0, HUD_SECTION_GAP)
-hudRootLayout.SortOrder = Enum.SortOrder.LayoutOrder
-hudRootLayout.Parent = hudRoot
+local hudDockLayer = Instance.new("Frame")
+hudDockLayer.Name = "HudDockLayer"
+hudDockLayer.Size = UDim2.fromScale(1, 1)
+hudDockLayer.BackgroundTransparency = 1
+hudDockLayer.BorderSizePixel = 0
+hudDockLayer.ZIndex = 1
+hudDockLayer.Parent = screenGui
 
 local frame = Instance.new("Frame")
 frame.Name = "StatsFrame"
-frame.LayoutOrder = 0
-frame.Size = UDim2.new(1, 0, 0, 0)
-frame.AutomaticSize = Enum.AutomaticSize.Y
+frame.Size = UDim2.fromOffset(HUD_PANEL_WIDTH, HUD_HEADER_HEIGHT + 120)
+frame.AnchorPoint = Vector2.new(1, 0)
+frame.Position = UDim2.new(1, -HUD_SAFE_MARGIN, 0, HUD_SAFE_MARGIN + 36)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BackgroundTransparency = 0.25
 frame.BorderSizePixel = 0
-frame.Active = true
-frame.Parent = hudRoot
+frame.ClipsDescendants = true
+frame.Parent = hudDockLayer
+
+local statsHeader = Instance.new("TextButton")
+statsHeader.Name = "StatsHeader"
+statsHeader.Size = UDim2.new(1, 0, 0, HUD_HEADER_HEIGHT)
+statsHeader.BackgroundColor3 = Color3.fromRGB(35, 35, 42)
+statsHeader.BackgroundTransparency = 0.35
+statsHeader.BorderSizePixel = 0
+statsHeader.AutoButtonColor = false
+statsHeader.Text = ""
+statsHeader.Parent = frame
+
+local statsTitleLabel = Instance.new("TextLabel")
+statsTitleLabel.Name = "StatsTitleLabel"
+statsTitleLabel.Size = UDim2.new(1, -28, 1, 0)
+statsTitleLabel.Position = UDim2.fromOffset(HUD_INNER_PADDING, 0)
+statsTitleLabel.BackgroundTransparency = 1
+statsTitleLabel.Font = Enum.Font.GothamBold
+statsTitleLabel.TextSize = 13
+statsTitleLabel.TextColor3 = Color3.fromRGB(170, 200, 255)
+statsTitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+statsTitleLabel.TextYAlignment = Enum.TextYAlignment.Center
+statsTitleLabel.Text = "Stats"
+statsTitleLabel.Parent = statsHeader
+
+local statsDragHint = Instance.new("TextLabel")
+statsDragHint.Name = "DragHint"
+statsDragHint.Size = UDim2.fromOffset(24, HUD_HEADER_HEIGHT)
+statsDragHint.AnchorPoint = Vector2.new(1, 0)
+statsDragHint.Position = UDim2.new(1, -4, 0, 0)
+statsDragHint.BackgroundTransparency = 1
+statsDragHint.Font = Enum.Font.Gotham
+statsDragHint.TextSize = 12
+statsDragHint.TextColor3 = Color3.fromRGB(130, 130, 140)
+statsDragHint.Text = "⋮⋮"
+statsDragHint.Parent = statsHeader
+
+local statsScroll = Instance.new("ScrollingFrame")
+statsScroll.Name = "StatsScroll"
+statsScroll.Size = UDim2.new(1, 0, 1, -HUD_HEADER_HEIGHT)
+statsScroll.Position = UDim2.fromOffset(0, HUD_HEADER_HEIGHT)
+statsScroll.BackgroundTransparency = 1
+statsScroll.BorderSizePixel = 0
+statsScroll.ScrollBarThickness = 5
+statsScroll.ScrollBarImageColor3 = Color3.fromRGB(120, 120, 140)
+statsScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+statsScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+statsScroll.CanvasSize = UDim2.new()
+statsScroll.Parent = frame
+
+local statsContent = Instance.new("Frame")
+statsContent.Name = "StatsContent"
+statsContent.Size = UDim2.new(1, 0, 0, 0)
+statsContent.AutomaticSize = Enum.AutomaticSize.Y
+statsContent.BackgroundTransparency = 1
+statsContent.BorderSizePixel = 0
+statsContent.Parent = statsScroll
+
 local layout = Instance.new("UIListLayout")
 layout.Padding = UDim.new(0, HUD_COMPACT_PADDING)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
-layout.Parent = frame
+layout.Parent = statsContent
 
 local padding = Instance.new("UIPadding")
-padding.PaddingTop = UDim.new(0, 10)
-padding.PaddingBottom = UDim.new(0, 10)
-padding.PaddingLeft = UDim.new(0, 10)
-padding.PaddingRight = UDim.new(0, 10)
-padding.Parent = frame
+padding.PaddingTop = UDim.new(0, HUD_INNER_PADDING)
+padding.PaddingBottom = UDim.new(0, HUD_INNER_PADDING)
+padding.PaddingLeft = UDim.new(0, HUD_INNER_PADDING)
+padding.PaddingRight = UDim.new(0, HUD_INNER_PADDING)
+padding.Parent = statsContent
 
 local clockLabel = Instance.new("TextLabel")
 clockLabel.Name = "ClockLabel"
 clockLabel.LayoutOrder = 0
-clockLabel.Size = UDim2.new(1, 0, 0, 22)
+clockLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 clockLabel.BackgroundTransparency = 1
 clockLabel.Font = Enum.Font.GothamMedium
-clockLabel.TextSize = 17
+clockLabel.TextSize = 15
 clockLabel.TextColor3 = Color3.fromRGB(200, 210, 230)
 clockLabel.TextXAlignment = Enum.TextXAlignment.Left
 clockLabel.Text = "Day 1 · 08:00"
-clockLabel.Parent = frame
+clockLabel.Parent = statsContent
 
 local moneyLabel = Instance.new("TextLabel")
 moneyLabel.Name = "MoneyLabel"
 moneyLabel.LayoutOrder = 1
-moneyLabel.Size = UDim2.new(1, 0, 0, 24)
+moneyLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW + 1)
 moneyLabel.BackgroundTransparency = 1
 moneyLabel.Font = Enum.Font.GothamBold
-moneyLabel.TextSize = 20
+moneyLabel.TextSize = 17
 moneyLabel.TextColor3 = Color3.fromRGB(255, 220, 80)
 moneyLabel.TextXAlignment = Enum.TextXAlignment.Left
 moneyLabel.Text = "Wallet: 0"
-moneyLabel.Parent = frame
+moneyLabel.Parent = statsContent
 
 local bankLabel = Instance.new("TextLabel")
 bankLabel.Name = "BankLabel"
 bankLabel.LayoutOrder = 2
-bankLabel.Size = UDim2.new(1, 0, 0, 20)
+bankLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 bankLabel.BackgroundTransparency = 1
 bankLabel.Font = Enum.Font.Gotham
-bankLabel.TextSize = 18
+bankLabel.TextSize = 15
 bankLabel.TextColor3 = Color3.fromRGB(140, 200, 255)
 bankLabel.TextXAlignment = Enum.TextXAlignment.Left
 bankLabel.Text = "Bank: 0"
-bankLabel.Parent = frame
+bankLabel.Parent = statsContent
 
 local energyLabel = Instance.new("TextLabel")
 energyLabel.Name = "EnergyLabel"
 energyLabel.LayoutOrder = 3
-energyLabel.Size = UDim2.new(1, 0, 0, 20)
+energyLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 energyLabel.BackgroundTransparency = 1
 energyLabel.Font = Enum.Font.Gotham
-energyLabel.TextSize = 18
+energyLabel.TextSize = 15
 energyLabel.TextColor3 = Color3.fromRGB(120, 220, 140)
 energyLabel.TextXAlignment = Enum.TextXAlignment.Left
 energyLabel.Text = "Energy: 100"
-energyLabel.Parent = frame
+energyLabel.Parent = statsContent
 
 local hungerLabel = Instance.new("TextLabel")
 hungerLabel.Name = "HungerLabel"
 hungerLabel.LayoutOrder = 4
-hungerLabel.Size = UDim2.new(1, 0, 0, 20)
+hungerLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 hungerLabel.BackgroundTransparency = 1
 hungerLabel.Font = Enum.Font.Gotham
-hungerLabel.TextSize = 18
+hungerLabel.TextSize = 15
 hungerLabel.TextColor3 = Color3.fromRGB(255, 170, 100)
 hungerLabel.TextXAlignment = Enum.TextXAlignment.Left
 hungerLabel.Text = "Hunger: 100"
-hungerLabel.Parent = frame
+hungerLabel.Parent = statsContent
 
 local fullnessLabel = Instance.new("TextLabel")
 fullnessLabel.Name = "FullnessLabel"
 fullnessLabel.LayoutOrder = 5
-fullnessLabel.Size = UDim2.new(1, 0, 0, 20)
+fullnessLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 fullnessLabel.BackgroundTransparency = 1
 fullnessLabel.Font = Enum.Font.Gotham
-fullnessLabel.TextSize = 18
+fullnessLabel.TextSize = 15
 fullnessLabel.TextColor3 = Color3.fromRGB(180, 220, 160)
 fullnessLabel.TextXAlignment = Enum.TextXAlignment.Left
 fullnessLabel.Text = "Fullness: None"
-fullnessLabel.Parent = frame
+fullnessLabel.Parent = statsContent
 
 local needsStatusLabel = Instance.new("TextLabel")
 needsStatusLabel.Name = "NeedsStatusLabel"
@@ -155,55 +214,55 @@ needsStatusLabel.TextSize = 14
 needsStatusLabel.TextColor3 = Color3.fromRGB(200, 210, 200)
 needsStatusLabel.TextXAlignment = Enum.TextXAlignment.Left
 needsStatusLabel.Text = "Needs: OK"
-needsStatusLabel.Parent = frame
+needsStatusLabel.Parent = statsContent
 
 local reputationLabel = Instance.new("TextLabel")
 reputationLabel.Name = "ReputationLabel"
 reputationLabel.LayoutOrder = 7
-reputationLabel.Size = UDim2.new(1, 0, 0, 20)
+reputationLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 reputationLabel.BackgroundTransparency = 1
 reputationLabel.Font = Enum.Font.Gotham
-reputationLabel.TextSize = 18
+reputationLabel.TextSize = 15
 reputationLabel.TextColor3 = Color3.fromRGB(180, 200, 255)
 reputationLabel.TextXAlignment = Enum.TextXAlignment.Left
 reputationLabel.Text = "Reputation: 0"
-reputationLabel.Parent = frame
+reputationLabel.Parent = statsContent
 
 local jobLevelLabel = Instance.new("TextLabel")
 jobLevelLabel.Name = "JobLevelLabel"
 jobLevelLabel.LayoutOrder = 8
-jobLevelLabel.Size = UDim2.new(1, 0, 0, 20)
+jobLevelLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 jobLevelLabel.BackgroundTransparency = 1
 jobLevelLabel.Font = Enum.Font.Gotham
-jobLevelLabel.TextSize = 18
+jobLevelLabel.TextSize = 15
 jobLevelLabel.TextColor3 = Color3.fromRGB(200, 180, 255)
 jobLevelLabel.TextXAlignment = Enum.TextXAlignment.Left
 jobLevelLabel.Text = "Job Level: 1"
-jobLevelLabel.Parent = frame
+jobLevelLabel.Parent = statsContent
 
 local jobXpLabel = Instance.new("TextLabel")
 jobXpLabel.Name = "JobXpLabel"
 jobXpLabel.LayoutOrder = 9
-jobXpLabel.Size = UDim2.new(1, 0, 0, 20)
+jobXpLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 jobXpLabel.BackgroundTransparency = 1
 jobXpLabel.Font = Enum.Font.Gotham
-jobXpLabel.TextSize = 18
+jobXpLabel.TextSize = 15
 jobXpLabel.TextColor3 = Color3.fromRGB(200, 180, 255)
 jobXpLabel.TextXAlignment = Enum.TextXAlignment.Left
 jobXpLabel.Text = "Job XP: 0 / 50"
-jobXpLabel.Parent = frame
+jobXpLabel.Parent = statsContent
 
 local zoneLabel = Instance.new("TextLabel")
 zoneLabel.Name = "ZoneLabel"
 zoneLabel.LayoutOrder = 10
-zoneLabel.Size = UDim2.new(1, 0, 0, 20)
+zoneLabel.Size = UDim2.new(1, 0, 0, HUD_STAT_ROW)
 zoneLabel.BackgroundTransparency = 1
 zoneLabel.Font = Enum.Font.Gotham
-zoneLabel.TextSize = 18
+zoneLabel.TextSize = 15
 zoneLabel.TextColor3 = Color3.fromRGB(220, 180, 255)
 zoneLabel.TextXAlignment = Enum.TextXAlignment.Left
 zoneLabel.Text = "Current Zone: None"
-zoneLabel.Parent = frame
+zoneLabel.Parent = statsContent
 
 local objectiveDivider = Instance.new("Frame")
 objectiveDivider.Name = "ObjectiveDivider"
@@ -212,20 +271,20 @@ objectiveDivider.Size = UDim2.new(1, 0, 0, 1)
 objectiveDivider.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 objectiveDivider.BackgroundTransparency = 0.4
 objectiveDivider.BorderSizePixel = 0
-objectiveDivider.Parent = frame
+objectiveDivider.Parent = statsContent
 
 local objectiveLabel = Instance.new("TextLabel")
 objectiveLabel.Name = "ObjectiveLabel"
 objectiveLabel.LayoutOrder = 12
-objectiveLabel.Size = UDim2.new(1, 0, 0, 36)
+objectiveLabel.Size = UDim2.new(1, 0, 0, 30)
 objectiveLabel.BackgroundTransparency = 1
 objectiveLabel.Font = Enum.Font.GothamMedium
-objectiveLabel.TextSize = 15
+objectiveLabel.TextSize = 13
 objectiveLabel.TextColor3 = Color3.fromRGB(255, 235, 180)
 objectiveLabel.TextXAlignment = Enum.TextXAlignment.Left
 objectiveLabel.TextWrapped = true
 objectiveLabel.Text = "Objective: Work a shift at Industrial"
-objectiveLabel.Parent = frame
+objectiveLabel.Parent = statsContent
 
 local loopStatusLabel = Instance.new("TextLabel")
 loopStatusLabel.Name = "LoopStatusLabel"
@@ -237,7 +296,7 @@ loopStatusLabel.TextSize = 13
 loopStatusLabel.TextColor3 = Color3.fromRGB(160, 160, 160)
 loopStatusLabel.TextXAlignment = Enum.TextXAlignment.Left
 loopStatusLabel.Text = "Loop: Work → Food → Rest"
-loopStatusLabel.Parent = frame
+loopStatusLabel.Parent = statsContent
 
 local messagesDivider = Instance.new("Frame")
 messagesDivider.Name = "MessagesDivider"
@@ -246,7 +305,7 @@ messagesDivider.Size = UDim2.new(1, 0, 0, 1)
 messagesDivider.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 messagesDivider.BackgroundTransparency = 0.4
 messagesDivider.BorderSizePixel = 0
-messagesDivider.Parent = frame
+messagesDivider.Parent = statsContent
 
 local lastActionLabel = Instance.new("TextLabel")
 lastActionLabel.Name = "LastActionLabel"
@@ -259,14 +318,14 @@ lastActionLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 lastActionLabel.TextXAlignment = Enum.TextXAlignment.Left
 lastActionLabel.TextWrapped = true
 lastActionLabel.Text = ""
-lastActionLabel.Parent = frame
+lastActionLabel.Parent = statsContent
 
 local actionStatusLabel = Instance.new("TextLabel")
 actionStatusLabel.Name = "ActionStatusLabel"
 actionStatusLabel.LayoutOrder = 16
 actionStatusLabel.Size = UDim2.new(1, 0, 0, 0)
 actionStatusLabel.Visible = false
-actionStatusLabel.Parent = frame
+actionStatusLabel.Parent = statsContent
 
 local worldMessageLabel = Instance.new("TextLabel")
 worldMessageLabel.Name = "WorldMessageLabel"
@@ -279,60 +338,96 @@ worldMessageLabel.TextColor3 = Color3.fromRGB(180, 190, 210)
 worldMessageLabel.TextXAlignment = Enum.TextXAlignment.Left
 worldMessageLabel.TextWrapped = true
 worldMessageLabel.Text = ""
-worldMessageLabel.Parent = frame
-
-local quickAccessFrame = Instance.new("Frame")
-quickAccessFrame.Name = "QuickAccessFrame"
-quickAccessFrame.LayoutOrder = 1
-quickAccessFrame.Size = UDim2.new(1, 0, 0, 0)
-quickAccessFrame.AutomaticSize = Enum.AutomaticSize.Y
-quickAccessFrame.BackgroundTransparency = 1
-quickAccessFrame.BorderSizePixel = 0
-quickAccessFrame.Parent = hudRoot
+worldMessageLabel.Parent = statsContent
 
 local actionsFrame = Instance.new("Frame")
 actionsFrame.Name = "ActionsFrame"
-actionsFrame.LayoutOrder = 2
-actionsFrame.Size = UDim2.new(1, 0, 0, 0)
-actionsFrame.AutomaticSize = Enum.AutomaticSize.Y
+actionsFrame.Size = UDim2.fromOffset(HUD_PANEL_WIDTH, HUD_HEADER_HEIGHT + 120)
+actionsFrame.AnchorPoint = Vector2.new(1, 1)
+actionsFrame.Position = UDim2.new(1, -HUD_SAFE_MARGIN, 1, -HUD_SAFE_MARGIN)
 actionsFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 actionsFrame.BackgroundTransparency = 0.25
 actionsFrame.BorderSizePixel = 0
+actionsFrame.ClipsDescendants = true
 actionsFrame.Visible = false
-actionsFrame.Parent = hudRoot
+actionsFrame.Parent = hudDockLayer
+
+local actionsHeader = Instance.new("TextButton")
+actionsHeader.Name = "ActionsHeader"
+actionsHeader.Size = UDim2.new(1, 0, 0, HUD_HEADER_HEIGHT)
+actionsHeader.BackgroundColor3 = Color3.fromRGB(35, 35, 42)
+actionsHeader.BackgroundTransparency = 0.35
+actionsHeader.BorderSizePixel = 0
+actionsHeader.AutoButtonColor = false
+actionsHeader.Text = ""
+actionsHeader.Parent = actionsFrame
+
+local actionsTitleLabel = Instance.new("TextLabel")
+actionsTitleLabel.Name = "ActionsTitleLabel"
+actionsTitleLabel.Size = UDim2.new(1, -28, 1, 0)
+actionsTitleLabel.Position = UDim2.fromOffset(HUD_INNER_PADDING, 0)
+actionsTitleLabel.BackgroundTransparency = 1
+actionsTitleLabel.Font = Enum.Font.GothamBold
+actionsTitleLabel.TextSize = 13
+actionsTitleLabel.TextColor3 = Color3.fromRGB(170, 200, 255)
+actionsTitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+actionsTitleLabel.TextYAlignment = Enum.TextYAlignment.Center
+actionsTitleLabel.Text = "Actions"
+actionsTitleLabel.Parent = actionsHeader
+
+local actionsDragHint = Instance.new("TextLabel")
+actionsDragHint.Name = "DragHint"
+actionsDragHint.Size = UDim2.fromOffset(24, HUD_HEADER_HEIGHT)
+actionsDragHint.AnchorPoint = Vector2.new(1, 0)
+actionsDragHint.Position = UDim2.new(1, -4, 0, 0)
+actionsDragHint.BackgroundTransparency = 1
+actionsDragHint.Font = Enum.Font.Gotham
+actionsDragHint.TextSize = 12
+actionsDragHint.TextColor3 = Color3.fromRGB(130, 130, 140)
+actionsDragHint.Text = "⋮⋮"
+actionsDragHint.Parent = actionsHeader
+
+local actionsScroll = Instance.new("ScrollingFrame")
+actionsScroll.Name = "ActionsScroll"
+actionsScroll.Size = UDim2.new(1, 0, 1, -HUD_HEADER_HEIGHT)
+actionsScroll.Position = UDim2.fromOffset(0, HUD_HEADER_HEIGHT)
+actionsScroll.BackgroundTransparency = 1
+actionsScroll.BorderSizePixel = 0
+actionsScroll.ScrollBarThickness = 5
+actionsScroll.ScrollBarImageColor3 = Color3.fromRGB(120, 120, 140)
+actionsScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+actionsScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+actionsScroll.CanvasSize = UDim2.new()
+actionsScroll.Parent = actionsFrame
+
+local actionsContent = Instance.new("Frame")
+actionsContent.Name = "ActionsContent"
+actionsContent.Size = UDim2.new(1, 0, 0, 0)
+actionsContent.AutomaticSize = Enum.AutomaticSize.Y
+actionsContent.BackgroundTransparency = 1
+actionsContent.BorderSizePixel = 0
+actionsContent.Parent = actionsScroll
 
 local actionsPadding = Instance.new("UIPadding")
-actionsPadding.PaddingTop = UDim.new(0, 10)
-actionsPadding.PaddingBottom = UDim.new(0, 10)
-actionsPadding.PaddingLeft = UDim.new(0, 10)
-actionsPadding.PaddingRight = UDim.new(0, 10)
-actionsPadding.Parent = actionsFrame
+actionsPadding.PaddingTop = UDim.new(0, HUD_INNER_PADDING)
+actionsPadding.PaddingBottom = UDim.new(0, HUD_INNER_PADDING)
+actionsPadding.PaddingLeft = UDim.new(0, HUD_INNER_PADDING)
+actionsPadding.PaddingRight = UDim.new(0, HUD_INNER_PADDING)
+actionsPadding.Parent = actionsContent
 
 local actionsLayout = Instance.new("UIListLayout")
 actionsLayout.Padding = UDim.new(0, HUD_COMPACT_PADDING)
 actionsLayout.SortOrder = Enum.SortOrder.LayoutOrder
-actionsLayout.Parent = actionsFrame
-
-local actionsTitleLabel = Instance.new("TextLabel")
-actionsTitleLabel.Name = "ActionsTitleLabel"
-actionsTitleLabel.LayoutOrder = 0
-actionsTitleLabel.Size = UDim2.new(1, 0, 0, 20)
-actionsTitleLabel.BackgroundTransparency = 1
-actionsTitleLabel.Font = Enum.Font.GothamBold
-actionsTitleLabel.TextSize = 15
-actionsTitleLabel.TextColor3 = Color3.fromRGB(170, 200, 255)
-actionsTitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-actionsTitleLabel.Text = "Actions"
-actionsTitleLabel.Parent = actionsFrame
+actionsLayout.Parent = actionsContent
 
 local actionsDivider = Instance.new("Frame")
 actionsDivider.Name = "ActionsDivider"
-actionsDivider.LayoutOrder = 1
+actionsDivider.LayoutOrder = 0
 actionsDivider.Size = UDim2.new(1, 0, 0, 1)
 actionsDivider.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 actionsDivider.BackgroundTransparency = 0.4
 actionsDivider.BorderSizePixel = 0
-actionsDivider.Parent = actionsFrame
+actionsDivider.Parent = actionsContent
 
 local WAREHOUSE_SHIFT_NAME = "Warehouse Shift"
 local CLEANUP_SHIFT_NAME = "Cleanup Shift"
@@ -352,7 +447,7 @@ local CLEANUP_HUNGER_COST = 5
 
 local jobBoardLabel = Instance.new("TextLabel")
 jobBoardLabel.Name = "JobBoardLabel"
-jobBoardLabel.LayoutOrder = 2
+jobBoardLabel.LayoutOrder = 1
 jobBoardLabel.Size = UDim2.new(1, 0, 0, 18)
 jobBoardLabel.BackgroundTransparency = 1
 jobBoardLabel.Font = Enum.Font.GothamMedium
@@ -361,7 +456,7 @@ jobBoardLabel.TextColor3 = Color3.fromRGB(150, 175, 210)
 jobBoardLabel.TextXAlignment = Enum.TextXAlignment.Left
 jobBoardLabel.Text = "Available Jobs"
 jobBoardLabel.Visible = false
-jobBoardLabel.Parent = actionsFrame
+jobBoardLabel.Parent = actionsContent
 
 local warehouseHintLabel = Instance.new("TextLabel")
 warehouseHintLabel.Name = "WarehouseHintLabel"
@@ -374,7 +469,7 @@ warehouseHintLabel.TextColor3 = Color3.fromRGB(140, 170, 210)
 warehouseHintLabel.TextXAlignment = Enum.TextXAlignment.Left
 warehouseHintLabel.Text = "Warehouse: +25 / -20E / -10H"
 warehouseHintLabel.Visible = false
-warehouseHintLabel.Parent = actionsFrame
+warehouseHintLabel.Parent = actionsContent
 
 local workShiftButton = Instance.new("TextButton")
 workShiftButton.Name = "WorkShiftButton"
@@ -389,7 +484,7 @@ workShiftButton.Text = "Start Warehouse Shift"
 workShiftButton.Active = true
 workShiftButton.AutoButtonColor = true
 workShiftButton.Visible = false
-workShiftButton.Parent = actionsFrame
+workShiftButton.Parent = actionsContent
 
 local cleanupHintLabel = Instance.new("TextLabel")
 cleanupHintLabel.Name = "CleanupHintLabel"
@@ -402,7 +497,7 @@ cleanupHintLabel.TextColor3 = Color3.fromRGB(140, 170, 210)
 cleanupHintLabel.TextXAlignment = Enum.TextXAlignment.Left
 cleanupHintLabel.Text = "Cleanup: +15 / -10E / -5H"
 cleanupHintLabel.Visible = false
-cleanupHintLabel.Parent = actionsFrame
+cleanupHintLabel.Parent = actionsContent
 
 local cleanupShiftButton = Instance.new("TextButton")
 cleanupShiftButton.Name = "CleanupShiftButton"
@@ -417,7 +512,7 @@ cleanupShiftButton.Text = "Start Cleanup Shift"
 cleanupShiftButton.Active = true
 cleanupShiftButton.AutoButtonColor = true
 cleanupShiftButton.Visible = false
-cleanupShiftButton.Parent = actionsFrame
+cleanupShiftButton.Parent = actionsContent
 
 local buyFoodButton = Instance.new("TextButton")
 buyFoodButton.Name = "OpenFoodShopButton"
@@ -432,7 +527,7 @@ buyFoodButton.Text = "Open Food Shop"
 buyFoodButton.Active = true
 buyFoodButton.AutoButtonColor = true
 buyFoodButton.Visible = false
-buyFoodButton.Parent = actionsFrame
+buyFoodButton.Parent = actionsContent
 
 local restButton = Instance.new("TextButton")
 restButton.Name = "RestButton"
@@ -447,7 +542,7 @@ restButton.Text = "Rest"
 restButton.Active = true
 restButton.AutoButtonColor = true
 restButton.Visible = false
-restButton.Parent = actionsFrame
+restButton.Parent = actionsContent
 
 local depositAllButton = Instance.new("TextButton")
 depositAllButton.Name = "DepositAllButton"
@@ -462,7 +557,7 @@ depositAllButton.Text = "Deposit All"
 depositAllButton.Active = true
 depositAllButton.AutoButtonColor = true
 depositAllButton.Visible = false
-depositAllButton.Parent = actionsFrame
+depositAllButton.Parent = actionsContent
 
 local withdraw25Button = Instance.new("TextButton")
 withdraw25Button.Name = "Withdraw25Button"
@@ -477,7 +572,7 @@ withdraw25Button.Text = "Withdraw 25"
 withdraw25Button.Active = true
 withdraw25Button.AutoButtonColor = true
 withdraw25Button.Visible = false
-withdraw25Button.Parent = actionsFrame
+withdraw25Button.Parent = actionsContent
 
 local function addCorner(parent: GuiObject, radius: number)
 	local corner = Instance.new("UICorner")
@@ -526,11 +621,15 @@ local function applyButtonHover(button: TextButton, baseColor: Color3, hoverColo
 end
 
 addCorner(frame, 8)
+addCorner(statsHeader, 6)
 addCorner(actionsFrame, 8)
+addCorner(actionsHeader, 6)
 
 local foodInventoryButton = Instance.new("TextButton")
 foodInventoryButton.Name = "InventoryQuickButton"
-foodInventoryButton.Size = UDim2.new(1, 0, 0, 32)
+foodInventoryButton.Size = UDim2.fromOffset(HUD_INVENTORY_WIDTH, HUD_INVENTORY_HEIGHT)
+foodInventoryButton.AnchorPoint = Vector2.new(1, 1)
+foodInventoryButton.Position = UDim2.new(1, -HUD_SAFE_MARGIN, 1, -HUD_SAFE_MARGIN)
 foodInventoryButton.BackgroundColor3 = Color3.fromRGB(95, 75, 120)
 foodInventoryButton.BorderSizePixel = 0
 foodInventoryButton.Font = Enum.Font.GothamBold
@@ -539,7 +638,8 @@ foodInventoryButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 foodInventoryButton.Text = "Inventory"
 foodInventoryButton.Active = true
 foodInventoryButton.AutoButtonColor = true
-foodInventoryButton.Parent = quickAccessFrame
+foodInventoryButton.ZIndex = 2
+foodInventoryButton.Parent = hudDockLayer
 addCorner(foodInventoryButton, 8)
 
 addCorner(workShiftButton, 8)
@@ -548,6 +648,147 @@ addCorner(buyFoodButton, 8)
 addCorner(restButton, 8)
 addCorner(depositAllButton, 8)
 addCorner(withdraw25Button, 8)
+
+type HudDragSession = {
+	usesCustom: boolean,
+}
+
+local hudPanelDragState: { stats: HudDragSession, actions: HudDragSession } = {
+	stats = { usesCustom = false },
+	actions = { usesCustom = false },
+}
+
+local activeHudDrag: {
+	panel: GuiObject,
+	startInput: Vector2,
+	startPos: Vector2,
+	key: string,
+}? = nil
+
+local function getHudViewport(): (number, number, number)
+	local camera = workspace.CurrentCamera
+	local viewport = if camera then camera.ViewportSize else Vector2.new(1280, 720)
+	local topInset = GuiService:GetGuiInset().Y
+	return viewport.X, viewport.Y, topInset
+end
+
+local function clampHudPosition(panel: GuiObject, position: Vector2): Vector2
+	local viewportX, viewportY, topInset = getHudViewport()
+	local size = panel.AbsoluteSize
+	local minX = HUD_SAFE_MARGIN
+	local minY = topInset + HUD_SAFE_MARGIN
+	local maxX = math.max(minX, viewportX - size.X - HUD_SAFE_MARGIN)
+	local maxY = math.max(minY, viewportY - size.Y - HUD_SAFE_MARGIN)
+	return Vector2.new(math.clamp(position.X, minX, maxX), math.clamp(position.Y, minY, maxY))
+end
+
+local function setPanelOffset(panel: GuiObject, anchor: Vector2, x: number, y: number)
+	panel.AnchorPoint = anchor
+	panel.Position = UDim2.fromOffset(math.floor(x), math.floor(y))
+end
+
+local function refreshHudLayout()
+	local viewportX, viewportY, topInset = getHudViewport()
+	local safeRight = viewportX - HUD_SAFE_MARGIN
+	local safeBottom = viewportY - HUD_SAFE_MARGIN
+	local minTop = topInset + HUD_SAFE_MARGIN
+
+	local stackBottom = safeBottom
+
+	local actionsContentHeight = actionsLayout.AbsoluteContentSize.Y + HUD_INNER_PADDING * 2
+	local actionsScrollHeight = math.min(math.max(actionsContentHeight, 40), HUD_ACTIONS_MAX_HEIGHT)
+	actionsScroll.Size = UDim2.new(1, 0, 0, actionsScrollHeight)
+	local actionsPanelHeight = HUD_HEADER_HEIGHT + actionsScrollHeight
+	actionsFrame.Size = UDim2.fromOffset(HUD_PANEL_WIDTH, actionsPanelHeight)
+
+	if actionsFrame.Visible then
+		if not hudPanelDragState.actions.usesCustom then
+			setPanelOffset(actionsFrame, Vector2.new(1, 1), safeRight, stackBottom)
+		else
+			local clamped = clampHudPosition(actionsFrame, actionsFrame.AbsolutePosition)
+			setPanelOffset(actionsFrame, Vector2.new(0, 0), clamped.X, clamped.Y)
+		end
+		stackBottom -= actionsPanelHeight + HUD_STACK_GAP
+	else
+		if hudPanelDragState.actions.usesCustom then
+			hudPanelDragState.actions.usesCustom = false
+		end
+	end
+
+	setPanelOffset(foodInventoryButton, Vector2.new(1, 1), safeRight, stackBottom)
+	stackBottom -= HUD_INVENTORY_HEIGHT + HUD_STACK_GAP
+
+	local statsContentHeight = layout.AbsoluteContentSize.Y + HUD_INNER_PADDING * 2
+	local availableStatsHeight = math.max(stackBottom - minTop, 80)
+	local statsScrollHeight = math.min(statsContentHeight, HUD_STATS_MAX_HEIGHT, availableStatsHeight)
+	statsScroll.Size = UDim2.new(1, 0, 0, statsScrollHeight)
+	local statsPanelHeight = HUD_HEADER_HEIGHT + statsScrollHeight
+	frame.Size = UDim2.fromOffset(HUD_PANEL_WIDTH, statsPanelHeight)
+
+	if not hudPanelDragState.stats.usesCustom then
+		setPanelOffset(frame, Vector2.new(1, 1), safeRight, stackBottom)
+	else
+		local clamped = clampHudPosition(frame, frame.AbsolutePosition)
+		setPanelOffset(frame, Vector2.new(0, 0), clamped.X, clamped.Y)
+	end
+end
+
+local function enableHudPanelDrag(panel: GuiObject, handle: GuiButton, key: string)
+	handle.InputBegan:Connect(function(input: InputObject)
+		if
+			input.UserInputType ~= Enum.UserInputType.MouseButton1
+			and input.UserInputType ~= Enum.UserInputType.Touch
+		then
+			return
+		end
+
+		hudPanelDragState[key].usesCustom = true
+		panel.AnchorPoint = Vector2.new(0, 0)
+		activeHudDrag = {
+			panel = panel,
+			startInput = Vector2.new(input.Position.X, input.Position.Y),
+			startPos = panel.AbsolutePosition,
+			key = key,
+		}
+	end)
+end
+
+UserInputService.InputChanged:Connect(function(input: InputObject)
+	if not activeHudDrag then
+		return
+	end
+
+	if
+		input.UserInputType ~= Enum.UserInputType.MouseMovement
+		and input.UserInputType ~= Enum.UserInputType.Touch
+	then
+		return
+	end
+
+	local currentInput = Vector2.new(input.Position.X, input.Position.Y)
+	local delta = currentInput - activeHudDrag.startInput
+	local target = activeHudDrag.startPos + delta
+	target = clampHudPosition(activeHudDrag.panel, target)
+	setPanelOffset(activeHudDrag.panel, Vector2.new(0, 0), target.X, target.Y)
+end)
+
+UserInputService.InputEnded:Connect(function(input: InputObject)
+	if
+		input.UserInputType ~= Enum.UserInputType.MouseButton1
+		and input.UserInputType ~= Enum.UserInputType.Touch
+	then
+		return
+	end
+
+	activeHudDrag = nil
+end)
+
+enableHudPanelDrag(frame, statsHeader, "stats")
+enableHudPanelDrag(actionsFrame, actionsHeader, "actions")
+
+layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(refreshHudLayout)
+actionsLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(refreshHudLayout)
+actionsFrame:GetPropertyChangedSignal("Visible"):Connect(refreshHudLayout)
 
 local MODAL_MAX_WIDTH = 700
 local MODAL_WIDTH_SCALE = 0.9
@@ -558,12 +799,17 @@ local MODAL_MIN_HEIGHT = 240
 local MODAL_HEADER_HEIGHT = 48
 local MODAL_CLOSE_SIZE = 36
 local FOOD_GRID_GAP = 12
-local FOOD_CARD_HEIGHT = 208
-local FOOD_CARD_MIN_WIDTH = 140
+local FOOD_CARD_HEIGHT = 192
+local FOOD_CARD_MIN_WIDTH = 148
 local FOOD_GRID_THREE_COL_MIN = 500
-local FOOD_CARD_BUTTON_HEIGHT = 40
-local FOOD_CARD_INNER_PADDING = 10
-local FOOD_THUMB_HEIGHT = 54
+local FOOD_CARD_BUTTON_HEIGHT = 44
+local FOOD_CARD_INNER_PADDING = 8
+local FOOD_CARD_TOP_HEIGHT = 112
+local FOOD_CARD_THUMB_SIZE = 80
+local FOOD_CARD_SECTION_GAP = 6
+local FOOD_CARD_META_ROW = 12
+local FOOD_CARD_NAME_ROW = 16
+local FOOD_SHOP_CONFIRM_THRESHOLD = 15
 
 type ModalController = {
 	root: Frame,
@@ -940,24 +1186,24 @@ local function createCardMetaLabel(
 ): TextLabel
 	local label = Instance.new("TextLabel")
 	label.LayoutOrder = layoutOrder
-	label.Size = UDim2.new(1, 0, 0, height or (textSize + 3))
+	label.Size = UDim2.new(1, 0, 0, height or FOOD_CARD_META_ROW)
 	label.BackgroundTransparency = 1
 	label.Font = Enum.Font.Gotham
 	label.TextSize = textSize
 	label.TextColor3 = color
 	label.TextXAlignment = Enum.TextXAlignment.Left
+	label.TextTruncate = Enum.TextTruncate.AtEnd
 	label.Text = text
 	label.Parent = parent
 	return label
 end
 
-local function createFoodThumbnailArea(parent: Frame, layoutOrder: number, item: typeof(FOOD_SHOP_DISPLAY_ITEMS[1])): Frame
+local function createFoodThumbSquare(parent: Frame, item: typeof(FOOD_SHOP_DISPLAY_ITEMS[1])): Frame
 	local thumbFrame = Instance.new("Frame")
-	thumbFrame.Name = "ThumbFrame"
-	thumbFrame.LayoutOrder = layoutOrder
-	thumbFrame.Size = UDim2.new(1, 0, 0, FOOD_THUMB_HEIGHT)
+	thumbFrame.Name = "ThumbnailFrame"
+	thumbFrame.Size = UDim2.fromOffset(FOOD_CARD_THUMB_SIZE, FOOD_CARD_THUMB_SIZE)
 	thumbFrame.BackgroundColor3 = Color3.fromRGB(14, 15, 20)
-	thumbFrame.BackgroundTransparency = 0.1
+	thumbFrame.BackgroundTransparency = 0.08
 	thumbFrame.BorderSizePixel = 0
 	thumbFrame.Parent = parent
 	addCorner(thumbFrame, 8)
@@ -970,19 +1216,18 @@ local function createFoodThumbnailArea(parent: Frame, layoutOrder: number, item:
 
 	local thumbImage = Instance.new("ImageLabel")
 	thumbImage.Name = "ThumbImage"
-	thumbImage.Size = UDim2.fromOffset(46, 46)
-	thumbImage.Position = UDim2.fromOffset(6, 4)
+	thumbImage.Size = UDim2.new(1, -8, 1, -8)
+	thumbImage.Position = UDim2.fromOffset(4, 4)
 	thumbImage.BackgroundTransparency = 1
 	thumbImage.ScaleType = Enum.ScaleType.Fit
 	thumbImage.Parent = thumbFrame
 
 	local thumbEmoji = Instance.new("TextLabel")
 	thumbEmoji.Name = "ThumbEmoji"
-	thumbEmoji.Size = UDim2.fromOffset(46, 46)
-	thumbEmoji.Position = UDim2.fromOffset(6, 4)
+	thumbEmoji.Size = UDim2.fromScale(1, 1)
 	thumbEmoji.BackgroundTransparency = 1
 	thumbEmoji.Font = Enum.Font.GothamBold
-	thumbEmoji.TextSize = 30
+	thumbEmoji.TextSize = 32
 	thumbEmoji.TextXAlignment = Enum.TextXAlignment.Center
 	thumbEmoji.TextYAlignment = Enum.TextYAlignment.Center
 	thumbEmoji.Visible = false
@@ -992,8 +1237,311 @@ local function createFoodThumbnailArea(parent: Frame, layoutOrder: number, item:
 	return thumbFrame
 end
 
+type CompactFoodCardResult = {
+	ownedLabel: TextLabel?,
+	countLabel: TextLabel?,
+	actionButton: TextButton,
+}
+
+local function buildCompactFoodCard(
+	card: Frame,
+	item: typeof(FOOD_SHOP_DISPLAY_ITEMS[1]),
+	mode: "shop" | "inventory",
+	actionText: string,
+	actionBaseColor: Color3,
+	actionHoverColor: Color3,
+	onActionClick: (TextButton) -> ()
+): CompactFoodCardResult
+	local cardPadding = Instance.new("UIPadding")
+	cardPadding.PaddingTop = UDim.new(0, FOOD_CARD_INNER_PADDING)
+	cardPadding.PaddingBottom = UDim.new(0, FOOD_CARD_INNER_PADDING)
+	cardPadding.PaddingLeft = UDim.new(0, FOOD_CARD_INNER_PADDING)
+	cardPadding.PaddingRight = UDim.new(0, FOOD_CARD_INNER_PADDING)
+	cardPadding.Parent = card
+
+	local cardLayout = Instance.new("UIListLayout")
+	cardLayout.Padding = UDim.new(0, FOOD_CARD_SECTION_GAP)
+	cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	cardLayout.Parent = card
+
+	local topContent = Instance.new("Frame")
+	topContent.Name = "TopContentFrame"
+	topContent.LayoutOrder = 1
+	topContent.Size = UDim2.new(1, 0, 0, FOOD_CARD_TOP_HEIGHT)
+	topContent.BackgroundTransparency = 1
+	topContent.BorderSizePixel = 0
+	topContent.Parent = card
+
+	local thumbFrame = createFoodThumbSquare(topContent, item)
+	thumbFrame.AnchorPoint = Vector2.new(0, 0.5)
+	thumbFrame.Position = UDim2.new(0, 0, 0.5, 0)
+
+	local detailsFrame = Instance.new("Frame")
+	detailsFrame.Name = "DetailsFrame"
+	detailsFrame.Size = UDim2.new(1, -(FOOD_CARD_THUMB_SIZE + 8), 1, 0)
+	detailsFrame.Position = UDim2.fromOffset(FOOD_CARD_THUMB_SIZE + 8, 0)
+	detailsFrame.BackgroundTransparency = 1
+	detailsFrame.BorderSizePixel = 0
+	detailsFrame.Parent = topContent
+
+	local detailsLayout = Instance.new("UIListLayout")
+	detailsLayout.Padding = UDim.new(0, 1)
+	detailsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	detailsLayout.Parent = detailsFrame
+
+	local nameLabel = Instance.new("TextLabel")
+	nameLabel.Name = "NameLabel"
+	nameLabel.LayoutOrder = 1
+	nameLabel.Size = UDim2.new(1, 0, 0, FOOD_CARD_NAME_ROW)
+	nameLabel.BackgroundTransparency = 1
+	nameLabel.Font = Enum.Font.GothamBold
+	nameLabel.TextSize = 13
+	nameLabel.TextColor3 = Color3.fromRGB(255, 245, 225)
+	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+	nameLabel.Text = item.DisplayName
+	nameLabel.Parent = detailsFrame
+
+	local ownedLabel: TextLabel? = nil
+	local countLabel: TextLabel? = nil
+
+	if mode == "shop" then
+		ownedLabel = createCardMetaLabel(
+			detailsFrame,
+			2,
+			"Owned: 0",
+			11,
+			Color3.fromRGB(165, 200, 255),
+			FOOD_CARD_META_ROW
+		)
+		ownedLabel.Name = "OwnedLabel"
+	else
+		countLabel = createCardMetaLabel(detailsFrame, 2, "x0", 11, Color3.fromRGB(165, 200, 255), FOOD_CARD_META_ROW)
+		countLabel.Name = "CountLabel"
+		countLabel.Font = Enum.Font.GothamMedium
+	end
+
+	createCardMetaLabel(
+		detailsFrame,
+		3,
+		("+%d Energy"):format(item.EnergyRestore),
+		11,
+		Color3.fromRGB(120, 220, 140),
+		FOOD_CARD_META_ROW
+	)
+	createCardMetaLabel(
+		detailsFrame,
+		4,
+		("+%d Hunger"):format(item.HungerRestore),
+		11,
+		Color3.fromRGB(255, 170, 100),
+		FOOD_CARD_META_ROW
+	)
+	createCardMetaLabel(
+		detailsFrame,
+		5,
+		("%d min fullness"):format(item.FullnessMinutes),
+		11,
+		Color3.fromRGB(220, 210, 150),
+		FOOD_CARD_META_ROW
+	)
+
+	local actionButton = Instance.new("TextButton")
+	actionButton.Name = if mode == "shop" then "BuyButton" else "EatButton"
+	actionButton.LayoutOrder = 2
+	actionButton.Size = UDim2.new(1, 0, 0, FOOD_CARD_BUTTON_HEIGHT)
+	actionButton.BorderSizePixel = 0
+	actionButton.Font = Enum.Font.GothamBold
+	actionButton.TextSize = 14
+	actionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	actionButton.Text = actionText
+	actionButton.Parent = card
+	addCorner(actionButton, 8)
+	applyButtonHover(actionButton, actionBaseColor, actionHoverColor)
+
+	if mode == "inventory" then
+		setActionButtonEnabled(actionButton, false, actionBaseColor, actionHoverColor)
+	end
+
+	actionButton.MouseButton1Click:Connect(function()
+		onActionClick(actionButton)
+	end)
+
+	return {
+		ownedLabel = ownedLabel,
+		countLabel = countLabel,
+		actionButton = actionButton,
+	}
+end
+
 local foodShopModal = createCenteredModal("FoodShopModal", "Food Shop", "🛒", Color3.fromRGB(255, 215, 140))
 local foodShopGridHost = foodShopModal.gridHost
+
+local foodShopPanel = foodShopModal.root:FindFirstChild("Panel") :: Frame
+local foodShopHeader = if foodShopPanel then foodShopPanel:FindFirstChild("Header") :: Frame? else nil
+local foodShopTitleLabel = if foodShopHeader then foodShopHeader:FindFirstChild("TitleLabel") :: TextLabel? else nil
+
+local foodShopWalletLabel = Instance.new("TextLabel")
+foodShopWalletLabel.Name = "WalletLabel"
+foodShopWalletLabel.Size = UDim2.fromOffset(96, MODAL_HEADER_HEIGHT)
+foodShopWalletLabel.AnchorPoint = Vector2.new(1, 0.5)
+foodShopWalletLabel.Position = UDim2.new(1, -(MODAL_CLOSE_SIZE + 10), 0.5, 0)
+foodShopWalletLabel.BackgroundTransparency = 1
+foodShopWalletLabel.Font = Enum.Font.GothamBold
+foodShopWalletLabel.TextSize = 14
+foodShopWalletLabel.TextColor3 = Color3.fromRGB(255, 220, 80)
+foodShopWalletLabel.TextXAlignment = Enum.TextXAlignment.Right
+foodShopWalletLabel.TextYAlignment = Enum.TextYAlignment.Center
+foodShopWalletLabel.Text = "Wallet: 0"
+foodShopWalletLabel.ZIndex = 3
+if foodShopHeader then
+	foodShopWalletLabel.Parent = foodShopHeader
+end
+if foodShopTitleLabel then
+	foodShopTitleLabel.Size = UDim2.new(1, -(28 + MODAL_CLOSE_SIZE + 108), 1, 0)
+end
+
+local foodShopPurchaseToast = Instance.new("TextLabel")
+foodShopPurchaseToast.Name = "PurchaseToast"
+foodShopPurchaseToast.LayoutOrder = 0
+foodShopPurchaseToast.Size = UDim2.new(1, 0, 0, 28)
+foodShopPurchaseToast.BackgroundTransparency = 1
+foodShopPurchaseToast.Font = Enum.Font.GothamMedium
+foodShopPurchaseToast.TextSize = 14
+foodShopPurchaseToast.TextColor3 = Color3.fromRGB(180, 235, 170)
+foodShopPurchaseToast.TextXAlignment = Enum.TextXAlignment.Center
+foodShopPurchaseToast.Text = ""
+foodShopPurchaseToast.Visible = false
+foodShopPurchaseToast.Parent = foodShopModal.scrollContent
+
+local foodShopConfirmRoot = Instance.new("Frame")
+foodShopConfirmRoot.Name = "PurchaseConfirm"
+foodShopConfirmRoot.Size = UDim2.fromScale(1, 1)
+foodShopConfirmRoot.BackgroundTransparency = 1
+foodShopConfirmRoot.Visible = false
+foodShopConfirmRoot.ZIndex = 5
+foodShopConfirmRoot.Parent = foodShopModal.root
+
+local foodShopConfirmOverlay = Instance.new("TextButton")
+foodShopConfirmOverlay.Name = "Overlay"
+foodShopConfirmOverlay.Size = UDim2.fromScale(1, 1)
+foodShopConfirmOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+foodShopConfirmOverlay.BackgroundTransparency = 0.5
+foodShopConfirmOverlay.BorderSizePixel = 0
+foodShopConfirmOverlay.Text = ""
+foodShopConfirmOverlay.AutoButtonColor = false
+foodShopConfirmOverlay.ZIndex = 1
+foodShopConfirmOverlay.Parent = foodShopConfirmRoot
+
+local foodShopConfirmPanel = Instance.new("Frame")
+foodShopConfirmPanel.Name = "Panel"
+foodShopConfirmPanel.AnchorPoint = Vector2.new(0.5, 0.5)
+foodShopConfirmPanel.Position = UDim2.fromScale(0.5, 0.5)
+foodShopConfirmPanel.Size = UDim2.fromOffset(280, 132)
+foodShopConfirmPanel.BorderSizePixel = 0
+foodShopConfirmPanel.ZIndex = 2
+foodShopConfirmPanel.Parent = foodShopConfirmRoot
+styleGlassPanel(foodShopConfirmPanel)
+
+local foodShopConfirmMessage = Instance.new("TextLabel")
+foodShopConfirmMessage.Name = "MessageLabel"
+foodShopConfirmMessage.Size = UDim2.new(1, -24, 0, 48)
+foodShopConfirmMessage.Position = UDim2.fromOffset(12, 14)
+foodShopConfirmMessage.BackgroundTransparency = 1
+foodShopConfirmMessage.Font = Enum.Font.GothamMedium
+foodShopConfirmMessage.TextSize = 16
+foodShopConfirmMessage.TextColor3 = Color3.fromRGB(240, 240, 245)
+foodShopConfirmMessage.TextXAlignment = Enum.TextXAlignment.Center
+foodShopConfirmMessage.TextWrapped = true
+foodShopConfirmMessage.Text = "Buy item?"
+foodShopConfirmMessage.ZIndex = 3
+foodShopConfirmMessage.Parent = foodShopConfirmPanel
+
+local foodShopConfirmButton = Instance.new("TextButton")
+foodShopConfirmButton.Name = "ConfirmButton"
+foodShopConfirmButton.Size = UDim2.new(0.48, 0, 0, 36)
+foodShopConfirmButton.Position = UDim2.new(0.02, 0, 1, -44)
+foodShopConfirmButton.BorderSizePixel = 0
+foodShopConfirmButton.Font = Enum.Font.GothamBold
+foodShopConfirmButton.TextSize = 14
+foodShopConfirmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+foodShopConfirmButton.Text = "Confirm"
+foodShopConfirmButton.ZIndex = 3
+foodShopConfirmButton.Parent = foodShopConfirmPanel
+addCorner(foodShopConfirmButton, 8)
+applyButtonHover(foodShopConfirmButton, Color3.fromRGB(210, 135, 45), Color3.fromRGB(235, 165, 70))
+
+local foodShopCancelButton = Instance.new("TextButton")
+foodShopCancelButton.Name = "CancelButton"
+foodShopCancelButton.Size = UDim2.new(0.48, 0, 0, 36)
+foodShopCancelButton.AnchorPoint = Vector2.new(1, 0)
+foodShopCancelButton.Position = UDim2.new(0.98, 0, 1, -44)
+foodShopCancelButton.BorderSizePixel = 0
+foodShopCancelButton.Font = Enum.Font.GothamBold
+foodShopCancelButton.TextSize = 14
+foodShopCancelButton.TextColor3 = Color3.fromRGB(230, 230, 240)
+foodShopCancelButton.Text = "Cancel"
+foodShopCancelButton.ZIndex = 3
+foodShopCancelButton.Parent = foodShopConfirmPanel
+addCorner(foodShopCancelButton, 8)
+applyButtonHover(foodShopCancelButton, Color3.fromRGB(58, 60, 68), Color3.fromRGB(78, 80, 90))
+
+local currentWalletAmount = 0
+local pendingFoodPurchase: { name: string, price: number }? = nil
+local pendingFoodPurchaseConfirm: (() -> ())? = nil
+local purchaseToastToken = 0
+
+local function updateFoodShopWalletLabel(amount: number)
+	currentWalletAmount = amount
+	foodShopWalletLabel.Text = ("Wallet: %d"):format(amount)
+end
+
+local function hideFoodShopConfirm()
+	foodShopConfirmRoot.Visible = false
+	pendingFoodPurchaseConfirm = nil
+end
+
+local function showFoodShopPurchaseToast(text: string)
+	purchaseToastToken += 1
+	local token = purchaseToastToken
+	foodShopPurchaseToast.Text = text
+	foodShopPurchaseToast.Visible = true
+	task.delay(3, function()
+		if purchaseToastToken == token then
+			foodShopPurchaseToast.Visible = false
+		end
+	end)
+end
+
+local function executeFoodShopPurchase(item: typeof(FOOD_SHOP_DISPLAY_ITEMS[1]))
+	pendingFoodPurchase = {
+		name = item.DisplayName,
+		price = item.Price,
+	}
+	performActionRemote:FireServer("BuyFoodItem", item.Id)
+end
+
+local function requestFoodShopPurchase(item: typeof(FOOD_SHOP_DISPLAY_ITEMS[1]))
+	if item.Price >= FOOD_SHOP_CONFIRM_THRESHOLD then
+		foodShopConfirmMessage.Text = ("Buy %s for %d?"):format(item.DisplayName, item.Price)
+		pendingFoodPurchaseConfirm = function()
+			hideFoodShopConfirm()
+			executeFoodShopPurchase(item)
+		end
+		foodShopConfirmRoot.Visible = true
+		return
+	end
+
+	executeFoodShopPurchase(item)
+end
+
+foodShopConfirmOverlay.MouseButton1Click:Connect(hideFoodShopConfirm)
+foodShopCancelButton.MouseButton1Click:Connect(hideFoodShopConfirm)
+foodShopConfirmButton.MouseButton1Click:Connect(function()
+	if pendingFoodPurchaseConfirm then
+		pendingFoodPurchaseConfirm()
+	end
+end)
 
 for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	local card = Instance.new("Frame")
@@ -1005,64 +1553,21 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	styleCard(card, item.ThemeColor)
 	addCardStroke(card)
 
-	local cardPadding = Instance.new("UIPadding")
-	cardPadding.PaddingTop = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingBottom = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingLeft = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingRight = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.Parent = card
-
-	local cardLayout = Instance.new("UIListLayout")
-	cardLayout.Padding = UDim.new(0, 2)
-	cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	cardLayout.Parent = card
-
-	createFoodThumbnailArea(card, 1, item)
-
-	local nameLabel = Instance.new("TextLabel")
-	nameLabel.Name = "NameLabel"
-	nameLabel.LayoutOrder = 2
-	nameLabel.Size = UDim2.new(1, 0, 0, 17)
-	nameLabel.BackgroundTransparency = 1
-	nameLabel.Font = Enum.Font.GothamBold
-	nameLabel.TextSize = 14
-	nameLabel.TextColor3 = Color3.fromRGB(255, 245, 225)
-	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-	nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-	nameLabel.Text = item.DisplayName
-	nameLabel.Parent = card
-
-	local ownedLabel = createCardMetaLabel(card, 3, "Owned: 0", 12, Color3.fromRGB(165, 200, 255), 14)
-	ownedLabel.Name = "OwnedLabel"
-	foodShopOwnedLabels[item.Id] = ownedLabel
-
-	createCardMetaLabel(card, 4, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140), 14)
-	createCardMetaLabel(card, 5, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100), 14)
-	createCardMetaLabel(
+	local cardResult = buildCompactFoodCard(
 		card,
-		6,
-		("%d min fullness"):format(item.FullnessMinutes),
-		12,
-		Color3.fromRGB(195, 195, 205),
-		14
+		item,
+		"shop",
+		("Buy (%d)"):format(item.Price),
+		Color3.fromRGB(210, 135, 45),
+		Color3.fromRGB(235, 165, 70),
+		function(_actionButton: TextButton)
+			requestFoodShopPurchase(item)
+		end
 	)
 
-	local buyItemButton = Instance.new("TextButton")
-	buyItemButton.Name = "BuyButton"
-	buyItemButton.LayoutOrder = 7
-	buyItemButton.Size = UDim2.new(1, 0, 0, FOOD_CARD_BUTTON_HEIGHT)
-	buyItemButton.BorderSizePixel = 0
-	buyItemButton.Font = Enum.Font.GothamBold
-	buyItemButton.TextSize = 14
-	buyItemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	buyItemButton.Text = ("🪙 %d  Buy"):format(item.Price)
-	buyItemButton.Parent = card
-	addCorner(buyItemButton, 8)
-	applyButtonHover(buyItemButton, Color3.fromRGB(210, 135, 45), Color3.fromRGB(235, 165, 70))
-
-	buyItemButton.MouseButton1Click:Connect(function()
-		performActionRemote:FireServer("BuyFoodItem", item.Id)
-	end)
+	if cardResult.ownedLabel then
+		foodShopOwnedLabels[item.Id] = cardResult.ownedLabel
+	end
 end
 
 local foodInventoryModal = createCenteredModal(
@@ -1099,71 +1604,29 @@ for index, item in FOOD_SHOP_DISPLAY_ITEMS do
 	styleCard(card, item.ThemeColor)
 	addCardStroke(card)
 
-	local cardPadding = Instance.new("UIPadding")
-	cardPadding.PaddingTop = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingBottom = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingLeft = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.PaddingRight = UDim.new(0, FOOD_CARD_INNER_PADDING)
-	cardPadding.Parent = card
-
-	local cardLayout = Instance.new("UIListLayout")
-	cardLayout.Padding = UDim.new(0, 2)
-	cardLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	cardLayout.Parent = card
-
-	createFoodThumbnailArea(card, 1, item)
-
-	local nameLabel = Instance.new("TextLabel")
-	nameLabel.Name = "NameLabel"
-	nameLabel.LayoutOrder = 2
-	nameLabel.Size = UDim2.new(1, 0, 0, 17)
-	nameLabel.BackgroundTransparency = 1
-	nameLabel.Font = Enum.Font.GothamBold
-	nameLabel.TextSize = 14
-	nameLabel.TextColor3 = Color3.fromRGB(255, 245, 225)
-	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-	nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-	nameLabel.Text = item.DisplayName
-	nameLabel.Parent = card
-
-	local countLabel = createCardMetaLabel(card, 3, "x0", 12, Color3.fromRGB(165, 200, 255), 14)
-	countLabel.Name = "CountLabel"
-	countLabel.Font = Enum.Font.GothamMedium
-
-	createCardMetaLabel(card, 4, ("+%d Energy"):format(item.EnergyRestore), 12, Color3.fromRGB(120, 220, 140), 14)
-	createCardMetaLabel(card, 5, ("+%d Hunger"):format(item.HungerRestore), 12, Color3.fromRGB(255, 170, 100), 14)
-	createCardMetaLabel(
-		card,
-		6,
-		("%d min fullness"):format(item.FullnessMinutes),
-		12,
-		Color3.fromRGB(195, 195, 205),
-		14
-	)
-
-	local eatButton = Instance.new("TextButton")
-	eatButton.Name = "EatButton"
-	eatButton.LayoutOrder = 7
-	eatButton.Size = UDim2.new(1, 0, 0, FOOD_CARD_BUTTON_HEIGHT)
-	eatButton.BorderSizePixel = 0
-	eatButton.Font = Enum.Font.GothamBold
-	eatButton.TextSize = 14
-	eatButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	eatButton.Text = "Eat"
-	eatButton.Parent = card
-	addCorner(eatButton, 8)
 	local eatBaseColor = Color3.fromRGB(62, 145, 98)
 	local eatHoverColor = Color3.fromRGB(82, 170, 118)
-	applyButtonHover(eatButton, eatBaseColor, eatHoverColor)
-	setActionButtonEnabled(eatButton, false, eatBaseColor, eatHoverColor)
-
-	eatButton.MouseButton1Click:Connect(function()
-		if eatButton.Active then
-			performActionRemote:FireServer("EatFoodItem", item.Id)
+	local cardResult = buildCompactFoodCard(
+		card,
+		item,
+		"inventory",
+		"Eat",
+		eatBaseColor,
+		eatHoverColor,
+		function(actionButton: TextButton)
+			if actionButton.Active then
+				performActionRemote:FireServer("EatFoodItem", item.Id)
+			end
 		end
-	end)
+	)
 
-	foodInventoryCards[item.Id] = { card = card, countLabel = countLabel, eatButton = eatButton }
+	if cardResult.countLabel then
+		foodInventoryCards[item.Id] = {
+			card = card,
+			countLabel = cardResult.countLabel,
+			eatButton = cardResult.actionButton,
+		}
+	end
 end
 
 local function refreshFoodInventoryUi(inventoryFolder: Folder)
@@ -1204,9 +1667,13 @@ end
 local function setFoodShopOpen(open: boolean)
 	if open then
 		foodInventoryModal.setOpen(false)
+	else
+		hideFoodShopConfirm()
+		foodShopPurchaseToast.Visible = false
 	end
 	foodShopModal.setOpen(open)
 	if open then
+		updateFoodShopWalletLabel(currentWalletAmount)
 		foodShopModal.refreshGridLayout()
 	end
 end
@@ -1462,6 +1929,7 @@ local function updateZoneActionButtons(zoneName: string, gameMinutes: number)
 
 	depositAllButton.Visible = inBank
 	withdraw25Button.Visible = inBank
+	task.defer(refreshHudLayout)
 end
 
 local function bindLeaderstats(leaderstats: Folder, gameMinutes: IntValue)
@@ -1475,6 +1943,10 @@ local function bindLeaderstats(leaderstats: Folder, gameMinutes: IntValue)
 	local currentZone = leaderstats:WaitForChild("CurrentZone") :: StringValue
 
 	bindStat(moneyLabel, money, "Wallet")
+	updateFoodShopWalletLabel(money.Value)
+	money.Changed:Connect(function()
+		updateFoodShopWalletLabel(money.Value)
+	end)
 	bindStat(bankLabel, bankBalance, "Bank")
 	bindStat(energyLabel, energy, "Energy")
 	bindStat(hungerLabel, hunger, "Hunger")
@@ -1543,6 +2015,16 @@ end)
 
 performActionRemote.OnClientEvent:Connect(function(message: string)
 	setLastActionText(message)
+
+	if pendingFoodPurchase and string.sub(message, 1, 6) == "Bought" then
+		showFoodShopPurchaseToast(
+			("Purchased %s for %d"):format(pendingFoodPurchase.name, pendingFoodPurchase.price)
+		)
+		pendingFoodPurchase = nil
+	elseif pendingFoodPurchase then
+		pendingFoodPurchase = nil
+	end
+
 	if string.sub(message, 1, 10) == "Daily bill" or string.sub(message, 1, 4) == "Job " then
 		worldMessageLabel.Text = message
 	end
@@ -1635,3 +2117,19 @@ end)
 
 local foodInventoryFolder = player:WaitForChild("FoodInventory")
 bindFoodInventory(foodInventoryFolder)
+
+local function bindHudViewportRefresh()
+	local camera = workspace.CurrentCamera
+	if not camera then
+		return
+	end
+
+	camera:GetPropertyChangedSignal("ViewportSize"):Connect(refreshHudLayout)
+end
+
+workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	bindHudViewportRefresh()
+	task.defer(refreshHudLayout)
+end)
+bindHudViewportRefresh()
+task.defer(refreshHudLayout)

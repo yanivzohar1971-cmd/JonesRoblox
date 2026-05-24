@@ -140,7 +140,7 @@ Buttons may show **(Closed)** when outside hours; server always rejects invalid 
 
 **Wallet vs bank:** HUD shows **Wallet** (spending cash) and **Bank** (stored balance). Food shop uses Wallet only. Bank zone moves money between them.
 
-**Food shop + inventory:** Buy at Market into inventory; **Eat** anywhere. **Food Shop** and **Food Inventory** follow the **premium card-grid modal design reference** — centered dark glass panels, responsive 2–3 column tiles, illustrated thumbnails, and full-width Buy/Eat buttons. **HUD layout:** **Stats** panel (status/objectives/messages) · **Inventory** quick button (any zone) · **Actions** panel (zone-specific only) · **Modals** (shop/inventory). **Fullness** halves job Hunger cost and **pauses passive Hunger decay**. Hunger drops **−1 every 30 real seconds** when not full. **Low Hunger:** at **≤30** pay is reduced **20%** on Warehouse/Cleanup; at **≤10** those jobs are blocked until you eat. No health/death penalties yet. See [Docs/JONES_FOOD_SHOP.md](Docs/JONES_FOOD_SHOP.md).
+**Food shop + inventory:** Buy at Market into inventory; **Eat** anywhere. **Food Shop** and **Food Inventory** follow the **premium card-grid modal design reference** — centered dark glass panels, responsive 2–3 column tiles, **compact thumbnail-left / details-right food cards**, and full-width Buy/Eat buttons. **Food Shop UX:** Wallet shown in modal header, Buy buttons use plain `Buy (price)` text, purchases at **15+** Wallet show a confirm dialog, and successful buys show a short **Purchased … for …** toast. **HUD layout:** compact **Stats** panel (scrollable, bottom-right stack) · **Inventory** quick button (188×48, bottom-right) · **Actions** panel (zone-specific, scrollable) · **Modals** (shop/inventory, centered). Panels clamp to screen with 16px margins; **Stats** and **Actions** headers are draggable (session-only). **Fullness** halves job Hunger cost and **pauses passive Hunger decay**. Hunger drops **−1 every 30 real seconds** when not full. **Low Hunger:** at **≤30** pay is reduced **20%** on Warehouse/Cleanup; at **≤10** those jobs are blocked until you eat. No health/death penalties yet. See [Docs/JONES_FOOD_SHOP.md](Docs/JONES_FOOD_SHOP.md).
 
 **Needs Status (client HUD):** `Needs: OK` · `Needs: Hungry — eat soon` (≤30) · `Needs: Starving — eat now` (≤10).
 
@@ -372,14 +372,17 @@ Requires zone Parts in Studio — see [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md]
 
 ### Test HUD layout (Stats / Actions / Inventory)
 
-1. **Play** → **Stats** panel shows Day, Wallet, stats, zone, objective, Last Action (no job buttons in stats)
-2. **Inventory** quick button sits between stats and actions — always visible, separate from zone jobs
-3. **Industrial** → **Actions** panel appears below with Warehouse/Cleanup only (no Inventory mixed in)
-4. **Market** → Actions shows **Open Food Shop** only
-5. **Home** → Actions shows **Rest** only
-6. **Bank** → Actions shows **Deposit All** / **Withdraw 25** only
-7. **None** zone → Actions panel hidden
-8. **Inventory** opens centered modal from any zone; Food Shop still Market-only under Actions
+1. **Play** → HUD docks **bottom-right**; nothing clips below the screen edge
+2. **Stats** panel shows Day, Wallet, stats, zone, objective, Last Action — scroll inside panel if viewport is short
+3. **Inventory** button is compact (not full width), bottom-right, always visible
+4. **Industrial** → **Actions** panel appears above Inventory with Warehouse/Cleanup fully visible (scroll if needed)
+5. **Market** → Actions shows **Open Food Shop** only
+6. **Home** → Actions shows **Rest** only
+7. **Bank** → Actions shows **Deposit All** / **Withdraw 25** only
+8. **None** zone → Actions panel hidden; Stats + Inventory remain
+9. Drag **Stats** or **Actions** header (⋮⋮ area) → panel moves; cannot leave screen bounds (session-only, not saved)
+10. Resize viewport smaller → panels re-stack and clamp; Food Shop modal stays centered
+11. **Inventory** opens centered modal from any zone; Food Shop still Market-only under Actions
 
 ### Test Food Shop + Inventory (premium card-grid modals)
 

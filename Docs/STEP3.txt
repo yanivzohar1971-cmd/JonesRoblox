@@ -1,0 +1,231 @@
+קוראת את שני הקבצים ומרכזת לך SUMMARY נקי: איפה הפרויקט עומד, מה כבר בוצע, ומה הצעד הבא הנכון בלי להתפזר.
+
+Thought for 8s
+
+קראתי. הנה ה־SUMMARY הנקי:
+
+מצב נוכחי של Jones Roblox
+
+הפרויקט כבר לא “דמו גנרי”. הוא עבר למסלול נכון של life-sim Roblox לפי ה־SPEC המקורי.
+
+הבסיס הארכיטקטוני נכון:
+
+שכבה	אחריות
+Roblox Studio	מפה, בתים, אזורים, אובייקטים
+Rojo/Cursor	קוד, Server Authority, HUD, Actions
+Docs/JONES_*	מקור אמת של המשחק
+DataStore	שמירת התקדמות
+
+הלופ האמיתי שהוגדר מה־SPEC הוא:
+Spawn → Zone → Action → Server validation → Stats update → HUD
+ולא לופ גנרי של מטבעות ושדרוגים.
+
+מה כבר בוצע
+Core MVP
+Money/Wallet
+Energy
+Reputation
+Hunger
+BankBalance
+JobXP
+JobLevel
+CurrentZone
+DataStore Save/Load
+Day/Clock
+Daily Bill
+Time-gated actions
+Zones
+Industrial
+Home
+Market
+Bank
+
+עדיין קיימים helper scripts זמניים ל־zones, וצריך בהמשך להחליף אותם ל־Zones ידניים קבועים ב־Studio.
+
+Jobs
+
+יש Job Board מודולרי:
+
+Warehouse Shift
+Cleanup Shift
+
+העבודות משתמשות בהגדרות מסודרות, cooldown נפרד, XP, Level, Pay scaling, Hunger/Energy cost.
+
+Food / Market
+
+כבר יש Food Shop אמיתי:
+
+Water
+Apple
+Bread
+Sandwich
+Hot Meal
+Family Meal
+
+לכל מזון יש מחיר, Energy, Hunger, FullnessMinutes. Step 15 יצר את החנות והחליף את BuyFood הגנרי ב־BuyFoodItem.
+
+Inventory
+
+Step 16 כבר הוסיף Inventory:
+
+קונים מזון למלאי
+אוכלים אחר כך מכל מקום
+FoodInventory נשמר ב־DataStore
+יש תמונות/אייקונים לכל מזון עם fallback לאימוג’י
+אין שינוי ל־Workspace
+ה־DataStore נשאר backward-compatible
+הנקודה המדויקת שבה עצרנו
+
+השלב הבא הוא:
+
+Phase 2 Step 17 — Fullness Buff MVP
+
+המטרה:
+ה־FullnessMinutes של האוכל לא יהיה רק טקסט, אלא ישפיע על המשחק.
+
+מה צריך להוסיף:
+
+FullnessUntilGameMinutes
+session-only, לא נשמר עדיין
+כשאוכלים מזון: השחקן מקבל fullness לזמן שהוגדר במזון
+בזמן fullness:
+Warehouse hunger cost יורד ב־50%
+Cleanup hunger cost יורד ב־50%
+HUD יציג:
+Fullness: None
+או Fullness: active / remaining minutes
+לא מוסיפים עדיין passive hunger decay
+לא שומרים fullness ב־DataStore
+הפרומפט הבא ל־Cursor
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_FOOD_SHOP.md
+
+Implement Phase 2 Step 17 — Fullness buff MVP.
+
+Goal:
+Make FullnessMinutes actually affect work hunger cost.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep DataStore backward-compatible.
+- Keep existing FoodInventory behavior.
+- Do NOT implement passive hunger decay yet.
+- Do NOT save fullness yet.
+
+Current:
+- Food items have FullnessMinutes.
+- FoodInventory already exists.
+- Eating food restores Energy/Hunger.
+- FullnessMinutes is currently informational only.
+
+Add session-only state:
+- FullnessUntilGameMinutes
+- Default 0
+- Not saved to DataStore.
+
+Implementation requirements:
+
+1. Player stats/state
+- Add a replicated value or attribute that the client can read:
+  FullnessUntilGameMinutes
+- Keep it session-only.
+- Do not add it to DataStore.
+
+2. Eating food
+When EatFoodItem succeeds:
+- Apply existing Energy/Hunger restore.
+- Set FullnessUntilGameMinutes = current game minutes + item.FullnessMinutes.
+- Handle wrap over midnight safely.
+- Status message should include:
+  "Full for <FullnessMinutes> min."
+
+3. Fullness active check
+Create clean server helper logic:
+- Determine whether player is currently full based on current game minutes and FullnessUntilGameMinutes.
+- Keep it robust around midnight.
+- Server is source of truth.
+
+4. Work hunger reduction
+While fullness is active:
+- Warehouse Shift HungerCost reduced by 50%.
+  Example: 10 → 5.
+- Cleanup Shift HungerCost reduced by 50%.
+  Example: 5 → 3.
+- Use consistent rounding: math.ceil(originalCost * 0.5).
+
+5. Messages
+Job complete messages should reflect actual hunger cost used.
+Example:
+"Warehouse Shift complete! +<pay> Wallet, -20 Energy, -5 Hunger, +10 XP."
+
+6. HUD
+Update JonesMoneyUi.client.lua:
+- Show Fullness line:
+  - "Fullness: None"
+  - or "Fullness: Active"
+- If easy, show remaining minutes:
+  "Fullness: 75 min"
+- Client only displays replicated state; server decides effects.
+
+7. Docs
+Update:
+- README.md
+- Docs/JONES_FOOD_SHOP.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+
+Document:
+- Fullness is session-only
+- Not saved yet
+- Reduces work hunger cost by 50%
+- No passive hunger decay yet
+
+8. Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore note
+- confirmation no Workspace changes
+
+Play test:
+1. Play.
+2. Work once and note normal Hunger cost.
+3. Go Market.
+4. Buy Sandwich.
+5. Open Food Inventory.
+6. Eat Sandwich.
+7. Confirm Fullness becomes active.
+8. Work Warehouse Shift.
+9. Confirm Hunger cost is reduced from 10 to 5.
+10. Work Cleanup Shift.
+11. Confirm Hunger cost is reduced from 5 to 3.
+12. Wait until fullness expires or temporarily use a short FullnessMinutes for testing.
+13. Confirm work Hunger cost returns to normal.
+14. Stop/Play.
+15. Confirm fullness does not persist, but inventory/stats still save/load.
+
+זה הצעד הנכון הבא. לא NPC, לא School, לא עוד מפה — קודם להפוך את מערכת המזון למשמעותית.
+
+התפריט אוכל לא נפתח במרכז המסך תסתכלי 
+
+זה לא מעוצב נכון וגם הכפתורים נחתכים
+זה צריך להיות קוביות של CARDS 
+Stopped thinking
+Edit
+למה פרודות ביחד עם כל ה SPEC
+כך אני רוצה את התפריט והמזונות
+Stopped thinking
+Edit
+C:\Users\Yaniv\Downloads\Pictuers
+תגידי ל CURSOR 
+Pasted markdown.md
+File
+הפרדת את התפריטיים אבל הם לא ניתן למיקום בגרירה
+ויכלת לשים בצד ימין למטה ולא לחרוג מהמסך
+יש מלא שטח מת בשחור של התמונה 
+הפרטים יכולים חהיכנס בתוך השחור 
