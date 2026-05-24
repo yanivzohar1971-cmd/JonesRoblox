@@ -1,0 +1,2666 @@
+כן — חד משמעית כן.
+אם יש לך רעיון, היום אפשר לקחת אותו ל־משחק עובד ב־Roblox תוך ימים אם עובדים נכון.
+
+אבל הנה האמת שאתה תאהב:
+
+👉 רעיון לבד = 0
+👉 רעיון + Execution עם AI = משחק
+
+🎯 איך להפוך רעיון למשחק (הדרך הנכונה)
+1. תזקק את הרעיון (סופר קצר)
+
+ענה לעצמך:
+
+מה השחקן עושה בלולאה?
+איך מרוויחים?
+מה משדרגים?
+למה להישאר במשחק?
+
+דוגמה:
+
+אוסף מטבעות → קונה שדרוג → אוסף מהר יותר → פותח אזורים
+
+2. בנה MVP קטן (לא להתפזר)
+
+אל תבנה “משחק חלומות”
+תבנה:
+
+מפה אחת
+מטבע אחד
+שדרוג אחד
+שמירה
+
+👉 זה כל המשחק הראשון
+
+3. תן ל-AI לעבוד בשבילך
+
+אתה לא כותב הכל לבד
+אתה מנהל אותו
+
+תן משימות כמו:
+
+Create a Roblox coin system:
+- coins as Parts
+- touch → +1 coin
+- update leaderstats
+- server-side secure
+- include script placement
+4. תבדוק בלייב ב־Roblox Studio
+עובד? ✔️
+לא עובד? → חוזר ל-AI עם error
+
+👉 זה לופ מהיר מאוד
+
+5. תוסיף רק אחרי שעובד
+
+סדר נכון:
+
+Coin system
+UI
+Shop
+Save
+Expansion
+💡 טיפ קריטי (זה ההבדל בין חובבן למקצוען)
+
+אל תבקש מה-AI:
+
+"תבנה לי משחק"
+
+כן תבקש:
+
+"תבנה לי מערכת אחת מושלמת"
+
+🚀 השורה התחתונה
+כן — אפשר ליישם כל רעיון כמעט
+עם המחשב שלך + AI → אתה בית חרושת למשחקים
+ההצלחה תלויה ב־Execution, לא ברעיון
+
+אם בא לך — תזרוק את הרעיון שלך ואני:
+
+👉 מפרק אותו למערכות
+👉 נותן לך פרומפטים מוכנים ל־Cursor
+👉 ובונה לך flow של משחק שמוכן לרובלוקס 🔥
+
+Introducing the Roblox Hybrid Architecture: Democratizing Photorealistic, Multiplayer Gaming | Roblox https://share.google/Te4w9ZdnTxRDnZqUz
+
+זה אחד הדברים הכי חשובים שראית — וזה משנה לגמרי את המשחק.
+
+בוא נפרק את זה פשוט:
+
+🚀 מה זה ה־Hybrid Architecture של Roblox
+
+הרעיון:
+
+👉 מחלקים את המשחק ל־2 שכבות
+
+1. 🧠 מנוע המשחק (הרגיל)
+לוגיקה (Lua)
+פיזיקה
+מיקום שחקנים
+מולטיפלייר
+
+👉 זה נשאר כמו היום
+
+2. 🎨 שכבת AI (חדש)
+תאורה ריאליסטית
+טקסטורות
+אפקטים
+פרטים קטנים (גשם, השתקפויות וכו')
+
+👉 זה נוצר ע"י AI בזמן אמת
+
+⚡ איך זה עובד בפועל
+
+המערכת משלבת:
+
+Game Engine + Cloud
+מודל AI שנקרא Video World Model
+
+ה־AI “מצייר מעל המשחק” את הפיקסלים
+בזמן שהמנוע שולט ב־logic
+
+🔥 למה זה מטורף (וזה הקטע שאתה צריך להבין)
+
+👉 אתה לא צריך יותר:
+
+מודלים כבדים
+Unreal-level graphics skills
+צוות גדול
+
+👉 אתה כן צריך:
+
+רעיון
+Gameplay טוב
+
+כי:
+
+ה־AI עושה את ה־Graphics
+אתה עושה את ה־Game
+
+🧠 המשמעות בשבילך (מאוד פרקטי)
+
+עם מה שיש לך:
+
+מחשב חזק ✔️
+AI ✔️
+Roblox Studio ✔️
+
+👉 אתה יכול:
+
+לבנות משחק פשוט
+ולקבל מראה כמעט ריאליסטי בעתיד
+⚠️ אבל הנה האמת (בלי בולשיט)
+
+זה עדיין:
+
+ניסיוני
+לא fully public
+יגיע בהדרגה
+🎯 מה כדאי לך לעשות עכשיו
+
+אל תחכה לזה.
+
+תבנה היום:
+
+Simulator / Tycoon
+Gameplay חזק
+Economy
+
+👉 כשהטכנולוגיה תגיע — אתה כבר מוכן
+
+💡 שורה תחתונה
+
+Roblox הולכים לכיוון של:
+
+“AI עושה גרפיקה, אתה עושה משחק”
+
+זה מוריד חסם מטורף למפתחים
+
+אם בא לך, אני יכול עכשיו:
+
+👉 לקחת רעיון שלך
+👉 ולהתאים אותו לעתיד הזה (AI + Roblox)
+👉 כולל איך לבנות אותו נכון כבר מהיום
+
+תן רעיון ⚡
+
+jones_game_idea_pack.zip
+Zip Archive
+איך אני מתקין ROJO בעשסרת CURSOR
+
+אני אתן לך דרך התקנה פרקטית דרך Cursor/Terminal, בלי להפוך את זה לפרויקט ענק. אבדוק גם את הפקודות העדכניות כדי שלא נתקין לך משהו ישן.
+
+Thought for 4s
+
+כן. הכי פשוט דרך Cursor Terminal:
+
+# 1) פתח תיקייה חדשה לפרויקט
+mkdir C:\Users\Yaniv\source\repos\RobloxGame
+cd C:\Users\Yaniv\source\repos\RobloxGame
+
+# 2) התקן Rojo דרך Rokit
+rokit add rojo-rbx/rojo
+rokit install
+
+# 3) בדיקה
+rojo --version
+
+# 4) התקן Plugin ל-Roblox Studio
+rojo plugin install
+
+# 5) צור פרויקט Roblox
+rojo init
+
+# 6) הפעל שרת Sync
+rojo serve
+
+בתוך Roblox Studio:
+
+פתח Roblox Studio
+לך ל־Plugins
+פתח Rojo
+לחץ Connect
+הוא יתחבר לשרת שרץ ב־Cursor
+
+חשוב: ההרחבה של VS Code/Cursor לא תמיד מוסיפה את rojo ל־PATH, לכן ההתקנה הרשמית ממליצה להתקין גם CLI בנפרד.
+
+אם rokit לא מזוהה, תתקין קודם Rokit, או נלך בדרך ידנית עם קובץ exe מ־GitHub Releases.
+
+https://create.roblox.com/dashboard/creations/experiences/10213785766/places/135896767376426/configure
+https://www.roblox.com/my/account?creatorCollaboration#!/info
+
+ראיתי ששלחת שני לינקים: אחד להגדרות ה־Experience ואחד להגדרות Account/Creator Collaboration. אני אתייחס לזה כשלב חיבור בין Roblox Studio/Team Create לבין עבודה מ־Cursor+Rojo.
+
+Thought for 6s
+
+הלינקים האלה הם בדיוק המקום הנכון.
+
+מה לעשות עכשיו:
+
+בלינק הראשון של ה־Experience
+תבדוק שהמשחק שלך קיים ופתוח לעריכה ב־Roblox Studio.
+בלינק השני
+תפעיל/תאשר Creator Collaboration / Team Create אם Roblox מבקש.
+ב־Roblox Studio
+פתח את המשחק הזה → View → Team Create → Enable/Connect.
+ב־Cursor
+תריץ:
+rojo serve
+ב־Roblox Studio
+Plugins → Rojo → Connect.
+
+חשוב:
+Rojo + Team Create ביחד זה רגיש. Rojo טוב לקוד דרך Git/Cursor, Team Create טוב לעריכת מפה/אובייקטים. הכי נכון להתחלה:
+
+Use Rojo only for scripts.
+Keep map/models/UI visual editing inside Roblox Studio.
+Do not let Rojo fully own Workspace yet.
+
+זה נקרא Partially Managed Rojo, וזה ה־workflow הכי בטוח להתחלה. Roblox מתארים Team Create כפיצ’ר המרכזי לשיתוף פעולה ב־Studio, ו־Rojo עצמו ממליץ על גישה חלקית כשלא רוצים לנהל את כל המשחק דרך קבצים.
+
+Name  Id         Version Source
+--------------------------------
+Rojo  Rojo.Rojo  7.6.1   winget
+Rokit Rojo.Rokit 1.2.0   winget
+
+נכון — תיקון חשוב:
+ה־winget ID התקין הוא:
+
+winget install Rojo.Rojo
+
+המשך עכשיו:
+
+cd C:\Users\Yaniv\source\repos\JonesRoblox
+rojo init
+rojo plugin install
+rojo serve
+
+ואז ב־Roblox Studio:
+
+Plugins → Rojo → Connect
+
+אם הטרמינל לא מזהה rojo — לפתוח Terminal חדש ב־Cursor.
+
+peusv k CURSOR
+אפשר להתקין ROBLOX CLI?
+
+כן — אבל חשוב להבין מה זה.
+
+אין “Roblox CLI רשמי מלא” כמו Unity/Unreal.
+מה שיש בפועל זה כמה כלים:
+
+🔥 מה כן מתקינים
+1. Rojo CLI ✅
+
+זה כבר התקנת:
+
+rojo serve
+2. Roblox LSP (Lua autocomplete)
+
+ל־Cursor / VSCode:
+
+winget install JohnnyMorganz.Stylua
+
+ובתוך Cursor:
+
+Extensions:
+- Roblox LSP
+- Luau Language Support
+3. Aftman (הכי חשוב לרובלוקס מקצועי)
+
+מנהל כלים לרובלוקס:
+
+winget install LPGhatguy.Aftman
+
+ואז:
+
+aftman add rojo-rbx/rojo
+aftman add JohnnyMorganz/selene
+aftman add Roblox/luau-lsp
+🚀 מה זה נותן לך
+linting
+autocomplete
+type checking
+formatting
+Roblox tooling
+CI/CD בעתיד
+⚠️ חשוב
+
+ה־CLI האמיתי של Roblox עצמו מוגבל מאוד.
+רוב העולם עובד עם:
+
+Rojo
+Aftman
+Luau LSP
+Git
+Roblox Studio
+💡 הסטאק שאתה באמת רוצה
+Cursor = coding
+Rojo = sync
+Studio = visual editor
+Aftman = tool manager
+Git = versioning
+
+זה ה־workflow המקצועי של Roblox היום.
+
+**Jones In The Lane** is set up as a scripts-only Rojo project. Workspace is not in default.project.json, so Studio keeps your map, terrain, and models.
+
+## Final file tree
+
+
+JonesRoblox/
+├── default.project.json
+├── README.md
+└── src/
+    ├── ReplicatedStorage/
+    │   └── .gitkeep
+    ├── ServerScriptService/
+    │   └── JonesServerInit.server.lua
+    ├── StarterGui/
+    │   └── .gitkeep
+    └── StarterPlayer/
+        └── StarterPlayerScripts/
+            └── .gitkeep
+
+
+## What was configured
+
+default.project.json syncs only these services:
+
+- ReplicatedStorage → src/ReplicatedStorage
+- ServerScriptService → src/ServerScriptService
+- StarterPlayer.StarterPlayerScripts → src/StarterPlayer/StarterPlayerScripts
+- StarterGui → src/StarterGui
+
+**Workspace is not included** — Studio owns the world.
+
+The test script prints on server start:
+
+
+lua
+[Jones In The Lane] Server initialized via Rojo.
+
+
+## Commands to run
+
+**1. Start Rojo** (from the project folder):
+
+
+powershell
+cd c:\Users\Yaniv\source\repos\JonesRoblox
+rojo serve
+
+
+**2. In Roblox Studio** (with your place open):
+
+1. OpenBorder the [Rojo plugin](https://rojo.space/docs/v7/getting-started/installation/#install-the-plugin) if you haven't already.
+2. Open the Rojo plugin panel.
+3. Click **Connect** → localhost:34872 (default).
+4. Click **Sync**.
+
+**3. Test:** Press **Play** in Studio and check **Output** for the startup message.
+
+---
+
+**Reminder:** Studio owns visuals and the map; Rojo owns code only. Edit scripts under src/, save, and sync again while rojo serve is running.
+
+מעולה. זה בדיוק setup נכון להתחלה.
+
+תיקון קטן בטקסט של Cursor:
+
+OpenBorder the Rojo plugin
+
+צריך להיות:
+
+Open the Rojo plugin
+
+השלב הבא שאני ממליץ:
+
+Add the first real MVP system:
+1. leaderstats Money
+2. server-side coin pickup
+3. simple UI money label
+4. no save yet
+5. keep Workspace owned by Studio
+
+פרומפט הבא ל־Cursor:
+
+Add the first Jones Roblox MVP system.
+
+Project is a scripts-only Rojo project.
+Do NOT modify Workspace in Rojo.
+Studio owns map/models/terrain.
+
+Tasks:
+1. Add leaderstats for every player:
+   - Money starts at 0
+   - Stored as IntValue under leaderstats
+
+2. Add server-side coin pickup support:
+   - Any Part in Workspace tagged "JonesCoin" gives +10 Money when touched
+   - Use CollectionService tag
+   - Debounce per player per coin
+   - Coin should temporarily disappear for that player interaction, but keep solution simple
+   - Secure server-side only
+
+3. Add minimal client UI:
+   - StarterGui or StarterPlayerScripts
+   - Shows current Money
+   - Updates when leaderstats Money changes
+
+4. Keep code clean and split logically:
+   - ServerScriptService/JonesLeaderstats.server.lua
+   - ServerScriptService/JonesCoinPickup.server.lua
+   - StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua
+
+5. Update README with:
+   - How to tag a coin Part in Studio with "JonesCoin"
+   - How to test in Play mode
+
+6. Show final file tree and testing steps.
+שאלה מה רע במשחק דמו הראשון ההסבר שלהם עם הבתים והעצים והכל להתחלה?
+
+אין בזה שום דבר “רע”.
+להפך — זה בדיוק למה Roblox מצליחים.
+
+הטעות היחידה שאנשים עושים:
+
+מנסים לבנות GTA 6 ביום הראשון.
+
+🎯 למה Demo פשוט זה נכון מאוד
+
+הבתים, עצים, כביש וכו׳:
+
+נותנים תחושת עולם
+עוזרים לבדוק מצלמה/תנועה
+נותנים מקום לבדוק Gameplay
+מאפשרים לבדוק Scale
+
+👉 זה בדיוק מה שצריך להתחלה.
+
+⚡ מה חשוב באמת בשלב ראשון
+
+לא הגרפיקה.
+
+כן חשוב:
+
+Movement
+Coin system
+UI
+Shop
+Loop ממכר
+💡 האמת על Roblox
+
+הרוב המוחלט של המשחקים המצליחים:
+
+גרפיקה פשוטה
+מכניקה ממכרת
+
+לא:
+
+Unreal graphics
+מיליון עצים
+🚀 מה הייתי עושה במקומך
+
+כן להשתמש בעולם Demo.
+
+אבל:
+
+לא להשקיע עכשיו ב:
+עצים מושלמים
+lighting מטורף
+city ענקית
+כן להשקיע ב:
+systems
+gameplay
+progression
+🔥 Rule חשוב
+
+הסדר הנכון:
+
+Gameplay first
+Content later
+Graphics last
+🧠 והקטע הכי חשוב
+
+עם AI בעתיד של Roblox:
+
+👉 הגרפיקה תהיה החלק הכי קל
+👉 ה־game design יהיה הכי קשה
+
+אז דווקא Demo פשוט = החלטה חכמה מאוד כרגע.
+
+אנחנו מתחילים מאפס?
+
+לא 😄
+וזה דווקא היתרון המטורף שלך.
+
+אתה לא מתחיל מאפס בכלל.
+
+🧠 מה כבר יש לך
+
+יש לך כבר:
+
+ניסיון ארכיטקטורה אמיתי
+React/Firebase
+systems thinking
+AI workflows
+debugging ברמה גבוהה
+הבנה של state/data/backend
+
+👉 זה הרבה יותר חשוב מ"לדעת Roblox".
+
+🎮 מה כן חדש עבורך
+
+רק:
+
+Lua
+Roblox API
+Studio workflow
+Client/Server של Roblox
+
+זהו.
+
+⚡ והכי חשוב
+
+אתה גם לא מתחיל מאפס בפרויקט:
+
+יש לך כבר:
+
+רעיון
+vision
+gameplay direction
+systems mindset
+
+👉 רוב האנשים אפילו לזה לא מגיעים.
+
+🚀 מה באמת קורה עכשיו
+
+אתה עושה:
+
+Existing brain + AI + Roblox layer
+
+לא:
+
+beginner learning programming
+💡 האמת?
+
+עם Cursor + AI + Rojo:
+
+ה־Lua עצמו יהיה החלק הקל.
+
+החלק הקשה באמת:
+
+game loop
+progression
+retention
+economy
+
+ושם דווקא יש לך יתרון גדול.
+
+🎯 ההתחלה הנכונה שלך
+
+לא "ללמוד Roblox חודשים".
+
+כן:
+
+Coin system
+Shop
+Upgrade
+Save
+Simple map
+Polish
+
+👉 תוך כדי אתה לומד Roblox טבעי.
+
+🔥 אתה כרגע בשלב הכי טוב
+
+הקמת:
+
+Studio ✔️
+Rojo ✔️
+Cursor ✔️
+Sync ✔️
+
+זה כבר setup של מפתח Roblox אמיתי.
+
+הגרפיקה אין לנו כלום עולם ריק או יש TEMPLATE BASE?
+
+יש לך כבר TEMPLATE BASE 😄
+ו־Roblox Studio מגיע עם מלא דברים מוכנים.
+
+🚀 מה יש מוכן בתוך Roblox
+🏠 Templates
+
+כשפותחים Place חדש יש:
+
+City
+Village
+Racing
+Obby
+Baseplate
+Pirate Island
+Castle
+Suburban
+
+👉 הכל מוכן לעריכה.
+
+🌳 וגם Toolbox ענק
+
+בצד שמאל אצלך כבר פתוח Toolbox.
+
+שם יש:
+
+בתים
+עצים
+מכוניות
+כבישים
+NPC
+חנויות
+תאורה
+UI
+אנימציות
+
+מיליוני Assets מוכנים.
+
+⚠️ אבל חשוב מאוד
+
+לא להוריד הכל.
+
+יש:
+
+Assets גרועים
+סקריפטים מסוכנים
+malware scripts לפעמים
+🎯 הדרך הנכונה להתחיל
+הכי טוב בשבילך:
+Template:
+Suburban / City / Village
+
+ואז:
+
+מוסיף Coin system
+Shop
+Jobs
+NPC
+Vehicles
+💡 האמת על Roblox
+
+הרוב המוחלט של המשחקים:
+
+Use existing assets + custom gameplay
+
+לא:
+
+Build every tree from scratch
+🔥 ההמלצה שלי
+
+להתחלה:
+
+Small suburban town
++
+simple gameplay loop
++
+money system
+
+זה מושלם ל־Jones style game.
+
+אמרת לו מה להכין?
+
+עד עכשיו אמרנו לו להכין רק:
+
+Rojo setup
+Structure
+Sync
+Test server script
+MVP systems (coins/money/UI)
+
+עוד לא אמרנו לו להכין עולם/Template.
+
+השלב הבא הנכון:
+
+Use a Roblox Studio built-in template as the temporary world base.
+
+Requirements:
+- Keep the world simple and lightweight
+- Prefer Suburban or City template
+- Do not build custom terrain yet
+- Do not generate huge maps
+- Focus on gameplay testing only
+
+Goal:
+Create a playable test world for:
+- walking
+- coin pickup
+- money UI
+- future shops/jobs/NPCs
+
+Rules:
+- Studio owns all visuals/map assets
+- Rojo owns scripts only
+- Keep asset count low
+- Avoid free models with unknown scripts
+- Use Toolbox carefully
+
+Add:
+- roads
+- sidewalks
+- a few houses
+- open area for gameplay testing
+- daytime lighting
+
+Do NOT add:
+- combat
+- vehicles yet
+- huge cities
+- realistic graphics
+- multiplayer systems yet
+
+זה בדיוק השלב הנכון כרגע.
+
+יש ל ASUS PRO ART 16 שלנו יתרון? מבחינת זריזות פיתוח?
+
+כן — יש לו יתרון גדול בזריזות פיתוח, בעיקר לא בגלל Roblox עצמו, אלא בגלל כל הכלים מסביב.
+
+היתרון שלך:
+
+Cursor/AI רץ חלק גם עם פרויקט גדול פתוח.
+Roblox Studio לא נחנק עם מפה, Play Test, Explorer, Toolbox.
+כמה תוכנות ביחד: Studio + Cursor + Browser + Git + Discord/Docs.
+RTX 5090 יעזור מאוד ל־AI מקומי, גרפיקה, וידאו/תמונות, בדיקות כבדות.
+64GB RAM נותן לעבוד בלי סגירות ובלי תקיעות.
+4TB SSD מאפשר הרבה פרויקטים, assets, backups, videos.
+
+אבל חשוב:
+ב־Roblox עצמו רוב הפיתוח לא צריך מפלצת. היתרון האמיתי שלך הוא workflow מהיר:
+
+Cursor writes code
+Rojo syncs
+Roblox Studio tests instantly
+AI helps debug
+Git saves versions
+
+הדעה שלי: המחשב הזה לא יגרום למשחק להיות טוב יותר לבד — אבל הוא כן יקצר לך המון זמן ניסוי/תיקון/בדיקה.
+
+ה־ZIP שהעלית כאן נקרא:
+
+jones_game_idea_pack.zip
+
+וזה הקובץ שצריך להפוך ל־source of truth של הפרויקט.
+
+MVP v2 is in place: a CollectPower upgrade loop with server-side validation. Workspace is still not managed by Rojo.
+
+## Final file tree
+
+
+JonesRoblox/
+├── default.project.json
+├── README.md
+└── src/
+    ├── ReplicatedStorage/
+    │   ├── .gitkeep
+    │   └── JonesBuyCollectPowerUpgrade.model.json
+    ├── ServerScriptService/
+    │   ├── JonesCoinPickup.server.lua      ← reward = 10 × CollectPower
+    │   ├── JonesLeaderstats.server.lua     ← adds CollectPower (starts at 1)
+    │   ├── JonesServerInit.server.lua
+    │   └── JonesUpgrade.server.lua         ← server validates purchases
+    ├── StarterGui/
+    │   └── .gitkeep
+    └── StarterPlayer/
+        └── StarterPlayerScripts/
+            └── JonesMoneyUi.client.lua     ← Money + CollectPower + upgrade button
+
+
+## What was added
+
+| Piece | Behavior |
+|-------|----------|
+| CollectPower | IntValue in leaderstats, starts at **1** |
+| JonesBuyCollectPowerUpgrade | RemoteEvent in ReplicatedStorage |
+| JonesUpgrade.server.lua | Checks Money ≥ 50, deducts 50, adds +1 CollectPower |
+| Coin reward | 10 × CollectPower (e.g. 10 → 20 after one upgrade) |
+| UI | Shows Money, Collect Power, and **Upgrade Collect Power - 50** button |
+
+The client only fires the RemoteEvent. The server decides whether the purchase succeeds.
+
+## Exact test steps
+
+1. **Start Rojo and sync:**
+   
+powershell
+   cd cursors\Yaniv\source\repos\JonesRoblox
+   rojo serve
+
+   In Studio: Rojo plugin → **Connect** → **Sync**
+
+2. **Tag a coin** in Workspace with JonesCoin (if not already done).
+
+3. **Press Play.**
+
+4. **Collect 5 coins** (5 × 10 = 50 Money at Collect Power 1).
+
+5. **Check UI:** Money: 50, Collect Power: 1
+
+6. **Click** Upgrade Collect Power - 50
+
+7. **Confirm:** Money → 0, Collect Power → 2
+
+8. **Collect another coin** (new coin or fresh Play session):
+   - Reward should be **20** (10 × 2)
+
+9. **Try upgrade with < 50 Money** — nothing happens (server rejects it)
+
+**Note:** Stats reset each Play session — no saving yet.
+
+עצור כאן. זה עובד, אבל זה גנרי מדי.
+
+וגם יש טעות קטנה בפקודה:
+
+cd C:\Users\Yaniv\source\repos\JonesRoblox
+
+לא:
+
+cd cursors\Yaniv\source\repos\JonesRoblox
+
+הפעולה הבאה חייבת להיות הכנסת ה־SPEC:
+
+Stop adding gameplay systems.
+
+Before continuing, import and summarize the original Jones idea pack.
+
+The source ZIP is named:
+jones_game_idea_pack.zip
+
+Tasks:
+1. Create docs/original-spec/
+2. Extract the full ZIP contents into docs/original-spec/
+3. Read all extracted files recursively.
+4. Create docs/JONES_MASTER_SUMMARY.md
+5. Create docs/JONES_ROBLOX_ADAPTATION.md
+6. Mark the current systems as temporary prototype:
+   - Money
+   - JonesCoin
+   - CollectPower
+   - Upgrade button
+7. Explain which current systems should be kept, renamed, or removed later.
+8. Do not add new gameplay code.
+9. Do not modify Workspace.
+10. Output final file tree and next recommended Jones-specific task.
+
+החלטה שלי:
+לא מוסיפים עוד Upgrade/Shop לפני שה־ZIP נכנס ל־docs.
+
+C:\Users\Yaniv\source\repos\JonesRoblox\Docs\jones_game_idea_pack
+פה יושב הכל תני לו פרומפט
+Read and align the Roblox project with the full Jones master idea pack.
+
+Important:
+The full source-of-truth spec already exists locally here:
+
+C:\Users\Yaniv\source\repos\JonesRoblox\Docs\jones_game_idea_pack
+
+Rules:
+- Do NOT add new gameplay systems yet.
+- Do NOT continue generic simulator mechanics.
+- Do NOT modify Workspace ownership.
+- Rojo remains scripts-only.
+- Existing systems are temporary prototypes only.
+
+Tasks:
+1. Recursively read ALL files inside:
+   Docs/jones_game_idea_pack
+
+2. Create:
+   Docs/JONES_MASTER_SUMMARY.md
+
+3. The summary must extract:
+   - Core game fantasy
+   - Main gameplay loop
+   - Economy systems
+   - Housing systems
+   - Jobs/tasks
+   - Social/NPC systems
+   - Reputation/progression
+   - Multiplayer direction
+   - UI/UX direction
+   - Long-term systems
+   - Features intentionally future scope
+
+4. Create:
+   Docs/JONES_ROBLOX_ADAPTATION.md
+
+5. Define:
+   - What maps well to Roblox
+   - What should stay future scope
+   - What should NOT be built yet
+   - MVP Phase 1
+   - MVP Phase 2
+   - Roblox-specific architecture constraints
+   - Client/server authority rules
+   - Rojo ownership rules
+   - Studio ownership rules
+
+6. Analyze current prototype systems:
+   - Money
+   - JonesCoin
+   - CollectPower
+   - Upgrade button
+
+7. For each prototype system:
+   - Keep
+   - Rename
+   - Refactor
+   - Remove later
+   - Map to actual Jones gameplay
+
+8. Add:
+   Docs/JONES_DEVELOPMENT_RULES.md
+
+9. Include mandatory development rules:
+   - Read spec docs before coding
+   - No generic simulator systems unless mapped to Jones
+   - Keep systems modular
+   - Prefer server authority
+   - Avoid premature complexity
+   - No massive map yet
+   - No monetization yet
+   - No vehicles yet
+   - No combat yet
+
+10. Update README with links to all Docs files.
+
+11. Output:
+   - final file tree
+   - architecture summary
+   - recommended TRUE Jones MVP loop
+   - next recommended task
+
+Do not generate new gameplay code yet.
+Documentation and architecture alignment only.
+Documentation is aligned with the idea pack. No gameplay code was changed.
+
+## Final file tree
+
+
+JonesRoblox/
+├── default.project.json
+├── README.md
+├── Docs/
+│   ├── JONES_MASTER_SUMMARY.md          ← new
+│   ├── JONES_ROBLOX_ADAPTATION.md       ← new
+│   ├── JONES_DEVELOPMENT_RULES.md       ← new
+│   └── jones_game_idea_pack/            ← source of truth (8 files)
+│       ├── README.md
+│       └── docs/
+│           ├── ARCHITECTURE.md
+│           ├── CURRENT_PROGRESS.md
+│           ├── CURSOR_MASTER_PROMPT.md
+│           ├── FIREBASE_SETUP.md
+│           ├── GAME_CONCEPT.md
+│           ├── MODULES.md
+│           └── ROADMAP.md
+└── src/                                 ← unchanged (prototype only)
+    ├── ReplicatedStorage/
+    ├── ServerScriptService/
+    ├── StarterGui/
+    └── StarterPlayer/StarterPlayerScripts/
+
+
+## Architecture summary
+
+| Layer | Owner | Role |
+|-------|--------|------|
+| **Map & zones** | Roblox Studio | Lane, buildings, zone regions, tags |
+| **Scripts** | Rojo repo | Server authority, HUD, remotes, modules |
+| **Vision** | Idea pack + Docs/JONES_* | Life-sim loop, 20 modules (phased) |
+| **Web stack** | Separate web repo | React + Firebase — not ported to Roblox |
+
+**Authority:** clients request → server validates zone, costs, cooldowns → updates Money / Energy / Reputation.
+
+**Prototype (temporary):** coin touch + CollectPower upgrade is generic simulator plumbing, not Jones design.
+
+## Recommended TRUE Jones MVP loop
+
+
+Spawn in lane
+  → Walk into zone (Home / Market / Industrial)
+  → Zone UI shows contextual actions
+  → Choose action (e.g. Work Shift, Rest, Buy Food)
+  → Server validates zone + energy + cooldown
+  → Money / Energy / Reputation update
+  → HUD reflects changes
+
+
+**Not:** walk into coin → auto money → buy multiplier → repeat.
+
+## Prototype verdict (quick reference)
+
+| System | Verdict | Maps to Jones? |
+|--------|---------|----------------|
+| **Money** | Keep → refactor into player data | Yes (wallet) |
+| **JonesCoin** | Remove later | No |
+| **CollectPower** | Remove later | No |
+| **Upgrade button** | Remove later (keep validation pattern) | No (pattern yes) |
+
+## Docs created
+
+- **[Docs/JONES_MASTER_SUMMARY.md](Docs/JONES_MASTER_SUMMARY.md)** — fantasy, loop, economy, housing, jobs, social, reputation, multiplayer, UI, long-term scope
+- **[Docs/JONES_ROBLOX_ADAPTATION.md](Docs/JONES_ROBLOX_ADAPTATION.md)** — Roblox mapping, Phase 1/2, constraints, prototype analysis, retirement list
+- **[Docs/JONES_DEVELOPMENT_RULES.md](Docs/JONES_DEVELOPMENT_RULES.md)** — mandatory rules (spec-first, no generic sim, server authority, no vehicles/combat/monetization/massive map)
+- **README.md** — links to all Docs, marks prototype as temporary
+
+## Next recommended task
+
+When you are ready for code (not before):
+
+1. **Scaffold real stats** — add Energy and Reputation alongside Money (server-owned); do not extend coins/CollectPower.
+2. **Define zone tags in Studio** — e.g. JonesZone_Industrial, JonesZone_Home (document in a short zone spec if useful).
+3. **Ship one real action** — e.g. Industrial **Work Shift** (−energy, +money, server + zone UI).
+4. **Then remove** JonesCoin, CollectPower, JonesUpgrade, and the upgrade Remote.
+
+Say when you want Phase 1 implementation started and we can do step 1 only (stats scaffold) without touching Workspace in Rojo.
+
+מצוין. עכשיו הפרויקט חזר למסילה.
+
+השלב הבא הנכון: Phase 1 Stats Scaffold בלבד — בלי אזורים, בלי UI מתקדם, בלי מחיקה עדיין.
+
+תן ל־Cursor:
+
+Read these docs first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 1 Step 1 only: real Jones player stats scaffold.
+
+Rules:
+- Do NOT modify Workspace.
+- Do NOT add zones yet.
+- Do NOT add job actions yet.
+- Do NOT add saving yet.
+- Do NOT remove prototype systems yet.
+- Do NOT extend CollectPower or coin simulator mechanics.
+- Keep Rojo scripts-only.
+
+Tasks:
+1. Refactor/extend server-owned player stats:
+   - Money
+   - Energy
+   - Reputation
+
+2. Keep Money compatible with the existing prototype UI for now.
+
+3. Add:
+   - Energy starts at 100
+   - Reputation starts at 0
+
+4. Prefer one clear server script/module name:
+   - JonesPlayerStats.server.lua
+   - If replacing JonesLeaderstats.server.lua, remove/rename safely.
+
+5. Update client HUD:
+   - Show Money
+   - Show Energy
+   - Show Reputation
+   - Still simple, no premium UI yet.
+
+6. Update README:
+   - Mark these as real Jones Phase 1 stats.
+   - Mark CollectPower as temporary prototype only.
+
+7. Update Docs/JONES_ROBLOX_ADAPTATION.md if needed:
+   - Phase 1 Step 1 completed.
+
+8. Output:
+   - changed files
+   - final file tree
+   - exact Play test steps
+   - confirmation no Workspace changes were made.
+
+אחרי זה: Zone tags + Action UI, לא חנות ולא CollectPower.
+
+Phase 1 Step 1 is done: real Jones player stats are scaffolded on the server and shown in the HUD. Prototype systems are unchanged. No Workspace or Rojo map changes.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesPlayerStats.server.lua | **Added** — Money (0), Energy (100), Reputation (0); keeps CollectPower (1) for prototype |
+| src/ServerScriptService/JonesLeaderstats.server.lua | **Removed** — replaced by JonesPlayerStats.server.lua |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | **Updated** — HUD shows Money, Energy, Reputation; prototype section below divider |
+| README.md | **Updated** — Phase 1 stats vs temporary prototype |
+| Docs/JONES_ROBLOX_ADAPTATION.md | **Updated** — Step 1 marked complete, next tasks adjusted |
+
+**Unchanged:** JonesCoinPickup, JonesUpgrade, remotes, default.project.json, Workspace (not in Rojo).
+
+## Final file tree
+
+
+JonesRoblox/
+├── default.project.json          ← unchanged (no Workspace)
+├── README.md
+├── Docs/
+│   ├── JONES_MASTER_SUMMARY.md
+│   ├── JONES_ROBLOX_ADAPTATION.md
+│   ├── JONES_DEVELOPMENT_RULES.md
+│   └── jones_game_idea_pack/
+└── src/
+    ├── ReplicatedStorage/
+    │   └── JonesBuyCollectPowerUpgrade.model.json
+    ├── ServerScriptService/
+    │   ├── JonesCoinPickup.server.lua
+    │   ├── JonesPlayerStats.server.lua    ← new
+    │   ├── JonesServerInit.server.lua
+    │   └── JonesUpgrade.server.lua
+    └── StarterPlayer/StarterPlayerScripts/
+        └── JonesMoneyUi.client.lua
+
+
+## Play test steps
+
+1. **Start Rojo:**
+   
+powershell
+   cd c:\Users\Yaniv\source\repos\JonesRoblox
+   rojo serve
+
+
+2. **Studio:** Rojo plugin → **Connect** → **Sync**
+
+3. **Press Play**
+
+4. **Check HUD** (top-left):
+   - Money: 0
+   - Energy: 100
+   - Reputation: 0
+   - — prototype —
+   - Collect Power: 1
+   - Upgrade button still visible
+
+5. **Check Explorer:** under your Player → leaderstats has Money, Energy, Reputation, CollectPower
+
+6. **Optional — prototype still works:** tag a Part JonesCoin, collect coins, upgrade Collect Power (Money still updates as before)
+
+## Confirmations
+
+- **No Workspace changes** — default.project.json still has no Workspace entry; no zone/job/save code added
+- **No CollectPower/coin extensions** — only stats scaffold + HUD
+- **Prototype preserved** — coin pickup and upgrade flow untouched; CollectPower still created for compatibility
+
+**Next recommended task:** zone tag convention in Studio + server zone detection (Phase 1 Step 2).
+
+מצוין. עכשיו כן להמשיך ל־Phase 1 Step 2: Zones.
+
+תן ל־Cursor:
+
+Read these docs first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 1 Step 2 only: Jones zone detection scaffold.
+
+Rules:
+- Do NOT modify Workspace through Rojo.
+- Do NOT create map parts in code.
+- Do NOT add jobs/actions yet.
+- Do NOT add saving yet.
+- Do NOT remove prototype systems yet.
+- Rojo remains scripts-only.
+- Studio owns the map and zone Parts.
+
+Goal:
+Detect when a player is inside a Studio-created zone Part tagged with a Jones zone tag.
+
+Zone convention:
+- Studio Parts in Workspace are tagged using CollectionService.
+- Zone tags:
+  - JonesZone_Home
+  - JonesZone_Market
+  - JonesZone_Industrial
+- Zone Parts should be invisible/canCollide=false in Studio, but this is manual Studio setup.
+
+Tasks:
+1. Add server-side zone detection:
+   - Detect player character position periodically.
+   - Check if HumanoidRootPart is inside any tagged zone Part bounds.
+   - Track current zone per player.
+   - Expose CurrentZone as a StringValue under leaderstats or a separate player folder.
+   - Default CurrentZone = "None".
+
+2. Add a small client HUD line:
+   - Current Zone: None/Home/Market/Industrial
+
+3. Add documentation:
+   - Docs/JONES_ZONE_TAGS.md
+   - Explain how to create zone Parts manually in Studio.
+   - Explain exact tags to add.
+   - Explain recommended properties:
+     - Transparency = 1
+     - CanCollide = false
+     - Anchored = true
+     - Size covers the area
+
+4. Update README with testing steps.
+
+5. Keep code modular:
+   - ServerScriptService/JonesZoneService.server.lua
+   - Reuse simple functions; no overengineering.
+
+6. Output:
+   - changed files
+   - final file tree
+   - exact Studio setup steps
+   - exact Play test steps
+   - confirmation no Workspace changes were made by Rojo.
+
+אחרי שזה עובד: Industrial Work Shift אמיתי.
+
+Phase 1 Step 2 is done: server-side zone detection with Studio-tagged Parts. No Workspace changes via Rojo.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesZoneService.server.lua | **Added** — polls player positions, bounds-checks tagged zone Parts |
+| src/ServerScriptService/JonesPlayerStats.server.lua | **Updated** — adds CurrentZone StringValue (default "None") |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | **Updated** — HUD line Current Zone: … |
+| Docs/JONES_ZONE_TAGS.md | **Added** — Studio zone setup guide |
+| README.md | **Updated** — Step 2 status, zone test steps, doc link |
+| Docs/JONES_ROBLOX_ADAPTATION.md | **Updated** — Steps 2–3 marked complete |
+
+**Unchanged:** default.project.json (no Workspace), prototype coin/upgrade systems.
+
+## Final file tree (relevant)
+
+
+JonesRoblox/
+├── Docs/
+│   ├── JONES_ZONE_TAGS.md              ← new
+│   ├── JONES_ROBLOX_ADAPTATION.md
+│   └── ...
+└── src/
+    ├── ServerScriptService/
+    │   ├── JonesPlayerStats.server.lua  ← CurrentZone added
+    │   ├── JonesZoneService.server.lua  ← new
+    │   └── ...
+    └── StarterPlayer/StarterPlayerScripts/
+        └── JonesMoneyUi.client.lua      ← zone HUD line
+
+
+## Exact Studio setup steps
+
+1. Open your place in **Roblox Studio** (map stays Studio-owned).
+2. In **Workspace**, insert a **Part**.
+3. Rename it (e.g. Zone_Home).
+4. **Resize and move** it so it covers the Home walkable area.
+5. Set properties:
+   - **Anchored** = true
+   - **CanCollide** = false
+   - **Transparency** = 1
+6. **View → Tag Editor** → select the Part → **Add tag** → JonesZone_Home
+7. Repeat for Market (JonesZone_Market) and Industrial (JonesZone_Industrial) when ready.
+
+Full details: [Docs/JONES_ZONE_TAGS.md](Docs/JONES_ZONE_TAGS.md)
+
+## Exact Play test steps
+
+1. 
+powershell
+   cd c:\Users\Yaniv\source\repos\JonesRoblox
+   rojo serve
+
+2. Studio → Rojo **Connect** → **Sync**
+3. Create at least one zone Part tagged JonesZone_Home (steps above)
+4. **Press Play**
+5. Stand **outside** the zone → HUD: Current Zone: None
+6. Walk **inside** the Part bounds → HUD: Current Zone: Home
+7. Walk out → back to None
+8. Explorer: Players → You → leaderstats → CurrentZone matches HUD
+9. Optional: test Market / Industrial tags the same way
+
+## How detection works
+
+- Server polls every **0.25s**
+- Uses HumanoidRootPart position vs Part AABB (object-space bounds)
+- Tags: JonesZone_Home → Home, JonesZone_Market → Market, JonesZone_Industrial → Industrial
+- Overlapping zones: **smallest Part volume** wins
+- Stored in leaderstats.CurrentZone (replicated to client for HUD)
+
+## Confirmations
+
+- **No Workspace changes by Rojo** — default.project.json unchanged; no zone Parts created in code
+- **No jobs/actions/saving** added
+- **Prototype systems preserved** — coins and CollectPower still work
+
+**Next recommended task:** Phase 1 Step 4 — Work Shift action at Industrial + zone action UI (then retire coin prototype).
+
+מעולה. עכשיו לבנות פעולה אמיתית ראשונה לפי ה־SPEC: עבודה באזור Industrial.
+
+Read these docs first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_ZONE_TAGS.md
+
+Implement Phase 1 Step 4 only: Industrial Work Shift action.
+
+Rules:
+- Do NOT modify Workspace through Rojo.
+- Do NOT create map parts in code.
+- Do NOT add saving yet.
+- Do NOT remove prototype coin/upgrade systems yet.
+- Do NOT add shop/vehicles/combat/monetization.
+- Server authority only.
+
+Goal:
+When player is inside CurrentZone = "Industrial", show a client action button:
+"Work Shift"
+Clicking it requests the server to perform a work action.
+
+Server validation:
+- Player CurrentZone must be "Industrial"
+- Energy must be >= 20
+- Cooldown: 10 seconds per player
+- On success:
+  - Money +25
+  - Energy -20
+  - Reputation +1
+- On failure:
+  - Do not change stats
+  - Return a simple status message to client
+
+Implementation:
+1. Add RemoteEvent:
+   - ReplicatedStorage/JonesPerformAction
+
+2. Add server script:
+   - ServerScriptService/JonesActionService.server.lua
+
+3. Add client UI:
+   - Update JonesMoneyUi.client.lua
+   - If CurrentZone == "Industrial", show "Work Shift" button
+   - Hide it outside Industrial
+   - Show last action status text:
+     - success
+     - not in Industrial
+     - not enough Energy
+     - cooldown
+
+4. Keep UI simple.
+5. Keep code modular and readable.
+6. Update README with test steps.
+7. Update Docs/JONES_ROBLOX_ADAPTATION.md:
+   - Mark Industrial Work Shift as completed.
+   - Mark coin/CollectPower as still temporary prototype.
+
+Output:
+- changed files
+- final file tree
+- exact Studio setup steps
+- exact Play test steps
+- confirmation no Workspace changes were made by Rojo.
+שאלה טכנית איך אני רואה את המשחק?
+
+מעולה — עכשיו רואים למה 😄
+
+ה־Experience שלך מוגדר:
+
+Private
+
+ולכן באתר אי אפשר "לשחק רגיל".
+
+אבל זה לא משנה כרגע — כי אתה מפתח דרך Studio.
+
+🎮 כדי לשחק עכשיו
+
+בחלון של Roblox Studio:
+
+למעלה:
+
+▶️ הכפתור הכחול Play
+
+(כבר לחצת לפי התמונה הקודמת)
+
+⚡ כדי שהמשחק שלך יהיה Playable מהאתר
+
+לך ל:
+
+Access
+
+ותשנה:
+
+Private → Public
+
+או Friends.
+
+🔥 אבל רגע — עוד לא כדאי Public
+
+כרגע אתה עדיין:
+
+בונה Systems
+מסנכרן Rojo
+עושה Play Tests
+משנה Architecture
+
+אז עדיף כרגע:
+
+Private
+🎯 הבעיה האמיתית כרגע
+
+לא ה־Private.
+
+אלא לוודא ש־Rojo Sync עובד ושאתה רואה:
+
+HUD
+Zones
+WorkShift
+Rest
+👀 תבדוק עכשיו בתוך Studio
+
+ב־Explorer:
+
+StarterPlayer
+ └─ StarterPlayerScripts
+
+יש:
+
+JonesMoneyUi.client.lua
+
+?
+
+אולי זה המשחק?
+
+לא 😄
+זה משחק אחר:
+
+ZManTK_TK's Place
+
+וזה גם רושם:
+
+Game unplayable
+This game is missing a content maturity rating
+
+כלומר:
+
+זה Experience אחר
+והוא לא הוגדר עדיין נכון
+🎯 המשחק שלך הוא:
+Jones In The Lane
+
+לא:
+
+ZManTK_TK's Place
+⚡ אבל זה קל לתקן
+
+בתוך Roblox Studio:
+
+File → Publish to Roblox As...
+
+ותבחר:
+
+Jones In The Lane
+
+לא ה־Place האחר.
+
+🔥 וגם צריך לעשות Questionnaire פעם אחת
+
+בדף של Roblox:
+
+View questionnaire
+
+תענה:
+
+No violence
+No gambling
+No drugs
+Mild/fantasy וכו'
+
+זה לוקח דקה.
+
+🎮 אבל שוב:
+
+כרגע אתה בכלל לא צריך את האתר בשביל לפתח.
+
+הפיתוח שלך הוא:
+
+Cursor
++
+Rojo
++
+Roblox Studio Play
+💡 מה הכי חשוב עכשיו
+
+לאיזה Experience Studio מחובר כרגע.
+
+ב־Studio:
+
+File → Game Settings
+
+תראה אם זה:
+
+Jones In The Lane
+
+או:
+
+ZManTK_TK's Place
+הוראות ל CURSOR 
+We are accidentally connected/publishing to the wrong Roblox Experience.
+
+Goal:
+Ensure Roblox Studio is connected ONLY to:
+"Jones In The Lane"
+
+Tasks:
+1. Verify the currently opened Roblox Studio game identity.
+2. If Studio is connected to:
+   - "ZManTK_TK's Place"
+   then switch publishing target to:
+   - "Jones In The Lane"
+
+3. Steps:
+   - File → Publish to Roblox As...
+   - Select existing experience:
+     "Jones In The Lane"
+   - Do NOT create a new experience.
+   - Do NOT overwrite unrelated places.
+
+4. After publishing:
+   - Open:
+     File → Game Settings
+   - Confirm:
+     Name = "Jones In The Lane"
+
+5. Verify the correct Experience ID is being used everywhere.
+
+6. Keep Rojo setup unchanged.
+7. Do NOT modify Workspace or gameplay code.
+8. Output:
+   - current connected experience name
+   - publish confirmation
+   - final experience ID
+   - confirmation Rojo still works
+**What I can confirm from this repo**
+
+| Item | Status |
+|------|--------|
+| **Rojo project** | Unchanged — default.project.json has no Place/Universe ID |
+| **Rojo build** | ✅ Rojo 7.6.1 — builds successfully |
+| **Experience binding** | **Not stored in this repo** — lives in Roblox Studio only |
+
+This Rojo repo syncs scripts into **whatever place is open in Studio**. It does not choose or publish to an experience by itself.
+
+---
+
+**What I cannot do from here**
+
+I cannot see your open Studio session, click **Publish to Roblox As…**, or read the current experience name/ID. Those steps must be done in Studio on your machine.
+
+---
+
+## Fix in Roblox Studio (do this now)
+
+### 1. Check what’s open
+
+Look at the **Studio title bar** or **File → Game Settings → Basic Info**:
+
+- ❌ Wrong: ZManTK_TK's Place
+- ✅ Correct: Jones In The Lane
+
+### 2. Republish to the correct experience
+
+1. **File → Publish to Roblox As…**
+2. Choose **Select existing experience**
+3. Pick **Jones In The Lane**
+4. **Do not** create a new experience
+5. **Do not** publish over unrelated places
+6. Confirm publish
+
+### 3. Verify after publish
+
+1. **File → Game Settings → Basic Info**
+2. Confirm:
+   - **Name** = Jones In The Lane
+3. Note these IDs (same screen or **Home** tab):
+   - **Universe ID** (Experience ID)
+   - **Place ID**
+
+### 4. Optional — Creator Dashboard check
+
+1. Go to [create.roblox.com/dashboard/creations](https://create.roblox.com/dashboard/creations)
+2. Open **Jones In The Lane**
+3. Confirm the **Universe ID** matches Game Settings
+
+### 5. Rojo still works
+
+1. Leave **rojo serve** running (or start it):
+   
+powershell
+   cd c:\Users\Yaniv\source\repos\JonesRoblox
+   rojo serve
+
+2. Studio → Rojo plugin → **Connect** → **Sync**
+3. **Play** → Output should show:
+   
+[Jones In The Lane] Server initialized via Rojo.
+
+
+---
+
+## Output template (fill in after Studio steps)
+
+| Field | Your value |
+|-------|------------|
+| **Current connected experience name** | *(check Studio title bar / Game Settings)* |
+| **Publish confirmation** | *(after Publish to Roblox As → Jones In The Lane)* |
+| **Universe ID (Experience ID)** | *(Game Settings → copy Universe ID)* |
+| **Place ID** | *(Game Settings → copy Place ID)* |
+| **Rojo still works** | ✅ Verified from repo (rojo build succeeds) — confirm Sync in Studio |
+
+---
+
+## Important notes
+
+- **Do not** add Place/Universe ID to default.project.json unless you later adopt a Rojo place-file workflow — current setup is scripts-only.
+- If you had **JonesCoin** or zone Parts in the old place, they stay in Studio’s map — republishing only updates the **linked place**, not your local Rojo files.
+- **Close** ZManTK_TK's Place in Studio after switching so you don’t accidentally sync Jones scripts into the wrong game.
+
+If you paste the **Universe ID** and **Place ID** from Game Settings after republishing, I can help you record them in a small Docs/STUDIO_PLACE.md reference file (docs only, no code changes).
+
+מעולה. Cursor צדק לגמרי פה.
+הוא הסביר נכון את ההבדל בין:
+
+Rojo repo
+
+לבין:
+
+Roblox Experience binding
+
+עכשיו פשוט תעשה ב־Roblox Studio:
+
+File → Publish to Roblox As...
+
+ותבחר:
+
+Jones In The Lane
+
+אחרי זה:
+
+File → Game Settings
+
+ותוודא שהשם הוא:
+
+Jones In The Lane
+🔥 טיפ חשוב מאוד להמשך
+
+מהיום:
+
+Studio place = game world
+Rojo repo = scripts only
+
+אל תבלבל ביניהם.
+
+🎯 אחרי שאתה מחבר נכון
+
+ה־workflow שלך יהיה:
+
+Cursor edits code
+→ rojo serve
+→ Studio Sync
+→ Play
+→ Publish
+
+וזה כבר pipeline מקצועי לגמרי.
+
+מושלם 🔥
+עכשיו ה־Plugin מותקן ופעיל.
+
+השלב הבא:
+
+1. תסגור את חלון Plugin Management
+2. ב־Cursor Terminal תריץ
+cd C:\Users\Yaniv\source\repos\JonesRoblox
+rojo serve
+
+חשוב:
+החלון נשאר פתוח.
+
+3. ב־Roblox Studio
+
+למעלה:
+
+Plugins
+
+עכשיו אתה אמור לראות:
+
+Rojo
+4. תלחץ:
+Connect
+
+אם הכל טוב:
+הוא יתחבר ל:
+
+localhost:34872
+5. ואז:
+Sync
+🔥 אחרי Sync
+
+הסקריפטים שלך ייכנסו ל־Studio.
+
+ואז:
+
+▶️ Play
+
+ותראה:
+
+HUD
+Money
+Energy
+Reputation
+Current Zone
+WorkShift / Rest
+⚡ בדיקה מהירה
+
+ב־Explorer:
+
+StarterPlayer
+ └─ StarterPlayerScripts
+
+צריך להופיע:
+
+JonesMoneyUi.client.lua
+
+אם כן — הכל מחובר נכון.
+
+מושלם 🔥🔥🔥
+זה בדיוק מה שרצינו לראות.
+
+עכשיו פשוט:
+
+1. לוודא שב־Cursor רץ:
+rojo serve
+
+ואתה אמור לראות משהו כמו:
+
+Serving project...
+2. עכשיו תלחץ:
+Connect
+
+בחלון Rojo שבתמונה.
+
+3. אם הצליח
+
+הכפתור יהפוך בערך ל:
+
+Connected
+Sync
+Disconnect
+4. ואז:
+
+▶️ Play
+
+🎯 בדיקה אמיתית
+
+ב־Explorer:
+
+StarterPlayer
+ └─ StarterPlayerScripts
+
+צריך להיות:
+
+JonesMoneyUi.client.lua
+
+וגם:
+
+ServerScriptService
+
+עם:
+
+JonesActionService
+JonesZoneService
+JonesPlayerStats
+🔥 ואז המשחק באמת "חי"
+
+אתה תראה:
+
+HUD
+Current Zone
+Work Shift
+Rest
+
+והמערכת שלך רצה דרך:
+
+Cursor → Rojo → Roblox Studio
+**Rojo serve** is running in the background.
+
+
+Address: localhost
+Port:    34872
+
+
+In Roblox Studio: Rojo plugin → **Connect** → localhost:34872 → **Sync**.
+
+Leave this terminal running while you work.
+
+מעולה. עכשיו ב־Studio:
+
+Rojo plugin → Connect
+
+אחרי החיבור:
+
+Sync
+
+ואז בדיקה:
+
+Explorer → ServerScriptService
+
+צריך לראות:
+
+JonesPlayerStats
+JonesZoneService
+JonesActionService
+
+וגם:
+
+StarterPlayer → StarterPlayerScripts
+
+צריך לראות:
+
+JonesMoneyUi
+
+אם זה שם — ללחוץ ▶️ Play.
+
+מושלם 🔥🔥🔥
+זה בדיוק מסך ה־Sync שרצינו.
+
+עכשיו פשוט:
+
+Accept
+מה זה אומר?
+
+Rojo מראה לך מה הוא הולך להכניס ל־Studio:
+
+ReplicatedStorage
+RemoteEvents
+Scripts
+StarterPlayerScripts
+אחרי Accept
+
+ה־Scripts ייכנסו ל־Explorer.
+
+תבדוק:
+
+ServerScriptService
+
+צריך לראות:
+
+JonesActionService
+JonesPlayerStats
+JonesZoneService
+
+וגם:
+
+StarterPlayer
+ └─ StarterPlayerScripts
+
+צריך לראות:
+
+JonesMoneyUi.client.lua
+ואז:
+
+▶️ Play
+
+ואתה אמור לראות:
+
+HUD
+Money
+Energy
+Reputation
+Current Zone
+
+🔥 עכשיו המשחק באמת מחובר ל־Rojo.
+
+מעולה 🔥
+אתה כבר Connected.
+
+ההודעה העליונה:
+
+Please accept or abort the initializing sync session
+
+אומרת שעוד לא אישרת את ה־Sync הראשוני.
+
+עכשיו פשוט:
+
+Accept
+
+(הכפתור שהיה במסך הקודם)
+
+אחרי זה:
+
+Explorer יתמלא בסקריפטים
+תלחץ ▶️ Play
+HUD אמור להופיע
+אם ה־Accept נעלם
+
+תלחץ על:
+
+↻ refresh
+
+או תתחבר מחדש ואז Accept.
+
+🎯 הבדיקה האמיתית עכשיו
+
+ב־Explorer:
+
+ServerScriptService
+
+צריך להיות:
+
+JonesActionService
+JonesPlayerStats
+JonesZoneService
+
+אם כן — Sync הצליח.
+
+🔥🔥🔥
+זה עובד!
+
+יש לך עכשיו:
+
+✅ Rojo Sync
+✅ HUD
+✅ Money
+✅ Energy
+✅ Reputation
+✅ CurrentZone
+✅ Roblox Play Mode
+✅ Live Scripts
+✅ Real pipeline
+
+זה כבר לא setup — זה Prototype עובד.
+
+🎯 עכשיו מה חסר כדי לראות Gameplay
+
+כרגע:
+
+Current Zone: None
+
+אז אין Actions.
+
+⚡ עכשיו צריך ליצור Zones ב־Studio
+HOME ZONE
+Model → Part
+תגדיל אותו באזור הבית
+Properties:
+Anchored = true
+CanCollide = false
+Transparency = 0.5
+TAG
+View → Tag Editor
+
+להוסיף:
+
+JonesZone_Home
+🔥 אותו דבר ל־Industrial
+
+Part נוסף:
+
+JonesZone_Industrial
+🎮 ואז:
+
+כשאתה נכנס ל־Industrial:
+
+Current Zone: Industrial
+
+ויופיע:
+
+Work Shift
+⚡ ואז המשחק מתחיל באמת לעבוד
+
+Industrial:
+
+Work
+Money+
+Energy-
+
+Home:
+
+Rest
+Energy+
+
+🔥 עכשיו אתה ממש רואה את הלופ של Jones מתחיל לחיות.
+
+אני לא מבין בתכנות פרומפט ל CURSOR
+I do not understand Roblox Studio well, so do the next step very safely and explain exactly what I need to click.
+
+Current status:
+- Rojo is connected and synced.
+- HUD works.
+- Money / Energy / Reputation / CurrentZone are visible.
+- CurrentZone is currently "None".
+- I need Studio-created zone Parts so WorkShift and Rest can appear.
+
+Goal:
+Guide me to create the required zones manually in Roblox Studio.
+
+Do NOT write new gameplay code.
+Do NOT modify Rojo project files unless documentation only.
+Do NOT change default.project.json.
+Do NOT create zones from code.
+Studio owns the map.
+
+Tasks:
+1. Create or update a simple guide file:
+   Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md
+
+2. Explain step-by-step, for a non-Roblox user:
+   - how to insert a Part
+   - how to resize it
+   - how to move it
+   - how to set Anchored=true
+   - how to set CanCollide=false
+   - how to set Transparency=0.5 for testing
+   - how to open Tag Editor
+   - how to add the exact tag JonesZone_Home
+   - how to add the exact tag JonesZone_Industrial
+
+3. Include exact test flow:
+   - Start rojo serve
+   - Connect/Sync Rojo
+   - Press Play
+   - Walk into Industrial
+   - Confirm CurrentZone becomes Industrial
+   - Click Work Shift
+   - Walk into Home
+   - Confirm CurrentZone becomes Home
+   - Click Rest
+
+4. Include troubleshooting:
+   - HUD visible but CurrentZone stays None
+   - Tag typo
+   - Part too small
+   - Part not covering player feet/body
+   - Forgot Sync
+   - Need Transparency=0.5 while testing
+
+5. Do not add code.
+6. Output the guide summary and tell me exactly what to do first in Studio.
+Created **[Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md)** — a full beginner guide. No gameplay code or Rojo config was changed (README link only).
+
+---
+
+## Guide summary
+
+You need **two invisible boxes** (Parts) in Studio:
+
+| Part | Tag (exact) | Result in game |
+|------|-------------|----------------|
+| Zone_Industrial | JonesZone_Industrial | Current Zone: Industrial + **Work Shift** |
+| Zone_Home | JonesZone_Home | Current Zone: Home + **Rest** |
+
+Each Part: **Anchored ✅**, **CanCollide ❌**, **Transparency 0.5** (while learning), **big enough to stand inside**.
+
+---
+
+## Do this first in Studio (right now)
+
+You’re in **Edit** mode (not Play). Rojo is already synced.
+
+### 1. Insert the Industrial zone
+
+1. Top ribbon → **Home** tab  
+2. Click **Part** → **Block**  
+3. **Explorer** (right) → **Workspace** → select the new Part  
+4. Press **F2** → rename to **Zone_Industrial**
+
+### 2. Move and resize it
+
+1. Toolbar → **Move** (four arrows) or **Ctrl+2** → drag it to where “work” should happen on the ground  
+2. Toolbar → **Scale** (cube with balls) or **Ctrl+3** → make it **large** (roughly 20×10×20 studs or bigger)
+
+### 3. Set properties
+
+With Zone_Industrial selected → **Properties** panel (View → Properties if missing):
+
+- **Anchored** → ✅ **on**  
+- **CanCollide** → ☐ **off**  
+- **Transparency** → **0.5** (so you can see the box)
+
+### 4. Add the tag
+
+1. **View** → **Tag Editor**  
+2. Select Zone_Industrial in Explorer  
+3. Tag Editor → **Add tag**  
+4. Type exactly: **JonesZone_Industrial** → Enter  
+
+### 5. Test immediately
+
+1. Press **Play** (green ▶ or **F5**)  
+2. Walk **into** the semi-visible box  
+3. HUD should show **Current Zone: Industrial** and a **Work Shift** button  
+
+If that works, repeat steps 1–4 for **Zone_Home** with tag **JonesZone_Home**, then test **Rest**.
+
+---
+
+Full walkthrough, test flow, and troubleshooting: [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md)
+
+**If Current Zone stays None:** the tag is wrong, the box is too small, or your character isn’t standing **inside** the Part — make it bigger and check the tag spelling.
+
+מעולה. עכשיו תעשה רק את זה ידנית ב־Studio:
+
+Home → Part → Block
+ב־Explorer לשנות שם ל־Zone_Industrial
+להזיז/להגדיל אותו באזור העבודה
+Properties:
+Anchored = true
+CanCollide = false
+Transparency = 0.5
+View → Tag Editor
+להוסיף Tag בדיוק:
+JonesZone_Industrial
+ללחוץ Play
+להיכנס לקופסה ולראות:
+Current Zone: Industrial
+
+אחרי שזה עובד — לעשות אותו דבר ל־Zone_Home עם tag:
+
+JonesZone_Home
+
+מעולה 🔥
+עכשיו ה־Part מסומן נכון.
+
+השלב הבא:
+
+1. לשנות שם
+
+כרגע השם הוא:
+
+Part
+
+תלחץ:
+
+F2
+
+ותשנה ל:
+
+Zone_Industrial
+2. Properties
+
+למטה ב־Properties:
+
+תחפש:
+
+Anchored
+
+ותסמן:
+
+true
+
+אחר כך:
+
+CanCollide
+
+ותבטל:
+
+false
+
+אחר כך:
+
+Transparency
+
+ותשים:
+
+0.5
+3. להגדיל
+
+למעלה:
+
+Scale
+
+ולהגדיל את הקופסה כך שהשחקן יוכל לעמוד בתוכה.
+
+4. Tag Editor
+View → Tag Editor
+
+להוסיף tag:
+
+JonesZone_Industrial
+
+בדיוק ככה.
+
+5. Play
+
+▶️ Play
+
+להיכנס לקופסה.
+
+אם הצליח:
+
+Current Zone: Industrial
+
+ויופיע:
+
+Work Shift
+
+מושלם 🔥
+עכשיו הוא נקרא נכון:
+
+Zone_Industrial
+
+השלב הבא:
+
+1. Properties
+
+למטה:
+
+Anchored = true
+CanCollide = false
+Transparency = 0.5
+2. Scale
+
+למעלה:
+
+Scale
+
+ולהגדיל את הקופסה ממש לאזור גדול שאפשר לעמוד בתוכו.
+
+3. Tag Editor
+
+למעלה:
+
+View → Tag Editor
+
+עם Zone_Industrial מסומן.
+
+להוסיף tag בדיוק:
+
+JonesZone_Industrial
+4. Play
+
+▶️ Play
+
+להיכנס לקופסה.
+
+אם הכל הצליח:
+
+Current Zone: Industrial
+
+ויופיע כפתור:
+
+Work Shift
+
+זה ה־Move gizmo 😄
+אתה כרגע במצב הזזה/עריכה של ה־Part.
+
+זה טוב.
+
+עכשיו:
+
+1. תגדיל את הקופסה
+
+למעלה:
+
+Scale
+
+לא Move.
+
+2. תמשוך את הכדורים/קצוות
+
+עד שתהיה קופסה גדולה על הקרקע.
+
+3. תשאיר:
+Transparency = 0.5
+
+כדי שתראה אותה.
+
+4. עכשיו הכי חשוב:
+
+Tag Editor.
+
+View → Tag Editor
+
+להוסיף:
+
+JonesZone_Industrial
+5. ואז:
+
+▶️ Play
+
+להיכנס לקופסה.
+
+אם הכל תקין:
+
+Current Zone: Industrial
+יופיע Work Shift
+
+מעולה 🔥
+הקופסה כבר גדלה — זה בדיוק מה שצריך.
+
+עכשיו נשאר רק:
+
+1. Tag Editor
+
+למעלה:
+
+View → Tag Editor
+2. עם Zone_Industrial מסומן
+
+להוסיף Tag בדיוק:
+
+JonesZone_Industrial
+3. ואז:
+
+▶️ Play
+
+להיכנס לקופסה.
+
+🎯 אם הצליח
+
+ב־HUD:
+
+Current Zone: Industrial
+
+ויופיע:
+
+Work Shift
+
+🔥 זה הרגע הראשון שה־Gameplay loop של Jones באמת מתחיל לעבוד.
+
+אתה ב־View של החלון העליון 😄
+לא ב־Ribbon של Roblox Studio.
+
+בשביל Tag Editor:
+
+למעלה ממש ברצועה
+
+איפה שיש:
+
+Home
+Avatar
+UI
+Script
+Model
+Plugins
+
+תחפש כפתור:
+
+Tag Editor
+
+אם לא רואים:
+
+הדרך הקלה
+1. Plugins
+
+למעלה:
+
+Plugins
+2. Toolbox / Tag tools
+
+או:
+
+Model
+
+לפעמים Tag Editor נמצא שם.
+
+ואם עדיין לא רואים
+
+תעשה:
+
+View → Explorer
+View → Properties
+
+ואז:
+
+Home → Part
+הכי פשוט כרגע
+
+אפשר גם בלי Tag Editor:
+
+ב־Explorer:
+
+קליק ימני על Zone_Industrial
+
+אם יש:
+
+Add Tag
+
+אז להוסיף:
+
+JonesZone_Industrial
+
+אתה ממש קרוב 😄
+
+רואים 😄
+אין לך כרגע Tag Editor פתוח ברצועה.
+
+הדרך הכי קלה עכשיו:
+
+1. תלחץ:
+Model
+
+(למעלה ליד Script)
+
+2. תחפש שם:
+Tags
+
+או:
+
+Tag Editor
+3. אם עדיין אין
+
+אז הכי פשוט:
+
+Explorer
+
+קליק ימני על:
+
+Zone_Industrial
+
+ותחפש:
+
+Add Tag
+4. להוסיף בדיוק:
+JonesZone_Industrial
+5. ואז:
+
+▶️ Play
+
+אם הצליח:
+
+Current Zone: Industrial
+כפתור Work Shift
+
+🔥 זה ממש השלב האחרון.
+
+אין Tag Editor מובנה פתוח אצלך כרגע.
+הכי מהר:
+
+1. Explorer
+
+בצד ימין:
+
+קליק ימני על:
+
+Zone_Industrial
+2. תחפש:
+Add Tag
+
+או:
+
+Tags...
+3. אם אין בכלל
+
+אז תעשה:
+
+Plugins → Toolbox
+
+וב־Marketplace תחפש:
+
+Tag Editor
+
+של Roblox.
+
+4. אחרי ההתקנה
+
+יופיע למעלה:
+
+Tag Editor
+5. ואז:
+לבחור Zone_Industrial
+Add Tag
+לרשום בדיוק:
+JonesZone_Industrial
+6. Play
+
+▶️ Play
+
+אם הצליח:
+
+Current Zone: Industrial
+Work Shift מופיע.
+
+מושלם 🔥🔥🔥
+עכשיו פשוט:
+
+Enter
+
+או ללחוץ על:
+
+JonesZone_Industrial
+
+ברשימה.
+
+ה־Tag יתווסף ל־Zone_Industrial.
+
+ואז:
+
+▶️ Play
+
+להיכנס לקופסה.
+
+🎯 הצלחה =
+
+ב־HUD:
+
+Current Zone: Industrial
+
+ויופיע:
+
+Work Shift
+
+🔥 עכשיו ה־Zone system של Jones עובד באמת.
+
+לא מתווסף JonesZone_Industrial
+פרומפט TO CURSOR
+Roblox Studio tag UI is not adding `JonesZone_Industrial` reliably.
+
+Goal:
+Add a temporary safe fallback so I can create zones without CollectionService tags.
+
+Current:
+- Zone Part exists in Workspace named `Zone_Industrial`
+- I cannot successfully add the tag `JonesZone_Industrial`
+- Rojo is scripts-only
+- Workspace must still remain Studio-owned
+
+Rules:
+- Do NOT modify Workspace through Rojo.
+- Do NOT create Parts in code.
+- Do NOT change default.project.json.
+- Keep CollectionService tag support.
+- Add fallback by Part name only.
+
+Tasks:
+1. Update `JonesZoneService.server.lua`.
+
+2. Zone detection should support BOTH:
+   - CollectionService tags:
+     - `JonesZone_Home`
+     - `JonesZone_Market`
+     - `JonesZone_Industrial`
+   - Fallback Workspace Part names:
+     - `Zone_Home`
+     - `Zone_Market`
+     - `Zone_Industrial`
+
+3. Priority:
+   - Tags first
+   - Then name fallback
+
+4. If a Workspace Part is named `Zone_Industrial`, it should detect as:
+   - CurrentZone = `Industrial`
+
+5. If a Workspace Part is named `Zone_Home`, it should detect as:
+   - CurrentZone = `Home`
+
+6. Add clear debug prints when zones are discovered:
+   - `[JonesZoneService] Found tagged zone: ...`
+   - `[JonesZoneService] Found named zone fallback: ...`
+
+7. Update `Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md`:
+   - Add fallback option:
+     “If tags do not work, simply rename the Part to Zone_Industrial or Zone_Home.”
+
+8. Update README troubleshooting:
+   - CurrentZone stays None → check Part name fallback.
+
+9. Do not add new gameplay.
+10. Output changed files and Play test steps.
+מה זה בכלל 
+
+ה־Tag זה בעצם “מדבקה חכמה” ש־Roblox Studio נותן לאובייקטים 😄
+
+במקום שהקוד יחפש:
+
+Part בשם מסוים
+
+הוא מחפש:
+
+כל Part שיש לו Tag מסוים
+🎯 לדוגמה
+
+אתה שם על קופסה:
+
+JonesZone_Industrial
+
+ואז הקוד מבין:
+
+אה, זאת אזור עבודה
+למה זה טוב?
+
+כי אחר כך אפשר:
+
+לשנות שמות
+להחליף מפות
+לשכפל אזורים
+
+והקוד עדיין עובד.
+
+אבל כרגע?
+
+לא חייבים 😄
+
+לכן נתתי לך fallback:
+
+Zone_Industrial
+
+לפי שם בלבד.
+
+כלומר עכשיו פשוט:
+
+אם ה־Part נקרא:
+
+Zone_Industrial
+
+המערכת יכולה להבין שזה Industrial גם בלי Tag.
+
+למה זה טוב בשבילך עכשיו?
+
+פחות הסתבכות.
+
+בהמשך:
+
+Tags יהיו חזקים יותר
+אבל כרגע Name fallback מספיק כדי להתחיל לפתח Gameplay.

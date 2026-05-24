@@ -1,0 +1,3502 @@
+jones_game_idea_pack.zip
+Zip Archive
+אולי זה המשחק?
+Roblox Studio tag UI is not adding `JonesZone_Industrial` reliably.
+
+Goal:
+Add a temporary safe fallback so I can create zones without CollectionService tags.
+
+Current:
+- Zone Part exists in Workspace named `Zone_Industrial`
+- I cannot successfully add the tag `JonesZone_Industrial`
+- Rojo is scripts-only
+- Workspace must still remain Studio-owned
+
+Rules:
+- Do NOT modify Workspace through Rojo.
+- Do NOT create Parts in code.
+- Do NOT change default.project.json.
+- Keep CollectionService tag support.
+- Add fallback by Part name only.
+
+Tasks:
+1. Update `JonesZoneService.server.lua`.
+
+2. Zone detection should support BOTH:
+   - CollectionService tags:
+     - `JonesZone_Home`
+     - `JonesZone_Market`
+     - `JonesZone_Industrial`
+   - Fallback Workspace Part names:
+     - `Zone_Home`
+     - `Zone_Market`
+     - `Zone_Industrial`
+
+3. Priority:
+   - Tags first
+   - Then name fallback
+
+4. If a Workspace Part is named `Zone_Industrial`, it should detect as:
+   - CurrentZone = `Industrial`
+
+5. If a Workspace Part is named `Zone_Home`, it should detect as:
+   - CurrentZone = `Home`
+
+6. Add clear debug prints when zones are discovered:
+   - `[JonesZoneService] Found tagged zone: ...`
+   - `[JonesZoneService] Found named zone fallback: ...`
+
+7. Update `Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md`:
+   - Add fallback option:
+     “If tags do not work, simply rename the Part to Zone_Industrial or Zone_Home.”
+
+8. Update README troubleshooting:
+   - CurrentZone stays None → check Part name fallback.
+
+9. Do not add new gameplay.
+10. Output changed files and Play test steps.
+מה זה בכלל 
+
+ה־Tag זה בעצם “מדבקה חכמה” ש־Roblox Studio נותן לאובייקטים 😄
+
+במקום שהקוד יחפש:
+
+Part בשם מסוים
+
+הוא מחפש:
+
+כל Part שיש לו Tag מסוים
+🎯 לדוגמה
+
+אתה שם על קופסה:
+
+JonesZone_Industrial
+
+ואז הקוד מבין:
+
+אה, זאת אזור עבודה
+למה זה טוב?
+
+כי אחר כך אפשר:
+
+לשנות שמות
+להחליף מפות
+לשכפל אזורים
+
+והקוד עדיין עובד.
+
+אבל כרגע?
+
+לא חייבים 😄
+
+לכן נתתי לך fallback:
+
+Zone_Industrial
+
+לפי שם בלבד.
+
+כלומר עכשיו פשוט:
+
+אם ה־Part נקרא:
+
+Zone_Industrial
+
+המערכת יכולה להבין שזה Industrial גם בלי Tag.
+
+למה זה טוב בשבילך עכשיו?
+
+פחות הסתבכות.
+
+בהמשך:
+
+Tags יהיו חזקים יותר
+אבל כרגע Name fallback מספיק כדי להתחיל לפתח Gameplay.
+
+מעולה. עכשיו תעשה:
+
+ב־Studio:
+Rojo → Sync
+ללחוץ:
+Play
+להיכנס לתוך הקופסה Zone_Industrial
+
+אם עובד תראה:
+
+Current Zone: Industrial
+
+ואז יופיע:
+
+Work Shift
+
+עכשיו כבר לא צריך Tag. מספיק שהשם יהיה בדיוק:
+
+Zone_Industrial
+
+ולבית:
+
+Zone_Home
+
+ועכשיו? 😄
+
+כשנכנסת לקופסה:
+
+מה רשום ב־HUD?
+
+Current Zone: ?
+
+והאם הופיע:
+
+Work Shift
+
+?
+
+רואים למה 😄
+אתה לא בתוך ה־Zone בכלל.
+
+אני לא רואה את הקופסה השקופה באזור של השחקן.
+
+כנראה:
+
+הקופסה נמצאת במקום אחר
+או
+היא קטנה מדי
+או
+היא מתחת לקרקע
+
+תעשה עכשיו:
+
+1. Stop
+
+למעלה:
+
+■ Stop
+2. ב־Explorer
+
+תבחר:
+
+Zone_Industrial
+3. תלחץ:
+F
+
+זה יעשה Focus למצלמה על ה־Part.
+
+4. עכשיו תראה איפה הקופסה באמת נמצאת 😄
+5. תגדיל אותה ממש ענק
+
+עם:
+
+Scale
+
+עד שהיא מכסה אזור גדול מאוד.
+
+6. תוודא:
+Transparency = 0.5
+Anchored = true
+CanCollide = false
+7. הכי חשוב:
+
+תרים אותה קצת מעל הקרקע כדי שתראה אותה טוב.
+
+8. Play שוב
+
+ותעמוד ממש בתוך הקופסה השקופה.
+
+אם עדיין לא עובד —
+תצלם את:
+
+Explorer עם Zone_Industrial
+Properties
+והמפה שרואים את הקופסה
+
+ואני אגיד בדיוק מה לא תקין.
+
+מצאתי אותה באמצע שום מקום באוויר
+
+חחחח 😄
+מעולה — עכשיו הבנת מה קרה.
+
+הקופסה פשוט:
+
+באוויר
+לא באזור שאתה הולך בו
+
+לכן:
+
+Current Zone: None
+
+עכשיו פשוט:
+
+1. Stop
+
+■ Stop
+
+2. לבחור את:
+Zone_Industrial
+3. Move
+
+למעלה:
+
+Move
+4. להזיז את הקופסה
+
+למטה לקרקע איפה שאתה רוצה שהעבודה תהיה.
+
+5. הכי טוב כרגע:
+
+תשים אותה ענקית סביב האוהל/האזור שאתה עומד בו.
+
+6. Play שוב
+
+עכשיו אם אתה בתוך הקופסה:
+
+Current Zone: Industrial
+
+🔥🔥🔥
+
+ואז:
+
+Work Shift
+
+יופיע.
+
+תגידי ל CURSOR שימקם אותה איפה שהמשמש מופיע בתחילת המשחק
+Move the existing Workspace Part `Zone_Industrial` to the player spawn/start area automatically.
+
+Goal:
+When the player presses Play and spawns at the beginning of the game, they should already be standing inside the Industrial zone so the gameplay loop is immediately visible.
+
+Rules:
+- Do NOT create a new Part.
+- Reuse the existing Workspace Part:
+  `Workspace.Zone_Industrial`
+- Workspace is still Studio-owned.
+- Do NOT modify default.project.json.
+- Do NOT add new gameplay systems.
+
+Tasks:
+1. Create a temporary Studio helper script or one-time positioning helper.
+2. Find:
+   - `Workspace.SpawnLocation`
+   OR the main player spawn area if SpawnLocation exists under another name.
+3. Move `Zone_Industrial` so:
+   - center aligns with spawn area
+   - slightly above ground
+   - large enough for easy testing
+4. Suggested temporary test size:
+   - 60, 20, 60
+5. Ensure:
+   - Anchored = true
+   - CanCollide = false
+   - Transparency = 0.5
+6. Keep Part name exactly:
+   `Zone_Industrial`
+7. Output:
+   - exact final position
+   - final size
+   - what changed
+   - exact Play test steps
+
+Expected result:
+Immediately after Play:
+- HUD shows:
+  `Current Zone: Industrial`
+- `Work Shift` button is visible without walking anywhere.
+
+טוב. זה פתרון זמני מצוין לבדיקה.
+
+עכשיו תעשה:
+
+Rojo → Sync
+Play
+
+מיד אחרי שהמשחק עולה אתה אמור לראות:
+
+Current Zone: Industrial
+
+וכפתור:
+
+Work Shift
+
+אם כן — תלחץ עליו ותוודא:
+
+Money עולה ל־25
+Energy יורד ל־80
+Reputation עולה ל־1
+
+חשוב: זה helper זמני בלבד. אחרי שנבנה מפה מסודרת — מוחקים אותו וממקמים Zones ידנית.
+
+איפה עושים SYNC ROJO
+
+בחלון של Rojo שכבר פתחת בצד ימין/למטה.
+
+אצלך זה היה החלון עם:
+
+Rojo 7.6.1
+JonesInTheLane
+localhost:34872
+Disconnect
+
+שם יש אייקון קטן של רענון/סנכרון:
+
+↻
+
+תלחץ עליו — זה ה־Sync.
+
+אם אתה לא רואה:
+
+למעלה ב־Studio לחץ:
+Plugins
+לחץ:
+Rojo
+בחלון שנפתח:
+Connect
+אחרי החיבור לחץ:
+↻ / Sync
+
+אחרי Sync תלחץ Play.
+
+🔥🔥🔥
+זה עובד!!!
+
+יש לך עכשיו:
+
+✅ Zone Detection
+✅ Work Shift
+✅ HUD
+✅ Server Authority
+✅ Rojo Live Sync
+✅ Roblox Play Mode
+✅ Gameplay Loop ראשון של Jones
+
+והכי חשוב:
+
+Current Zone: Industrial
+
+עם:
+
+Work Shift
+
+זה כבר משחק עובד — לא רק setup 😄
+
+עכשיו תלחץ:
+
+Work Shift
+
+ותראה:
+
+Money עולה
+Energy יורד
+Reputation עולה
+
+🔥 זה ה־core gameplay הראשון של Jones.
+
+יש שם משהו מפריע ללחוץ
+
+כן 😄
+זה ה־Chat של Roblox שעולה מעל ה־UI שלך.
+
+הוא חוסם את הלחיצה על ה־Work Shift.
+
+תגיד ל־Cursor:
+
+Disable Roblox default chat UI and move Jones HUD slightly lower/right so gameplay buttons are never blocked.
+
+Goal:
+The Work Shift and future gameplay buttons must always be clickable and visible.
+
+Tasks:
+1. Disable the default Roblox chat UI during gameplay.
+2. Keep the Roblox menu button.
+3. Update `JonesMoneyUi.client.lua`:
+   - move the HUD panel lower and slightly right
+   - add safe top margin for Roblox top bar
+4. Make buttons always clickable on desktop.
+5. Keep current gameplay unchanged.
+6. Do not modify Workspace.
+7. Do not modify Rojo config.
+8. Output:
+   - changed files
+   - new HUD position values
+   - exact Play test steps
+
+Expected:
+- No Roblox chat overlay blocking the HUD
+- Work Shift button fully clickable
+- HUD positioned safely under Roblox top controls
+
+גם פה:
+
+No
+
+כרגע אין במשחק:
+
+רומנטיקה
+חדרי שינה
+מלונות
+ברים
+מועדונים
+תוכן למבוגרים
+
+זה רק prototype של gameplay/work system.
+
+גם פה:
+
+No
+
+אין כרגע:
+
+מסחר בין שחקנים
+קנייה/מכירה
+Robux economy
+inventory trading
+
+זה רק gameplay prototype כרגע.
+
+🔥🔥🔥
+זה עובד מושלם.
+
+אתה רואה:
+
+Money: 25
+Energy: 80
+Reputation: 1
+
+והודעת:
+
+Work shift on cooldown.
+
+כלומר:
+
+✅ Server validation עובד
+✅ Cooldown עובד
+✅ Zone detection עובד
+✅ HUD עובד
+✅ Gameplay loop עובד
+✅ Button clicks עובדים
+✅ Rojo sync עובד
+
+זה כבר MVP אמיתי ראשון של Jones 😄
+
+השלב הבא עכשיו:
+
+Zone_Home
+כפתור Rest
+להחזיר Energy
+
+ומשם:
+
+Save system
+Jobs
+NPCs
+Shops
+Housing
+Inventory
+Multiplayer economy
+Missions
+AI NPC systems
+
+🔥 עכשיו באמת התחלת לפתח משחק Roblox.
+
+קדימה
+
+נכון — הרבה יותר הגיוני.
+
+במקום לשים Zone_Home ליד ה־Spawn, תבחר בית קיים במפה ותעטוף אותו ב־Zone.
+
+ה־helper ליד Spawn היה רק קיצור לבדיקה. עכשיו עדיף Studio אמיתי:
+
+Do not create Home placement helper near spawn.
+
+Instead, guide me to use an existing house/building in the map as Home.
+
+Tasks:
+1. Do NOT add new code.
+2. Do NOT create Zone_Home automatically.
+3. Update Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md:
+   - Explain how to select an existing house area
+   - Create a Part named Zone_Home around that house
+   - Set Anchored=true, CanCollide=false, Transparency=0.5
+   - Make it large enough to cover the walkable home area
+4. Update README:
+   - Home zone should be placed around an existing house/building, not at spawn.
+5. Keep Industrial helper temporary for now.
+6. Output exact Studio steps:
+   - find house
+   - add Part
+   - name Zone_Home
+   - move/scale around house
+   - Play test Rest
+
+הכי נכון:
+Industrial ליד אזור עבודה/אוהל/מתקנים.
+Home סביב בית/מבנה קיים.
+
+זה פרומפט?
+
+כן 😄
+זה הפרומפט ל־Cursor.
+פשוט להדביק לו כמו שהוא.
+
+Documentation only — no code changes. Industrial placement helper unchanged.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md | Home zone = existing house; full click-by-click steps |
+| README.md | Home not at spawn; test flow updated |
+
+---
+
+## Exact Studio steps — Home at your house
+
+### 1. Find the house
+1. **Edit** mode (not Play)
+2. **Explorer** → **Workspace** → browse models (House, Building, etc.)
+3. Click the building in the viewport or Explorer
+4. Press **F** to focus the camera on it
+
+### 2. Add the zone Part
+1. **Home** tab → **Part** → **Block**
+2. **Explorer** → rename to **Zone_Home** (F2)
+
+### 3. Move it over the house
+1. Select **Zone_Home**
+2. **Move** tool (**Ctrl+2**)
+3. Drag it over the **walkable home area** (yard, door, rooms) — **not spawn**
+
+### 4. Scale it around the house
+1. **Scale** tool (**Ctrl+3**)
+2. Size about **30×15×30** or larger so you can stand inside/on the porch
+3. Cover where the player will **Rest**
+
+### 5. Set properties
+| Property | Value |
+|----------|-------|
+| **Anchored** | ✅ on |
+| **CanCollide** | ☐ off |
+| **Transparency** | 0.5 |
+
+### 6. Save
+**File** → **Save to Roblox**
+
+---
+
+## Play test — Rest
+
+1. rojo serve → **Sync**
+2. **Play** (F5)
+3. At spawn: **Current Zone: Industrial** → **Work Shift** (optional, −20 Energy)
+4. **Walk to your house** (not spawn)
+5. Enter the semi-visible **Zone_Home** box
+6. HUD: **Current Zone: Home**
+7. Click **Rest** → Rest complete! +30 Energy.
+
+---
+
+## Remember
+
+| Zone | Where |
+|------|--------|
+| **Industrial** | Spawn/work (temporary helper may place it) |
+| **Home** | **Your existing house in the map** — manual only |
+
+Full guide: [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md)
+
+מושלם 😄
+עכשיו תעשה ידנית ב־Studio:
+
+למצוא בית במפה
+ליצור:
+Zone_Home
+לעטוף את הבית עם הקופסה
+Transparency = 0.5
+Anchored = true
+CanCollide = false
+
+ואז:
+
+Rojo → Sync
+Play
+
+כשתיכנס לבית:
+
+Current Zone: Home
+
+ויופיע:
+
+Rest
+
+🔥 עכשיו יהיה לך loop אמיתי:
+
+עבודה → כסף
+בית → מנוחה → אנרגיה
+CURSO CANT DO IT?
+
+הוא יכול 😄
+אבל יש הבדל חשוב:
+
+❌ Cursor לא שולט ב־Studio viewport
+
+הוא לא באמת “רואה” את:
+
+הבית שבחרת
+איפה בדיוק למקם
+איזה בית אתה רוצה
+
+כי המפה עצמה חיה בתוך Roblox Studio.
+
+✅ מה Cursor כן יכול לעשות
+
+הוא יכול:
+
+ליצור systems
+להזיז דברים לפי coordinates
+ליצור helper scripts
+לעשות auto placement
+לקרוא hierarchy
+🎯 ואם אתה רוצה שהוא יעשה הכל אוטומטית
+
+אז כן — אפשר.
+
+תן לו:
+
+Automatically create and place Zone_Home around the nearest visible house/building near the player spawn.
+
+Rules:
+- Workspace is Studio-owned.
+- Create only one temporary helper script.
+- Do NOT modify default.project.json.
+- Do NOT add gameplay systems.
+
+Tasks:
+1. Search Workspace for likely house/building models or Parts near SpawnLocation.
+2. Pick the closest large building near spawn.
+3. If Workspace.Zone_Home does not exist:
+   - create a Part named Zone_Home
+4. Position and size Zone_Home around the selected building automatically.
+5. Set:
+   - Anchored = true
+   - CanCollide = false
+   - Transparency = 0.5
+6. Print debug:
+   - selected building name
+   - final zone size
+   - final position
+7. Keep this as temporary prototype helper only.
+8. Output exact Play test steps.
+
+🔥 והוא כבר ינסה למקם לבד סביב בית אמיתי.
+
+מושלם 🔥
+
+זה כבר עובד:
+
+Industrial zone ✅
+Work Shift ✅
+Money/Energy/Reputation ✅
+Home zone ✅
+Rest ✅
+Zone detection ✅
+Rojo sync ✅
+
+כלומר יש לך עכשיו gameplay loop ראשון אמיתי ב־Roblox.
+
+השלב הבא הכי נכון:
+
+1. Remove coin prototype
+2. Add DataStore save/load
+3. Add day/time system
+4. Add NPC jobs
+5. Add inventory/items
+6. Add vehicles
+7. Add multiplayer sync polish
+
+כרגע המשחק כבר עבר מ־“template” ל־“real playable system”.
+
+הבא
+
+הבא: ניקוי Prototype לפני שמוסיפים שמירה.
+
+תן ל־Cursor:
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement cleanup after confirmed Phase 1 gameplay loop.
+
+Current confirmed working:
+- Industrial zone
+- Work Shift
+- Home zone
+- Rest
+- Money / Energy / Reputation
+- CurrentZone HUD
+
+Goal:
+Remove old generic simulator prototype systems.
+
+Rules:
+- Do NOT modify Workspace.
+- Do NOT change WorkShift or Rest behavior.
+- Do NOT add DataStore yet.
+- Do NOT add new gameplay.
+- Keep Rojo scripts-only.
+
+Remove:
+1. JonesCoin pickup prototype
+2. CollectPower stat
+3. Upgrade button
+4. JonesBuyCollectPowerUpgrade RemoteEvent
+5. JonesUpgrade.server.lua
+
+Delete:
+- src/ServerScriptService/JonesCoinPickup.server.lua
+- src/ServerScriptService/JonesUpgrade.server.lua
+- src/ReplicatedStorage/JonesBuyCollectPowerUpgrade.model.json
+
+Update:
+1. JonesPlayerStats.server.lua
+   - remove CollectPower creation
+
+2. JonesMoneyUi.client.lua
+   - remove prototype/upgrade UI
+   - keep Money, Energy, Reputation, CurrentZone, WorkShift, Rest
+
+3. README.md
+   - mark Phase 1 clean MVP
+   - remove prototype coin/upgrade instructions
+
+4. Docs/JONES_ROBLOX_ADAPTATION.md
+   - mark prototype retired
+   - next task: Phase 2 DataStore save/load
+
+Output:
+- changed/deleted files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes.
+
+הכל תקין 😄
+
+הפרויקט עכשיו במצב:
+
+Phase 1 COMPLETE
+
+יש לך כבר:
+
+Zones
+HUD
+Work loop
+Rest loop
+Stats
+Server authority
+Rojo workflow
+Clean architecture בלי prototype junk
+
+השלב הבא האמיתי הוא:
+
+Phase 2 — DataStore Save/Load
+
+כלומר:
+
+Money נשמר
+Energy נשמר
+Reputation נשמר
+יציאה מהמשחק ושמירה
+כניסה מחדש וטעינה
+retry logic
+autosave
+shutdown save
+anti-data-loss
+
+זה הרגע שהמשחק הופך מ־prototype ל־persistent game.
+
+נו
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement:
+Phase 2 — DataStore save/load system.
+
+IMPORTANT:
+- No Workspace changes.
+- No gameplay redesign.
+- No UI redesign.
+- Keep Rojo scripts-only architecture.
+- Keep WorkShift and Rest exactly as-is.
+- Do NOT remove temporary zone placement helpers yet.
+
+Goals:
+Persist player progression across sessions.
+
+Save/load:
+- Money
+- Energy
+- Reputation
+
+Do NOT save:
+- CurrentZone
+- temporary UI state
+- cooldown timers
+
+Create:
+1. src/ServerScriptService/JonesDataStoreService.server.lua
+
+Requirements:
+- Use DataStoreService
+- DataStore name:
+  "JonesPlayerData_v1"
+
+- Key:
+  "player_" .. player.UserId
+
+Default values:
+Money = 0
+Energy = 100
+Reputation = 0
+
+Load flow:
+- On PlayerAdded:
+  - wait for leaderstats
+  - attempt load
+  - apply loaded values
+  - fallback to defaults if missing/error
+
+Save flow:
+- On PlayerRemoving
+- BindToClose shutdown save
+- Autosave every 60 seconds
+
+Reliability:
+- pcall for all datastore operations
+- retry up to 3 times
+- warning logs on failure
+- never crash server
+
+Security:
+- Server authoritative only
+- Never trust client values
+
+Logging:
+Print useful debug:
+[JonesDataStore] Loading ...
+[JonesDataStore] Save success ...
+[JonesDataStore] Save failed ...
+[JonesDataStore] Autosave tick ...
+
+Data format:
+{
+    Money = number,
+    Energy = number,
+    Reputation = number,
+    UpdatedAt = os.time()
+}
+
+Update docs:
+1. README.md
+2. Docs/JONES_ROBLOX_ADAPTATION.md
+
+Include:
+- how to enable Studio API access
+- exact save/load test steps
+
+Important:
+Studio test requirement:
+Home -> Game Settings -> Security ->
+Enable:
+"Studio Access to API Services"
+
+Play test:
+1. Play
+2. WorkShift twice
+3. Rest once
+4. Stop
+5. Play again
+6. Values restored
+
+Output:
+- changed files
+- final file tree
+- exact Studio API toggle steps
+- exact Play test steps
+- confirmation no Workspace changes
+
+מעולה. עכשיו לבדוק לפני שממשיכים:
+
+ב־Studio:
+Home → Game Settings → Security
+להפעיל:
+Studio Access to API Services
+Save
+ואז:
+Rojo → Sync
+Play
+
+בדיקה:
+
+Work Shift פעמיים
+Stop
+Play שוב
+לוודא שהכסף/אנרגיה/מוניטין נשמרו
+
+אם עובד — הצעד הבא הנכון: Market / Buy Food.
+
+Home → Game Settings → Security אין
+
+בגרסאות החדשות זה לפעמים לא תחת Home.
+
+תנסה כך:
+
+למעלה:
+File
+לבחור:
+Game Settings
+בצד שמאל לחפש:
+Security
+להפעיל:
+Enable Studio Access to API Services
+
+אם אין Security, חפש בתוך Game Settings:
+
+Permissions
+
+או:
+
+Options
+
+עוד אפשרות: המשחק לא Published/לא פתוח כ־Experience נכון. קודם:
+
+File → Publish to Roblox As...
+
+לבחור Jones In The Lane, ואז לפתוח שוב:
+
+File → Game Settings
+
+מדהים 🚀
+
+אז עכשיו יש לך כבר:
+
+Persistent Roblox Game
+
+המערכת שומרת:
+
+Money
+Energy
+Reputation
+
+גם אחרי יציאה מהמשחק.
+
+השלב הבא הכי נכון:
+
+Market Zone + Buy Food
+
+ואז מתחיל economy loop אמיתי:
+
+Work → Earn Money
+Market → Buy Food
+Food → Restore Energy
+Home → Rest
+Repeat
+
+אחרי זה המשחק כבר מתחיל להרגיש כמו sandbox/simulator אמיתי ולא tech demo.
+
+נו
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement:
+Phase 2 Step 2 — Market Zone + Buy Food action.
+
+IMPORTANT:
+- No Workspace changes.
+- No Rojo place binding.
+- Keep scripts-only architecture.
+- Keep DataStore system unchanged.
+- Keep WorkShift and Rest unchanged.
+- Reuse existing systems.
+
+Goal:
+Create first economy consumption loop.
+
+Gameplay:
+- Industrial = earn money
+- Market = buy food
+- Food restores energy
+- Home = free rest
+
+Use existing:
+- JonesPerformAction RemoteEvent
+- JonesZoneService
+- JonesMoneyUi.client.lua
+- JonesActionService.server.lua
+
+Add:
+1. New Market action:
+   "BuyFood"
+
+Rules:
+Zone required:
+- CurrentZone == "Market"
+
+Costs/rewards:
+- Cost: 15 Money
+- Gain: +25 Energy
+- Max Energy: 100
+
+Failure messages:
+- "Not in Market zone."
+- "Not enough Money (need 15)."
+- "Energy is already full."
+
+Success message:
+- "Bought food! -15 Money, +25 Energy."
+
+Cooldown:
+- 3 seconds
+
+Server authority:
+- Server validates everything
+- Client only sends "BuyFood"
+
+UI:
+- In Market zone:
+  show button:
+    "Buy Food"
+
+- Hide outside Market zone
+
+- Keep:
+  Work Shift only in Industrial
+  Rest only in Home
+
+- Add subtle color:
+  Buy Food button:
+    warm orange/gold tone
+
+Zone support:
+- Existing fallback naming must work:
+  Zone_Market
+
+Temporary helper:
+Create:
+src/ServerScriptService/JonesZoneMarketPlacement.server.lua
+
+Behavior:
+- Find SpawnLocation
+- Place Zone_Market near market-looking tents/stalls/buildings
+- If nothing found:
+  fallback near spawn offset
+- Same style as other helpers
+- Transparency 0.5
+- Anchored true
+- CanCollide false
+
+Docs:
+Update:
+- README.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+
+Include:
+- exact Play test steps
+- Market flow
+- cooldown behavior
+
+Play test:
+1. Play
+2. Industrial → Work Shift
+3. Market → Buy Food
+4. Money decreases
+5. Energy increases
+6. Home → Rest
+7. Stop
+8. Play again
+9. Saved stats restored
+
+Output:
+- changed files
+- final file tree
+- exact Market test steps
+- confirmation no Workspace changes
+**Phase 2 Step 2 complete** — Market zone + Buy Food action. First economy consumption loop is in place.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesActionService.server.lua | Added BuyFood action |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Orange **Buy Food** button in Market |
+| src/ServerScriptService/JonesZoneMarketPlacement.server.lua | **New** — temporary Zone_Market helper |
+| README.md | Economy loop + Market test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Phase 2 step 2 marked done |
+
+**Unchanged:** DataStore, Work Shift, Rest, Workspace, default.project.json.
+
+## Economy loop
+
+
+Industrial → Work Shift (+25 Money, −20 Energy)
+     ↓
+Market → Buy Food (−15 Money, +25 Energy)
+     ↓
+Home → Rest (+30 Energy free)
+
+
+## Buy Food rules (server)
+
+| Check | Message |
+|-------|---------|
+| Zone ≠ Market | Not in Market zone. |
+| Money < 15 | Not enough Money (need 15). |
+| Energy ≥ 100 | Energy is already full. |
+| Cooldown (3s) | Buy food on cooldown. |
+| Success | Bought food! -15 Money, +25 Energy. |
+
+## Final file tree (src/)
+
+
+src/ServerScriptService/
+├── JonesActionService.server.lua      ← + BuyFood
+├── JonesDataStoreService.server.lua
+├── JonesZoneMarketPlacement.server.lua ← new
+├── JonesZoneIndustrialPlacement.server.lua
+├── JonesZoneHomePlacement.server.lua
+└── JonesZoneService.server.lua        ← Zone_Market already supported
+
+
+## Exact Market test steps
+
+1. **Game Settings → Security** → **Studio Access to API Services** ✅
+2. rojo serve → **Sync** → **Play**
+3. **Industrial** (spawn): **Work Shift** → Money **25**, Energy **80**
+4. Walk to **Market** (semi-visible Zone_Market box)
+5. HUD: **Current Zone: Market** → orange **Buy Food** button
+6. Click **Buy Food** → Money **10**, Energy **100** (capped)
+7. Click again within 3s → Buy food on cooldown.
+8. **Work Shift** again → Money **35** → **Market** → **Buy Food** → Money **20**
+9. **Home** → **Rest** if Energy dropped
+10. **Stop** → **Play** → DataStore restores Money/Energy/Reputation
+
+## Confirmations
+
+- **No Workspace changes via Rojo** — zone Part created at runtime by temporary helper only
+- **Work Shift / Rest unchanged**
+- **DataStore unchanged** — saves Money/Energy/Reputation; not cooldowns
+
+**Next recommended task:** Downtown + School zone stubs.
+
+מעולה. עכשיו לא הייתי קופץ ל־School עדיין.
+השלב הבא הכי נכון: Missions / Objective Tracker קטן, כדי שהשחקן יבין מה לעשות.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 3 — Simple Objective Tracker.
+
+Goal:
+Guide the player through the existing loop:
+1. Work at Industrial
+2. Buy Food at Market
+3. Rest at Home
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No new gameplay economy.
+- No DataStore schema changes.
+- Keep WorkShift, BuyFood, Rest unchanged.
+- Keep Rojo scripts-only.
+
+Tasks:
+1. Add a simple client-side objective panel in `JonesMoneyUi.client.lua`.
+
+2. Objective text logic:
+   - If Money < 25:
+     "Objective: Work a shift at Industrial"
+   - Else if Energy < 100 and Money >= 15:
+     "Objective: Buy food at Market"
+   - Else if Energy < 100 and Money < 15:
+     "Objective: Rest at Home or work more"
+   - Else:
+     "Objective: Explore Jones In The Lane"
+
+3. Add small status line:
+   - "Loop: Work → Food → Rest"
+
+4. Do not add quest persistence yet.
+5. Do not save objectives.
+6. Keep UI simple but clearer.
+
+7. Update README:
+   - Explain objective tracker.
+   - Add test steps.
+
+8. Update Docs/JONES_ROBLOX_ADAPTATION.md:
+   - Mark Objective Tracker as Phase 2 UX layer.
+
+Output:
+- changed files
+- final file tree
+- Play test steps
+- confirmation no Workspace changes.
+**Phase 2 Step 3 complete** — client-side objective tracker added to the HUD.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Objective panel + loop status line |
+| README.md | Objective tracker docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Phase 2 Step 3 marked as UX layer |
+
+**Unchanged:** Work Shift, Buy Food, Rest, DataStore, zones, server scripts, Workspace, default.project.json.
+
+## Objective logic (client-only)
+
+| Condition | Text |
+|-----------|------|
+| Money < 25 | Objective: Work a shift at Industrial |
+| Energy < 100 and Money ≥ 15 | Objective: Buy food at Market |
+| Energy < 100 and Money < 15 | Objective: Rest at Home or work more |
+| Otherwise | Objective: Explore Jones In The Lane |
+
+Always shown: **Loop: Work → Food → Rest**
+
+Updates live when Money or Energy change. Not saved to DataStore.
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   └── JonesPerformAction.model.json
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua
+│   ├── JonesDataStoreService.server.lua
+│   ├── JonesPlayerStats.server.lua
+│   ├── JonesServerInit.server.lua
+│   ├── JonesZoneHomePlacement.server.lua
+│   ├── JonesZoneIndustrialPlacement.server.lua
+│   ├── JonesZoneMarketPlacement.server.lua
+│   └── JonesZoneService.server.lua
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua   ← objective tracker
+
+
+## Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. HUD shows stats, **objective**, and **Loop: Work → Food → Rest**
+3. Start: objective = **Work a shift at Industrial** (Money 0)
+4. **Industrial** → **Work Shift** → Money **25**, Energy **80**
+5. Objective → **Buy food at Market**
+6. **Market** → **Buy Food** → Money **10**, Energy **100**
+7. Objective → **Explore Jones In The Lane**
+8. **Work Shift** twice (10s cooldown) → low Energy, Money **35**
+9. Objective → **Buy food at Market** again
+10. Spend to Money **10** with low Energy → **Rest at Home or work more**
+11. **Home** → **Rest** as needed
+12. **Stop** → **Play** → stats restore; objective recalculates from loaded Money/Energy (not from saved quest state)
+
+## Confirmations
+
+- **No Workspace changes** — UI only in JonesMoneyUi.client.lua
+- **No new zones or economy rules**
+- **No DataStore schema changes**
+- **Rojo build passes**
+
+מעולה. עכשיו יש כבר משחק שמכוון את השחקן, לא רק כפתורים.
+
+השלב הבא הכי נכון: Daily Needs קטן — אבל בלי לסבך. להתחיל עם Hunger בלבד.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 4 — Hunger stat and food meaning.
+
+Goal:
+Make Buy Food meaningful beyond only Energy.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization.
+- No combat.
+- No vehicles.
+- Keep Rojo scripts-only.
+- Keep WorkShift / Rest / BuyFood behavior mostly unchanged.
+- Keep DataStore safe.
+
+Add stat:
+- Hunger
+- Starts at 100
+- Saved in DataStore
+- Shows in HUD
+
+Behavior:
+1. WorkShift:
+   - Money +25
+   - Energy -20
+   - Reputation +1
+   - Hunger -10
+   - Cannot WorkShift if Hunger < 20
+   - Failure message: "Too hungry to work (need 20 Hunger)."
+
+2. BuyFood:
+   - Cost 15 Money
+   - Energy +25, cap 100
+   - Hunger +35, cap 100
+   - If Energy is full but Hunger is below 100, allow buying food.
+   - Only reject if both Energy >= 100 AND Hunger >= 100.
+   - Failure message: "Energy and Hunger are already full."
+   - Success message: "Bought food! -15 Money, +25 Energy, +35 Hunger."
+
+3. Rest:
+   - Keep Energy +30 cap 100
+   - Do not change Hunger
+
+DataStore:
+- Save/load Hunger
+- Backward compatible:
+  If old data has no Hunger, default to 100
+
+HUD:
+- Add Hunger line
+- Objective tracker update:
+  - If Hunger < 20: "Objective: Buy food at Market"
+  - Else keep existing objective logic
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore backward compatibility note
+- confirmation no Workspace changes
+**Phase 2 Step 3 complete** — client-side objective tracker added to the HUD.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Objective panel + loop status line |
+| README.md | Objective tracker docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Phase 2 Step 3 marked as UX layer |
+
+**Unchanged:** Work Shift, Buy Food, Rest, DataStore, zones, server scripts, Workspace, default.project.json.
+
+## Objective logic (client-only)
+
+| Condition | Text |
+|-----------|------|
+| Money < 25 | Objective: Work a shift at Industrial |
+| Energy < 100 and Money ≥ 15 | Objective: Buy food at Market |
+| Energy < 100 and Money < 15 | Objective: Rest at Home or work more |
+| Otherwise | Objective: Explore Jones In The Lane |
+
+Always shown: **Loop: Work → Food → Rest**
+
+Updates live when Money or Energy change. Not saved to DataStore.
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   └── JonesPerformAction.model.json
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua
+│   ├── JonesDataStoreService.server.lua
+│   ├── JonesPlayerStats.server.lua
+│   ├── JonesServerInit.server.lua
+│   ├── JonesZoneHomePlacement.server.lua
+│   ├── JonesZoneIndustrialPlacement.server.lua
+│   ├── JonesZoneMarketPlacement.server.lua
+│   └── JonesZoneService.server.lua
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua   ← objective tracker
+
+
+## Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. HUD shows stats, **objective**, and **Loop: Work → Food → Rest**
+3. Start: objective = **Work a shift at Industrial** (Money 0)
+4. **Industrial** → **Work Shift** → Money **25**, Energy **80**
+5. Objective → **Buy food at Market**
+6. **Market** → **Buy Food** → Money **10**, Energy **100**
+7. Objective → **Explore Jones In The Lane**
+8. **Work Shift** twice (10s cooldown) → low Energy, Money **35**
+9. Objective → **Buy food at Market** again
+10. Spend to Money **10** with low Energy → **Rest at Home or work more**
+11. **Home** → **Rest** as needed
+12. **Stop** → **Play** → stats restore; objective recalculates from loaded Money/Energy (not from saved quest state)
+
+## Confirmations
+
+- **No Workspace changes** — UI only in JonesMoneyUi.client.lua
+- **No new zones or economy rules**
+- **No DataStore schema changes**
+- **Rojo build passes**
+
+זה אותו סיכום של Step 3 — עדיין לא הרצת את הפרומפט של Hunger.
+
+תן עכשיו ל־Cursor את הפרומפט הבא:
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 4 — Hunger stat and food meaning.
+
+Goal:
+Make Buy Food meaningful beyond only Energy.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization.
+- No combat.
+- No vehicles.
+- Keep Rojo scripts-only.
+- Keep WorkShift / Rest / BuyFood behavior mostly unchanged.
+- Keep DataStore safe.
+
+Add stat:
+- Hunger
+- Starts at 100
+- Saved in DataStore
+- Shows in HUD
+
+Behavior:
+1. WorkShift:
+   - Money +25
+   - Energy -20
+   - Reputation +1
+   - Hunger -10
+   - Cannot WorkShift if Hunger < 20
+   - Failure message: "Too hungry to work (need 20 Hunger)."
+
+2. BuyFood:
+   - Cost 15 Money
+   - Energy +25, cap 100
+   - Hunger +35, cap 100
+   - If Energy is full but Hunger is below 100, allow buying food.
+   - Only reject if both Energy >= 100 AND Hunger >= 100.
+   - Failure message: "Energy and Hunger are already full."
+   - Success message: "Bought food! -15 Money, +25 Energy, +35 Hunger."
+
+3. Rest:
+   - Keep Energy +30 cap 100
+   - Do not change Hunger
+
+DataStore:
+- Save/load Hunger
+- Backward compatible:
+  If old data has no Hunger, default to 100
+
+HUD:
+- Add Hunger line
+- Objective tracker update:
+  - If Hunger < 20: "Objective: Buy food at Market"
+  - Else keep existing objective logic
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore backward compatibility note
+- confirmation no Workspace changes
+**Phase 2 Step 4 complete** — Hunger stat makes food meaningful beyond Energy alone.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesPlayerStats.server.lua | Added Hunger (starts at 100) |
+| src/ServerScriptService/JonesDataStoreService.server.lua | Save/load Hunger; backward-compatible default |
+| src/ServerScriptService/JonesActionService.server.lua | WorkShift/BuyFood Hunger rules |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Hunger HUD + objective priority |
+| README.md | Hunger docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Phase 2 Step 4 marked done |
+
+## Behavior summary
+
+| Action | Changes |
+|--------|---------|
+| **Work Shift** | +25 Money, −20 Energy, **−10 Hunger**, +1 Rep · blocked if Hunger < 20 |
+| **Buy Food** | −15 Money, +25 Energy, **+35 Hunger** · blocked only if **both** Energy and Hunger are 100 |
+| **Rest** | +30 Energy only (unchanged) |
+
+## DataStore backward compatibility
+
+- Same store: JonesPlayerData_v1 (no schema version bump).
+- **New saves** include Hunger.
+- **Old saves** without Hunger load with **Hunger = 100** automatically in sanitizeLoadedData.
+- Existing Money/Energy/Reputation values are preserved.
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   └── JonesPerformAction.model.json
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua      ← Hunger rules
+│   ├── JonesDataStoreService.server.lua   ← Hunger save/load
+│   ├── JonesPlayerStats.server.lua        ← Hunger stat
+│   ├── JonesServerInit.server.lua
+│   ├── JonesZoneHomePlacement.server.lua
+│   ├── JonesZoneIndustrialPlacement.server.lua
+│   ├── JonesZoneMarketPlacement.server.lua
+│   └── JonesZoneService.server.lua
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua            ← Hunger + objectives
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play** (API Services enabled)
+2. HUD: **Hunger: 100**
+3. **Industrial** → **Work Shift** ×9 (10s cooldown) → Hunger **10**
+4. **Work Shift** again → Too hungry to work (need 20 Hunger).
+5. Objective → **Buy food at Market**
+6. **Market** →length **Buy Food** → Hunger **45**, Energy restored
+7. **Buy Food** again (3s wait) → Hunger **80**
+8. At Energy **100**, Hunger **80** → **Buy Food** still works
+9. When both **100** → Energy and Hunger are already full.
+10. **Home** → **Rest** → Energy up, Hunger unchanged
+11. **Stop** → **Play** → Hunger (and other stats) restored from DataStore
+
+## Confirmations
+
+- **No Workspace changes**
+- **No new zones, monetization, combat, or vehicles**
+- **WorkShift / Rest / BuyFood core costs unchanged** (Hunger layered on top)
+- **Rojo build passes**
+
+מצוין. עכשיו הלופ כבר הרבה יותר “חיים”:
+
+Work → Hunger יורד → Buy Food → Hunger/Energy עולים → Rest → Energy עולה
+
+השלב הבא הכי נכון: Bank / Deposit Wallet — כי זה ב־SPEC של Jones ונותן משמעות לכסף.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 5 — Bank account MVP.
+
+Goal:
+Split money into Wallet and BankBalance.
+
+Rules:
+- No Workspace changes.
+- No new zones except existing/fallback Zone_Bank support if already supported.
+- No monetization.
+- No trading.
+- No combat.
+- Keep Rojo scripts-only.
+- Keep DataStore safe and backward-compatible.
+
+Stats:
+1. Rename/keep existing Money as Wallet for HUD label, but preserve existing IntValue name if safer:
+   - Existing `Money` IntValue remains for compatibility.
+   - HUD label should show: `Wallet: <Money>`
+2. Add:
+   - BankBalance starts at 0
+   - Saved in DataStore
+
+Zone:
+- Add support for `Bank` zone:
+  - Tag: JonesZone_Bank
+  - Fallback Part name: Zone_Bank
+
+Actions:
+Use existing JonesPerformAction RemoteEvent.
+
+Add Bank actions:
+1. DepositAll
+   - Requires CurrentZone == "Bank"
+   - If Money <= 0: "No wallet money to deposit."
+   - Move all Money into BankBalance
+   - Success: "Deposited all wallet money."
+
+2. Withdraw25
+   - Requires CurrentZone == "Bank"
+   - If BankBalance < 25: "Not enough bank balance."
+   - Move 25 from BankBalance to Money
+   - Success: "Withdrew 25 from bank."
+
+UI:
+- HUD shows:
+  - Wallet
+  - Bank
+  - Energy
+  - Hunger
+  - Reputation
+  - CurrentZone
+
+- If CurrentZone == "Bank":
+  show buttons:
+  - Deposit All
+  - Withdraw 25
+
+Do not show Bank buttons outside Bank zone.
+
+Temporary helper:
+Create:
+src/ServerScriptService/JonesZoneBankPlacement.server.lua
+
+Behavior:
+- Create/reuse Workspace.Zone_Bank at runtime for testing.
+- Place near a building likely named bank/store/office if found.
+- Fallback near spawn offset.
+- Size 50, 18, 50
+- Anchored true
+- CanCollide false
+- Transparency 0.5
+- Temporary only.
+
+DataStore:
+- Save/load BankBalance
+- Old saves without BankBalance default to 0
+- Keep store name JonesPlayerData_v1
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Play test:
+1. WorkShift twice
+2. Go to Bank
+3. Deposit All
+4. Wallet becomes 0
+5. Bank increases
+6. Withdraw 25
+7. Wallet increases 25
+8. Stop
+9. Play again
+10. Wallet/Bank restored
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore backward compatibility note
+- confirmation no Workspace changes
+**Phase 2 Step 5 complete** — Wallet + BankBalance split with Bank zone actions.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesPlayerStats.server.lua | Added BankBalance (starts 0); kept Money IntValue |
+| src/ServerScriptService/JonesDataStoreService.server.lua | Save/load BankBalance; backward-compatible default |
+| src/ServerScriptService/JonesZoneService.server.lua | JonesZone_Bank / Zone_Bank → "Bank" |
+| src/ServerScriptService/JonesActionService.server.lua | DepositAll, Withdraw25 |
+| src/ServerScriptService/JonesZoneBankPlacement.server.lua | **New** temporary Zone_Bank helper |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Wallet/Bank HUD + bank buttons |
+| README.md | Bank docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Phase 2 Step 5 marked done |
+
+## Bank actions (server)
+
+| Action | Rules |
+|--------|--------|
+| **DepositAll** | Bank zone only · moves all Wallet → Bank · No wallet money to deposit. if Wallet ≤ 0 |
+| **Withdraw25** | Bank zone only · moves 25 Bank → Wallet · Not enough bank balance. if Bank < 25 |
+
+Work Shift, Buy Food, and Rest are unchanged (Buy Food still spends **Wallet** only).
+
+## DataStore backward compatibility
+
+- Store name unchanged: **JonesPlayerData_v1**
+- **New field:** BankBalance saved on every save
+- **Old saves** without BankBalance → load with **BankBalance = 0**
+- **Old saves** without Hunger → still default to **100**
+- Wallet still stored as **Money** in DataStore (HUD label: Wallet)
+
+## Final file tree (src/)
+
+
+src/ServerScriptService/
+├── JonesActionService.server.lua       ← DepositAll, Withdraw25
+├── JonesDataStoreService.server.lua    ← BankBalance save/load
+├── JonesPlayerStats.server.lua         ← BankBalance stat
+├── JonesZoneBankPlacement.server.lua   ← new (runtime Zone_Bank)
+├── JonesZoneHomePlacement.server.lua
+├── JonesZoneIndustrialPlacement.server.lua
+├── JonesZoneMarketPlacement.server.lua
+└── JonesZoneService.server.lua         ← Bank zone detection
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play** (API Services enabled)
+2. **Industrial** → **Work Shift** ×2 (10s cooldown) → **Wallet 50**, **Bank 0**
+3. Walk to **Bank** → **Current Zone: Bank**
+4. **Deposit All** → **Wallet 0**, **Bank 50**
+5. **Deposit All** again → No wallet money to deposit.
+6. **Withdraw 25** → **Wallet 25**, **Bank 25**
+7. **Withdraw 25** again → **Wallet 50**, **Bank 0**
+8. **Withdraw 25** with Bank 0 → Not enough bank balance.
+9. **Stop** → **Play** → Wallet and Bank restored from DataStore
+
+## Confirmations
+
+- **No Workspace in Rojo** — Zone_Bank created at runtime by temporary helper only (50×18×50, transparency 0.5)
+- **No monetization, trading, combat, or vehicles**
+- **Rojo build passes**
+
+מעולה. עכשיו יש כבר:
+
+Work → Money
+Market → Food
+Home → Rest
+Bank → Deposit/Withdraw
+Save/Load
+
+השלב הבא הכי נכון: Daily Clock קטן — לתת תחושת יום/חיים.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 6 — Simple Day/Clock system.
+
+Goal:
+Add a lightweight in-game clock so Jones feels like a living neighborhood.
+
+Rules:
+- No Workspace changes.
+- No monetization.
+- No combat.
+- No vehicles.
+- No trading.
+- No new DataStore fields yet unless required.
+- Keep Rojo scripts-only.
+- Do not redesign HUD.
+
+Create:
+1. ServerScriptService/JonesTimeService.server.lua
+
+Behavior:
+- Server owns time.
+- Start at Day 1, 08:00.
+- Every real 5 seconds = +10 game minutes.
+- 24-hour wrap.
+- When passing midnight:
+  - Day += 1
+
+Replicate:
+- Add StringValue or NumberValues under ReplicatedStorage:
+  - JonesDay
+  - JonesClockText
+- Example HUD text:
+  - Day 1 · 08:00
+
+Client:
+- Update JonesMoneyUi.client.lua
+- Show Day/Clock line near top of HUD.
+
+Do NOT save day/time yet.
+Reason:
+- For MVP test, reset time each server session.
+- Save later when world progression is stable.
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 6 is already implemented** in the repo. No further code changes were needed — here is the current state.
+
+## Changed files (Step 6)
+
+| File | Role |
+|------|------|
+| src/ServerScriptService/JonesTimeService.server.lua | Server-owned clock loop |
+| src/ReplicatedStorage/JonesDay.model.json | IntValue — current day |
+| src/ReplicatedStorage/JonesClockText.model.json | StringValue — HUD text |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Clock line at top of HUD |
+| README.md | Day/clock docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 6 marked done |
+
+## Time behavior
+
+| Setting | Value |
+|---------|--------|
+| Start | **Day 1 · 08:00** |
+| Tick | Every **5 real seconds** → **+10 game minutes** |
+| Midnight | Wrap to **00:00**, **Day += 1** |
+| Saved | **No** — resets each server session |
+| Replication | JonesDay + JonesClockText in ReplicatedStorage |
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   ├── JonesClockText.model.json
+│   ├── JonesDay.model.json
+│   └── JonesPerformAction.model.json
+├── ServerScriptService/
+│   ├── JonesTimeService.server.lua   ← clock
+│   └── … (existing services)
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua       ← clock line at top
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. HUD top line: **Day 1 · 08:00**
+3. Wait **5 seconds** → **08:10**
+4. Wait **5 more seconds** → **08:20**
+5. Output: [JonesTimeService] Started at Day 1 · 08:00 (every 5s = +10 game minutes)
+6. (Optional) Wait until **23:50** → next tick → **Day 2 · 00:00** + New day: Day 2
+7. **Stop** → **Play** → clock resets to **Day 1 · 08:00** (by design)
+
+## Confirmations
+
+- **No Workspace changes**
+- **No new DataStore fields**
+- **HUD not redesigned** — one clock line added at the top
+- **Rojo build passes**
+
+If you want tweaks (e.g. faster ticks for testing, or tying work shifts to time-of-day), say what you’d like changed.
+
+מעולה. אם Step 6 כבר קיים — ממשיכים ל־Time Rules for Actions: עבודה רק בשעות פעילות. זה מוסיף משמעות לשעון.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 7 — Time-gated actions.
+
+Goal:
+Make the clock affect gameplay without overcomplicating.
+
+Rules:
+- No Workspace changes.
+- No DataStore schema changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep existing Day/Clock service.
+
+Add simple time rules:
+1. WorkShift allowed only between 08:00 and 18:00.
+   Failure message:
+   "Work is closed. Come back between 08:00 and 18:00."
+
+2. BuyFood allowed only between 07:00 and 22:00.
+   Failure message:
+   "Market is closed. Come back between 07:00 and 22:00."
+
+3. Rest allowed anytime.
+
+Implementation:
+- Expose current game minutes from JonesTimeService in a clean way.
+- Keep server authoritative.
+- Server validates time before changing stats.
+- Client may still show buttons, but server must reject if closed.
+- Optional: button text can show closed status if easy.
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 7 complete** — the clock now gates Work Shift and Buy Food.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ReplicatedStorage/JonesGameMinutes.model.json | **New** — minutes-from-midnight (0–1439) |
+| src/ServerScriptService/JonesTimeService.server.lua | Replicates JonesGameMinutes each tick |
+| src/ServerScriptService/JonesActionService.server.lua | Server time checks before Work/Buy Food |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | **(Closed)** button labels when outside hours |
+| README.md | Time-gate rules + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 7 marked done |
+
+## Time rules (server authority)
+
+| Action | Allowed hours | Failure message |
+|--------|---------------|-----------------|
+| **Work Shift** | 08:00–18:00 | Work is closed. Come back between 08:00 and 18:00. |
+| **Buy Food** | 07:00–22:00 | Market is closed. Come back between 07:00 and 22:00. |
+| **Rest** | Anytime | — |
+
+Time source: JonesGameMinutes in ReplicatedStorage (updated by JonesTimeService).
+
+## Final file tree (new/changed)
+
+
+src/ReplicatedStorage/
+├── JonesGameMinutes.model.json   ← new
+├── JonesDay.model.json
+├── JonesClockText.model.json
+└── JonesPerformAction.model.json
+
+src/ServerScriptService/
+├── JonesTimeService.server.lua   ← + JonesGameMinutes
+└── JonesActionService.server.lua ← time validation
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. At **08:00** → **Industrial** → **Work Shift** succeeds
+3. **Market** → **Buy Food** succeeds
+4. Wait until **18:10** (~5 real min from start)
+5. **Industrial** → **Work Shift** → closed message; button shows **Work Shift (Closed)**
+6. **Market** → **Buy Food** still works at 18:10
+7. Wait until **22:10** → **Buy Food** → market closed message
+8. **Home** → **Rest** works anytime (e.g. after 22:10)
+
+## Confirmations
+
+- **No Workspace changes**
+- **No DataStore schema changes**
+- **No new zones**
+- **Rojo build passes**
+
+מעולה. עכשיו יש כבר:
+
+כסף + אנרגיה + רעב + בנק + זמן + שעות פתיחה + שמירה
+
+השלב הבא הכי נכון: Daily Rent / Bills קטן — כדי שלבנק ולכסף תהיה משמעות.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 8 — Daily rent/bill at midnight.
+
+Goal:
+Make the Bank/Wallet economy matter with a simple daily cost.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization.
+- No combat/vehicles/trading.
+- No DataStore schema changes unless strictly needed.
+- Keep Rojo scripts-only.
+- Keep WorkShift/BuyFood/Rest behavior unchanged.
+
+Daily bill:
+- At midnight when Day increments:
+  - Charge 30 total if possible.
+  - Prefer BankBalance first.
+  - If BankBalance has less than 30, take remaining from Money.
+  - If both are insufficient:
+    - Set BankBalance = 0
+    - Set Money = 0
+    - Reputation -2, minimum 0
+    - Show/replicate message: "Daily bill missed. Reputation decreased."
+  - If paid:
+    - Show/replicate message: "Daily bill paid: 30."
+
+Implementation:
+1. Server authority.
+2. Hook into JonesTimeService day rollover cleanly.
+3. Add ReplicatedStorage StringValue:
+   - JonesWorldMessage
+4. HUD shows last world message under objective/status.
+5. Do NOT spam messages every tick; only on bill event.
+6. Do not save JonesWorldMessage.
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Play test:
+- For testing only, allow a constant/config in JonesTimeService:
+  TEST_FAST_DAY = false by default
+  Document how to temporarily set true if needed.
+- Do not leave fast mode on.
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 8 complete** — daily rent/bill at midnight.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesDailyBill.lua | **New** — bill logic module |
+| src/ServerScriptService/JonesTimeService.server.lua | Midnight hook + TEST_FAST_DAY |
+| src/ReplicatedStorage/JonesWorldMessage.model.json | **New** — last world message |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | World message line in HUD |
+| README.md | Daily bill docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 8 marked done |
+
+## Daily bill rules (server)
+
+| Case | Effect |
+|------|--------|
+| **Paid** (Bank + Wallet ≥ 30) | Deduct **30** (bank first, then wallet) → Daily bill paid: 30. |
+| **Missed** (total < 30) | Bank **0**, Wallet **0**, Reputation **−2** (min 0) → Daily bill missed. Reputation decreased. |
+
+- Runs only when **day increments at midnight** (not on session start)
+- Work Shift / Buy Food / Rest unchanged
+- Message via JonesWorldMessage + action status (not saved)
+
+## TEST_FAST_DAY (testing only)
+
+In JonesTimeService.server.lua:
+
+
+lua
+local TEST_FAST_DAY = false  -- must stay false in repo
+
+
+Set to true locally → **1 real second = +120 game minutes** (~8s from 08:00 to midnight). Reset to false after testing.
+
+## Final file tree (new/changed)
+
+
+src/ReplicatedStorage/
+└── JonesWorldMessage.model.json   ← new
+
+src/ServerScriptService/
+├── JonesDailyBill.lua             ← new (ModuleScript)
+└── JonesTimeService.server.lua    ← midnight + TEST_FAST_DAY
+
+
+## Exact Play test steps
+
+**Paid bill**
+
+1. **Play** → **Work Shift** ×2 → Wallet **50**
+2. **Bank** → **Deposit All** → Wallet **0**, Bank **50**
+3. Wait for **Day 2 · 00:00** (~5 min) or TEST_FAST_DAY = true (~8s)
+4. Bank **20**, Wallet **0**
+5. World message: Daily bill paid: 30.
+
+**Missed bill**
+
+1. **Play** with Wallet **0**, Bank **0**, Reputation **2**
+2. Trigger midnight
+3. Reputation **0**; message: Daily bill missed. Reputation decreased.
+
+## Confirmations
+
+- **No Workspace changes**
+- **No DataStore schema changes**
+- **No new zones**
+- **Rojo build passes**
+
+מצוין. עכשיו הכלכלה כבר מתחילה “לנשוך”.
+
+השלב הבא הנכון: Job Level קטן — להתקדמות אמיתית בלי Shop גנרי.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 9 — Job XP and Job Level.
+
+Goal:
+Give Work Shift long-term progression.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep DataStore safe and backward-compatible.
+- Keep existing actions mostly unchanged.
+
+Stats:
+Add:
+- JobXP starts at 0
+- JobLevel starts at 1
+
+DataStore:
+- Save/load JobXP and JobLevel
+- Old saves default:
+  JobXP = 0
+  JobLevel = 1
+
+WorkShift changes:
+- On success:
+  - +10 JobXP
+  - Existing rewards still apply
+- Level rule:
+  - Need 50 XP per level
+  - When JobXP >= 50:
+    - JobXP -= 50
+    - JobLevel += 1
+    - World message:
+      "Job level up! Level <n>."
+
+Reward scaling:
+- WorkShift Money reward:
+  - base 25 + ((JobLevel - 1) * 5)
+- Keep Energy/Hunger/Reputation changes same.
+
+HUD:
+- Show:
+  Job Level
+  Job XP / 50
+
+Objective:
+- If JobLevel < 2 and Money < 25:
+  "Objective: Work shifts to reach Job Level 2"
+- Otherwise keep existing logic.
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Play test:
+1. WorkShift 5 times
+2. JobLevel becomes 2
+3. Money reward becomes 30
+4. Stop/Play
+5. JobXP/JobLevel restored
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore backward compatibility note
+- confirmation no Workspace changes
+**Phase 2 Step 9 complete** — Job XP and Job Level add long-term Work Shift progression.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesPlayerStats.server.lua | Added JobXP (0), JobLevel (1) |
+| src/ServerScriptService/JonesDataStoreService.server.lua | Save/load with backward-compatible defaults |
+| src/ServerScriptService/JonesActionService.server.lua | +10 XP, level-up, scaled pay, world message |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Job HUD + objective for Level 2 |
+| README.md | Job progression docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 9 marked done |
+
+## Work Shift progression
+
+| Rule | Value |
+|------|--------|
+| XP per shift | **+10 Job XP** |
+| Level threshold | **50 XP** → level up, XP −50 |
+| Money reward | **25 + (JobLevel − 1) × 5** |
+| Level 1 pay | 25 |
+| Level 2 pay | 30 |
+| Energy/Hunger/Rep | Unchanged (−20 / −10 / +1) |
+| Level-up message | Job level up! Level <n>. |
+
+XP and level are applied **before** money is calculated, so the 5th shift (50 XP) levels up and pays **30**.
+
+## DataStore backward compatibility
+
+- Store name unchanged: **JonesPlayerData_v1**
+- **New fields:** JobXP, JobLevel
+- **Old saves** without them → **JobXP = 0**, **JobLevel = 1**
+
+## Final file tree (changed)
+
+
+src/ServerScriptService/
+├── JonesActionService.server.lua    ← XP, level, scaled pay
+├── JonesDataStoreService.server.lua ← JobXP/JobLevel save/load
+└── JonesPlayerStats.server.lua      ← JobXP, JobLevel stats
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play** (API Services on)
+2. HUD: **Job Level: 1**, **Job XP: 0 / 50**
+3. **Industrial** → **Work Shift** ×5 (10s cooldown; **Buy Food** if Hunger < 20)
+4. Shifts 1–4: **+25 Wallet**, XP 10→20→30→40
+5. Shift 5: **Job Level 2**, **Job XP: 0 / 50**, **+30 Wallet**
+6. World message: Job level up! Level 2.
+7. **Stop** → **Play** → Job Level and Job XP restored
+
+## Confirmations
+
+- **No Workspace changes**
+- **No new zones**
+- **Rojo build passes**
+
+מעולה. עכשיו יש כבר Progression אמיתי.
+
+השלב הבא שאני ממליץ: Job Board קטן — לא עוד כפתור גנרי, אלא תחילת מערכת עבודות אמיתית.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 10 — Job Board MVP.
+
+Goal:
+Turn Work Shift from a generic button into the first structured job system.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep DataStore safe.
+- Keep existing WorkShift behavior mostly unchanged.
+
+Concept:
+Industrial zone has a simple job board with available jobs.
+For now only one job exists:
+- Warehouse Shift
+
+Implementation:
+1. Add a small server-side job definition table/module:
+   - ServerScriptService/JonesJobs.lua
+
+2. Define job:
+   Id = "WarehouseShift"
+   DisplayName = "Warehouse Shift"
+   Zone = "Industrial"
+   BasePay = 25
+   EnergyCost = 20
+   HungerCost = 10
+   ReputationReward = 1
+   XPReward = 10
+   CooldownSeconds = 10
+   OpenMinutes = 08:00
+   CloseMinutes = 18:00
+
+3. Refactor JonesActionService:
+   - WorkShift uses the WarehouseShift definition
+   - Keep action name "WorkShift" for compatibility
+   - No behavior change except messages may say Warehouse Shift
+
+4. HUD:
+   - In Industrial zone show:
+     "Job: Warehouse Shift"
+     button: "Start Warehouse Shift"
+   - Keep objective logic compatible.
+
+5. Docs:
+   - README
+   - Docs/JONES_ROBLOX_ADAPTATION.md
+   - Add short Docs/JONES_JOBS.md explaining job definitions.
+
+6. Output:
+   - changed files
+   - final file tree
+   - exact Play test steps
+   - confirmation no Workspace changes
+**Phase 2 Step 10 complete** — Work Shift is now the **Warehouse Shift** job from a structured job board.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesJobs.lua | **New** — job definitions module |
+| src/ServerScriptService/JonesActionService.server.lua | Refactored to performJob() via JonesJobs |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Job board label + **Start Warehouse Shift** button |
+| Docs/JONES_JOBS.md | **New** — job definition docs |
+| README.md | Job board docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 10 marked done |
+
+## Warehouse Shift (from JonesJobs.lua)
+
+| Field | Value |
+|-------|--------|
+| Id | WarehouseShift |
+| Zone | Industrial |
+| BasePay | 25 (+5 per Job Level) |
+| Energy / Hunger | −20 / −10 |
+| XP / Rep | +10 / +1 |
+| Cooldown | 10s |
+| Hours | 08:00–18:00 |
+
+- Remote action name stays **WorkShift**
+- Gameplay unchanged; messages use **Warehouse Shift**
+
+## Final file tree (new/changed)
+
+
+src/ServerScriptService/
+├── JonesJobs.lua                    ← new
+└── JonesActionService.server.lua    ← uses JonesJobs
+
+Docs/
+└── JONES_JOBS.md                    ← new
+
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. Walk to **Industrial**
+3. HUD: **Job: Warehouse Shift** + **Start Warehouse Shift**
+4. Click → Warehouse Shift complete! +25 Money, ...
+5. After 5 shifts → **Job Level 2**; next shift pays **+30**
+6. Outside hours → **Start Warehouse Shift (Closed)**
+7. **Stop** → **Play** → Job XP/Level restored (DataStore unchanged schema)
+
+## Confirmations
+
+- **No Workspace changes**
+- **No new zones**
+- **No DataStore schema changes**
+- **Rojo build passes**
+
+מעולה. עכשיו יש כבר התחלה של מערכת Jobs אמיתית.
+
+השלב הבא הנכון: להוסיף Job שני בלי לשבור כלום — כדי לבדוק שה־Job Board באמת מודולרי.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_JOBS.md
+
+Implement Phase 2 Step 11 — Second Industrial job.
+
+Goal:
+Prove the job board supports more than one job.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep DataStore schema unchanged.
+- Keep Warehouse Shift working.
+
+Add job:
+Id = "CleanupShift"
+DisplayName = "Cleanup Shift"
+Zone = "Industrial"
+BasePay = 15
+EnergyCost = 10
+HungerCost = 5
+ReputationReward = 1
+XPReward = 5
+CooldownSeconds = 6
+OpenMinutes = 08:00
+CloseMinutes = 20:00
+
+Implementation:
+1. Add CleanupShift to `JonesJobs.lua`.
+
+2. Update `JonesActionService.server.lua`:
+   - Support action `"CleanupShift"`.
+   - Use same generic `performJob()` path.
+   - Keep `"WorkShift"` mapping to WarehouseShift for compatibility.
+
+3. Update HUD in `JonesMoneyUi.client.lua`:
+   - In Industrial zone show two job buttons:
+     - Start Warehouse Shift
+     - Start Cleanup Shift
+   - Show closed label outside hours if applicable.
+   - Keep simple layout.
+
+4. Objective tracker:
+   - If low Hunger/Energy, existing objective rules still win.
+   - Otherwise industrial objective can mention:
+     "Objective: Choose a job at Industrial"
+
+5. Docs:
+   - Update README
+   - Update Docs/JONES_JOBS.md
+   - Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Play test:
+1. Industrial → Cleanup Shift
+2. Confirm +15 Wallet, -10 Energy, -5 Hunger, +5 XP, +1 Rep
+3. Confirm Warehouse Shift still works
+4. Confirm cooldowns are independent if currently implemented per action; if cooldowns are global, document it clearly and do not overengineer.
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 11 complete** — Cleanup Shift added as a second Industrial job.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesJobs.lua | Added CleanupShift definition |
+| src/ServerScriptService/JonesActionService.server.lua | CleanupShift action + **per-job cooldowns** |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Two job buttons + updated objective |
+| Docs/JONES_JOBS.md | Both jobs + cooldown note |
+| README.md | Job board docs + test steps |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 11 marked done |
+
+## Cleanup Shift
+
+| Field | Value |
+|-------|--------|
+| Action | CleanupShift |
+| Pay / costs | +15 Wallet, −10 Energy, −5 Hunger |
+| XP / Rep | +5 XP, +1 Reputation |
+| Cooldown | **6s** (per job) |
+| Hours | **08:00–20:00** |
+
+Warehouse Shift unchanged (WorkShift action, 08:00–18:00, 10s cooldown).
+
+## Cooldowns
+
+**Per job id** (independent). Cleanup Shift no longer shares Warehouse Shift’s cooldown — previously all jobs used one timer; that’s fixed without extra complexity.
+
+## Exact Play test steps
+
+1. rojo serve → **Sync** → **Play**
+2. **Industrial** → HUD: **Jobs: Warehouse · Cleanup**
+3. **Start Cleanup Shift** → +15 Wallet, −10 Energy, −5 Hunger, +5 XP, +1 Rep
+4. **Start Warehouse Shift** → still works (+25 at Level 1)
+5. Run Cleanup again within 6s → Cleanup Shift on cooldown.
+6. Warehouse still available immediately (independent cooldown)
+7. At **18:10** → Warehouse **(Closed)**; Cleanup open until **20:00**
+8. Objective (Wallet < 25, Hunger OK): **Choose a job at Industrial**
+
+## Confirmations
+
+- **No Workspace changes**
+- **No new zones**
+- **No DataStore schema changes**
+- **Rojo build passes**
+
+מעולה. עכשיו ה־Job Board הוכיח שהוא מודולרי.
+
+השלב הבא הכי נכון: Job selection / active job feedback קטן — לא להוסיף עוד מערכות, אלא להפוך את העבודה לברורה לשחקן.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_JOBS.md
+
+Implement Phase 2 Step 12 — Job action feedback polish.
+
+Goal:
+Make the job board feel clearer and more game-like without adding new systems.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No DataStore schema changes.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Do not redesign the whole HUD.
+
+Tasks:
+1. Add per-action result messages that include the job name:
+   - "Warehouse Shift complete! +<pay> Wallet, -20 Energy, -10 Hunger, +10 XP."
+   - "Cleanup Shift complete! +15 Wallet, -10 Energy, -5 Hunger, +5 XP."
+
+2. In the HUD, show a small "Last Action" line using the existing status/result text.
+
+3. Add button cooldown hint:
+   - If a job is on cooldown, keep button visible but label can show "(Cooldown)" if easy.
+   - Server remains source of truth.
+
+4. Improve job board labels:
+   - Show job pay/cost hints:
+     - Warehouse: +pay / -20E / -10H
+     - Cleanup: +15 / -10E / -5H
+
+5. Keep all validation server-side.
+
+Docs:
+- Update README
+- Update Docs/JONES_JOBS.md
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 12 — Job action feedback polish** is complete.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesJobs.lua | getCompleteMessage(), getHintText(), getCooldownAttributeName() |
+| src/ServerScriptService/JonesActionService.server.lua | Per-job cooldown via player attributes; complete messages with job name |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Pay/cost hints, **Last Action** line, **(Cooldown)** button hint, attribute + heartbeat refresh |
+| README.md | Step 12 behavior + play test steps |
+| Docs/JONES_JOBS.md | Complete messages, cooldown attributes, HUD hint format |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 12 marked done |
+
+rojo build succeeds. **No Workspace changes** — default.project.json does not include Workspace.
+
+---
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   ├── JonesClockText.model.json
+│   ├── JonesDay.model.json
+│   ├── JonesGameMinutes.model.json
+│   ├── JonesPerformAction.model.json
+│   └── JonesWorldMessage.model.json
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua
+│   ├── JonesDailyBill.lua
+│   ├── JonesDataStoreService.server.lua
+│   ├── JonesJobs.lua
+│   ├── JonesPlayerStats.server.lua
+│   ├── JonesServerInit.server.lua
+│   ├── JonesTimeService.server.lua
+│   ├── JonesZoneBankPlacement.server.lua      ← temporary
+│   ├── JonesZoneHomePlacement.server.lua      ← temporary
+│   ├── JonesZoneIndustrialPlacement.server.lua ← temporary
+│   ├── JonesZoneMarketPlacement.server.lua    ← temporary
+│   └── JonesZoneService.server.lua
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua
+
+
+---
+
+## Play test steps
+
+1. rojo serve → Studio **Sync** → **Play**
+2. Walk to **Industrial** → confirm HUD:
+   - **Jobs: Warehouse · Cleanup**
+   - **Warehouse: +25 / -20E / -10H**
+   - **Cleanup: +15 / -10E / -5H**
+3. **Start Cleanup Shift** → **Last Action:**  
+   Cleanup Shift complete! +15 Wallet, -10 Energy, -5 Hunger, +5 XP.
+4. **Start Warehouse Shift** → **Last Action:**  
+   Warehouse Shift complete! +25 Wallet, -20 Energy, -10 Hunger, +10 XP.
+5. Immediately click **Start Cleanup Shift** again → button shows **(Cooldown)**; server rejects with Cleanup Shift on cooldown.
+6. Within 6s, **Start Warehouse Shift** still works (independent cooldowns)
+7. Wait ~6s → Cleanup button returns to **Start Cleanup Shift** (no cooldown suffix)
+8. Optional: level up → warehouse hint pay increases (e.g. **+30** at Job Level 2)
+
+---
+
+## What was added (no new systems)
+
+- **Server:** Formatted complete messages; cooldown stored on JonesCooldown_WarehouseShift / JonesCooldown_CleanupShift (not saved)
+- **Client:** Hint labels, **Last Action** line from existing remote status text, **(Cooldown)** label hint only — all validation stays server-side
+
+מצוין. עכשיו יש כבר Prototype חזק מאוד.
+
+השלב הבא שאני ממליץ: Checkpoint / Publish Stability לפני עוד פיצ׳רים.
+
+תן ל־Cursor:
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_JOBS.md
+
+Implement Phase 2 Step 13 — Project checkpoint and publish readiness.
+
+Goal:
+Create a clean checkpoint before adding more gameplay.
+
+Rules:
+- No gameplay changes.
+- No Workspace changes.
+- No DataStore schema changes.
+- No UI redesign.
+- Keep Rojo scripts-only.
+
+Tasks:
+1. Create:
+   Docs/JONES_CURRENT_STATUS.md
+
+2. Include:
+   - Current gameplay loop
+   - Current stats
+   - Current zones
+   - Current actions
+   - Current DataStore fields
+   - Temporary helpers still present
+   - Known limitations
+   - Exact play test checklist
+   - Publish checklist
+
+3. Update README:
+   - Add “Current MVP Status”
+   - Link to Docs/JONES_CURRENT_STATUS.md
+   - Add quick test checklist
+
+4. Add a short warning section:
+   - temporary zone placement helpers are for testing only
+   - before real map polish, zones should be placed manually in Studio
+
+5. Do not change any Lua gameplay files unless needed only to fix documentation references.
+
+Output:
+- changed files
+- final docs tree
+- concise status summary
+- exact recommended next feature after checkpoint
+
+אחרי זה: או NPC ראשון, או Map polish/manual zones, לא עוד לוגיקה עיוורת.
+
+**Phase 2 Step 13 complete** — documentation-only checkpoint; no gameplay, Workspace, DataStore, or Lua changes.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| Docs/JONES_CURRENT_STATUS.md | **New** — full MVP snapshot, play test + publish checklists |
+| README.md | **Current MVP Status**, quick test checklist, zone-helper warning, link to status doc |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 13 marked done; Steps 14–15 renumbered |
+
+**No Lua files changed.** **No Workspace changes.**
+
+---
+
+## Final docs tree
+
+
+Docs/
+├── JONES_CURRENT_STATUS.md          ← new checkpoint
+├── JONES_DEVELOPMENT_RULES.md
+├── JONES_JOBS.md
+├── JONES_MASTER_SUMMARY.md
+├── JONES_ROBLOX_ADAPTATION.md
+├── JONES_ZONE_TAGS.md
+├── STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md
+├── STEP1.txt
+├── STEP2.txt
+└── jones_game_idea_pack/
+    ├── README.md
+    └── docs/
+        ├── ARCHITECTURE.md
+        ├── CURRENT_PROGRESS.md
+        ├── CURSOR_MASTER_PROMPT.md
+        ├── FIREBASE_SETUP.md
+        ├── GAME_CONCEPT.md
+        ├── MODULES.md
+        └── ROADMAP.md
+
+
+---
+
+## Concise status summary
+
+| Area | State |
+|------|--------|
+| **Loop** | Work (Industrial) → Food (Market) → Rest (Home) → Bank; midnight daily bill (30) |
+| **Zones** | Home, Market, Industrial, Bank |
+| **Stats saved** | Wallet, Bank, Energy, Hunger, Reputation, Job XP/Level |
+| **Jobs** | Warehouse Shift + Cleanup Shift (independent cooldowns, scaled pay) |
+| **Session-only** | Day/clock, zone, cooldowns, objectives, Last Action |
+| **DataStore** | JonesPlayerData_v1 — schema unchanged |
+| **Test helpers** | 4 zone placement scripts — remove before publish |
+
+---
+
+## Recommended next feature
+
+**Phase 2 Step 14 — Downtown + School zone stubs**
+
+- Add Downtown and School zones in Studio (manual placement)
+- Stub server actions (e.g. Enroll course at School)
+- No new DataStore fields until design is locked
+
+Optional parallel task: finalize Studio zone layout and remove the four JonesZone*Placement helpers.
+
+Full details: [Docs/JONES_CURRENT_STATUS.md](Docs/JONES_CURRENT_STATUS.md)
+
+מעולה. עכשיו לא הייתי מוסיף School עדיין.
+
+השלב הבא הנכון יותר: Map/Zone stabilization — להעביר מה־helper הזמני למפה אמיתית, אחרת כל המשחק תלוי בקופסאות שנוצרות ב־Play.
+
+תן ל־Cursor:
+
+Read first:
+- Docs/JONES_CURRENT_STATUS.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md
+
+Implement Phase 2 Step 14 — Manual zone stabilization plan.
+
+Goal:
+Prepare the project to remove temporary runtime zone placement helpers and use real Studio-placed zones.
+
+Rules:
+- Documentation only.
+- Do NOT delete helper scripts yet.
+- Do NOT change gameplay Lua.
+- Do NOT modify Workspace from Rojo.
+- Do NOT add new zones yet.
+
+Tasks:
+1. Create:
+   Docs/MANUAL_ZONE_STABILIZATION_PLAN.md
+
+2. Include exact manual checklist:
+   - Create/position Zone_Industrial around work area
+   - Create/position Zone_Home around house
+   - Create/position Zone_Market around market/stalls
+   - Create/position Zone_Bank around bank/building
+   - Set Anchored=true
+   - Set CanCollide=false
+   - Set Transparency=0.5 during testing
+   - Later set Transparency=1 for release
+
+3. Include removal plan:
+   After manual zones are verified, delete:
+   - JonesZoneIndustrialPlacement.server.lua
+   - JonesZoneHomePlacement.server.lua
+   - JonesZoneMarketPlacement.server.lua
+   - JonesZoneBankPlacement.server.lua
+
+4. Include verification checklist:
+   - Each zone changes CurrentZone correctly
+   - Each action appears only in correct zone
+   - Save/load still works
+   - Daily bill still works
+   - No helper placement logs in Output after removal
+
+5. Update README:
+   - Link to the new plan
+   - Mark helper scripts as temporary technical debt
+
+6. Output:
+   - changed files
+   - short manual-zone checklist
+   - exact recommended next task
+
+אחרי זה נחליט:
+או מייצבים מפה, או מוסיפים NPC ראשון שנותן הסבר/ברכה.
+
+בול. עכשיו לא מוסיפים פיצ’רים עד שמייצבים Zones.
+
+תעשה עכשיו ב־Studio:
+
+1. Stop Play
+2. Edit mode
+3. ליצור/למקם ידנית:
+   Zone_Industrial
+   Zone_Home
+   Zone_Market
+   Zone_Bank
+
+4. לכל אחד:
+   Anchored = true
+   CanCollide = false
+   Transparency = 0.5
+
+5. Save to Roblox
+6. Rojo Sync
+7. Play
+8. לבדוק שכל Zone מציגה את הפעולות הנכונות
+
+אחרי שכל 4 ה־Zones עובדים — ניתן ל־Cursor פרומפט למחוק את ארבעת helpers הזמניים.
+
+למה לא נפתח חלון מזונות?
+
+כי עדיין לא בנינו חלון מזונות 😄
+
+כרגע יש רק פעולה פשוטה:
+
+Market → Buy Food
+
+היא רק כפתור שקונה אוכל אוטומטי. אין עדיין:
+
+רשימת מזונות
+חנות/חלון
+בחירת מוצר
+Inventory
+
+וגם בתמונה אתה עדיין ב־:
+
+Current Zone: Industrial
+
+בשביל אוכל צריך להיות ב־:
+
+Current Zone: Market
+
+השלב הבא הנכון:
+
+Build Market Food Shop UI:
+- When CurrentZone = Market show “Open Food Shop”
+- Opens small food list
+- Apple / Sandwich / Meal
+- Each item has cost + energy + hunger
+- Server validates purchase
+
+רוצה שאתן עכשיו פרומפט ל־Cursor לזה?
+
+כן 😄
+עכשיו אתה באמת ב־:
+
+Current Zone: Market
+
+והכפתור שיש כרגע הוא רק:
+
+Buy Food
+
+כלומר:
+
+אין popup
+אין inventory
+אין רשימת מוצרים
+אין בחירת מזון
+
+זה MVP placeholder בלבד.
+
+השלב הבא כבר צריך להיות חנות אמיתית:
+
+Market UI:
+- Open Food Shop
+- Scrollable food list
+- Apple
+- Bread
+- Sandwich
+- Water
+- Hot Meal
+
+Each item:
+- price
+- hunger restore
+- energy restore
+
+Server validates:
+- enough wallet
+- hunger cap
+- cooldown
+
+Future:
+- inventory
+- consume later
+- fridge/home storage
+
+זה כבר מתחיל להרגיש משחק אמיתי ולא רק debug economy loop.
+
+צריך לךון מזונות מגוון של מזונות מחירים וכמה אנרגיה זה מחזיר וכמה זמן המנה מחזיקה אותך
+
+
+נכון. ה־Buy Food הנוכחי פרימיטיבי מדי.
+
+תן ל־Cursor:
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Implement Phase 2 Step 15 — Market Food Shop MVP.
+
+Goal:
+Replace the single Buy Food action with a small food shop menu.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No DataStore schema changes yet.
+- No inventory yet.
+- Food is consumed immediately on purchase.
+- Keep server authority.
+- Keep Rojo scripts-only.
+
+Food model:
+Each food item must define:
+- Id
+- DisplayName
+- Price
+- EnergyRestore
+- HungerRestore
+- FullnessMinutes
+
+Create:
+1. ServerScriptService/JonesFoodItems.lua
+
+Initial food list:
+1. Water
+   Price = 3
+   EnergyRestore = 5
+   HungerRestore = 0
+   FullnessMinutes = 10
+
+2. Apple
+   Price = 5
+   EnergyRestore = 5
+   HungerRestore = 10
+   FullnessMinutes = 30
+
+3. Bread
+   Price = 8
+   EnergyRestore = 10
+   HungerRestore = 18
+   FullnessMinutes = 45
+
+4. Sandwich
+   Price = 15
+   EnergyRestore = 25
+   HungerRestore = 35
+   FullnessMinutes = 90
+
+5. Hot Meal
+   Price = 25
+   EnergyRestore = 40
+   HungerRestore = 60
+   FullnessMinutes = 180
+
+6. Family Meal
+   Price = 45
+   EnergyRestore = 60
+   HungerRestore = 100
+   FullnessMinutes = 300
+
+Server:
+1. Reuse JonesPerformAction RemoteEvent.
+2. Add action:
+   BuyFoodItem
+3. Client sends:
+   actionName = "BuyFoodItem"
+   itemId = "<food id>"
+4. Server validates:
+   - CurrentZone == "Market"
+   - item exists
+   - player has enough Wallet/Money
+   - not both Energy and Hunger already full
+   - Market open hours still apply
+5. On success:
+   - deduct Price
+   - add EnergyRestore capped at 100
+   - add HungerRestore capped at 100
+   - return message:
+     "Bought <DisplayName>! -<Price> Wallet, +<Energy> Energy, +<Hunger> Hunger. Keeps you full for <FullnessMinutes> min."
+
+Important:
+- Do NOT add a real timed fullness buff yet.
+- FullnessMinutes is informational for now.
+- Later it can become hunger decay protection.
+
+Client UI:
+1. In Market zone, replace single "Buy Food" button with:
+   - "Open Food Shop" button
+2. Clicking opens a simple panel/list inside current HUD.
+3. Show each item:
+   - Name
+   - Price
+   - +Energy
+   - +Hunger
+   - FullnessMinutes
+   - Buy button
+4. Add Close button.
+5. Keep UI simple and readable.
+6. If outside Market, shop closes automatically.
+
+Docs:
+- Update README
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+- Add Docs/JONES_FOOD_SHOP.md
+
+Play test:
+1. Go Market
+2. Open Food Shop
+3. Buy Apple
+4. Verify Wallet decreases, Hunger/Energy update
+5. Buy Hot Meal
+6. Try buying without enough Wallet
+7. Try buying when Energy and Hunger are full
+8. Verify save/load still works
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 15 — Market Food Shop MVP** is complete.
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesFoodItems.lua | **New** — 6 food items + helpers |
+| src/ServerScriptService/JonesActionService.server.lua | BuyFoodItem action; removed legacy BuyFood |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | **Open Food Shop** panel with per-item Buy + Close |
+| Docs/JONES_FOOD_SHOP.md | **New** — catalog, remote, validation |
+| README.md | Food shop docs, tests, project layout |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 15 marked done |
+
+rojo build succeeds. **No Workspace changes.** **No DataStore schema changes.**
+
+---
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/
+│   ├── JonesClockText.model.json
+│   ├── JonesDay.model.json
+│   ├── JonesGameMinutes.model.json
+│   ├── JonesPerformAction.model.json
+│   └── JonesWorldMessage.model.json
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua
+│   ├── JonesDailyBill.lua
+│   ├── JonesDataStoreService.server.lua
+│   ├── JonesFoodItems.lua                    ← new
+│   ├── JonesJobs.lua
+│   ├── JonesPlayerStats.server.lua
+│   ├── JonesServerInit.server.lua
+│   ├── JonesTimeService.server.lua
+│   ├── JonesZone*Placement.server.lua (×4)   ← temporary
+│   └── JonesZoneService.server.lua
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua
+
+
+---
+
+## Play test steps
+
+1. rojo serve → Studio **Sync** → **Play** (enable API access for save test).
+2. Walk to **Market** → HUD: **Current Zone: Market**.
+3. Click **Open Food Shop** → six items with Price, Energy, Hunger, fullness minutes.
+4. **Buy Apple** → Last Action:  
+   Bought Apple! -5 Wallet, +5 Energy, +10 Hunger. Keeps you full for 30 min.
+5. **Buy Hot Meal** → Wallet −25; larger Energy/Hunger gains.
+6. With Wallet **< item price** → Not enough Wallet (need X).
+7. At Energy **100** and Hunger **100** → Energy and Hunger are already full.
+8. Walk out of Market → shop panel closes automatically.
+9. **Stop** → **Play** → Wallet/Energy/Hunger restored (no inventory saved).
+
+---
+
+## Behavior summary
+
+- **Server:** FireServer("BuyFoodItem", itemId) — zone, hours, price, and full-stats checks.
+- **Client:** Display-only item list mirrors server catalog; purchases always go through server.
+- **FullnessMinutes:** Shown in UI and success message only — no timed buff yet.
+- **Legacy BuyFood:** Removed; use BuyFoodItem with an item id.
+
+מצוין. עכשיו יש Food Shop אמיתי.
+
+השלב הבא הכי נכון: Inventory קטן — לאכול עכשיו/לקנות לשמור אחר כך.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_FOOD_SHOP.md
+
+Implement Phase 2 Step 16 — Food Inventory MVP.
+
+Goal:
+Let player buy food into inventory and consume later.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep server authority.
+- Keep DataStore backward-compatible.
+
+Data model:
+- Add FoodInventory as saved player data.
+- Format:
+  FoodInventory = {
+    Water = count,
+    Apple = count,
+    Bread = count,
+    Sandwich = count,
+    HotMeal = count,
+    FamilyMeal = count
+  }
+
+DataStore:
+- Save/load FoodInventory.
+- Old saves default all counts to 0.
+- Keep store name JonesPlayerData_v1.
+
+Actions:
+1. BuyFoodItem
+   - Change behavior:
+   - In Market, buying food deducts Wallet and adds +1 inventory count.
+   - Does NOT immediately restore Energy/Hunger.
+   - Success: "Bought <FoodName> for inventory! -<Price> Wallet."
+
+2. EatFoodItem
+   - Can be used anywhere.
+   - Requires inventory count > 0.
+   - If both Energy and Hunger are full: reject.
+   - On success:
+     - inventory count -1
+     - restore Energy/Hunger according to food item
+   - Message:
+     "Ate <FoodName>! +<Energy> Energy, +<Hunger> Hunger."
+
+Client UI:
+1. Market shop:
+   - Show Buy button per item.
+   - Show owned count per item.
+
+2. Add Inventory section/button in HUD:
+   - "Food Inventory"
+   - Toggle list of owned foods.
+   - Each owned food shows:
+     Name, count, +Energy, +Hunger, fullness minutes, Eat button.
+   - Hide empty foods or show count 0 lightly — choose simple.
+
+3. If outside Market:
+   - Food shop closes.
+   - Inventory can still open.
+
+Docs:
+- Update README.
+- Update Docs/JONES_FOOD_SHOP.md.
+- Update Docs/JONES_ROBLOX_ADAPTATION.md.
+
+Play test:
+1. Market → buy Apple and Sandwich.
+2. Wallet decreases.
+3. Hunger/Energy do NOT change on buy.
+4. Open Food Inventory.
+5. Eat Apple.
+6. Hunger/Energy increase, Apple count decreases.
+7. Stop/Play.
+8. Inventory counts restore from DataStore.
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore backward compatibility note
+- confirmation no Workspace changes
+זה כולל תמונות זה כולל תמונות המזון?
+
+לא 🙂
+הפרומפט הזה עדיין לא כולל:
+
+תמונות מזון
+אייקונים
+thumbnails
+assets של Roblox
+UI גרפי עשיר
+
+כרגע זה רק:
+
+inventory logic
+counts
+Eat button
+save/load
+
+אבל כדאי מאוד להוסיף תמונות, כי בלי זה זה ירגיש debug UI.
+
+עדיף לעשות את זה ככה:
+
+Food item fields:
+- ImageAssetId
+- DisplayColor
+- Category
+
+UI:
+- small thumbnail
+- colored card
+- hover effect
+- rarity/quality feel
+
+לדוגמה:
+
+Food	Icon
+Water	bottle icon
+Apple	red apple
+Bread	bread loaf
+Sandwich	sandwich
+Hot Meal	plate/bowl
+Family Meal	large dinner
+
+אפשר:
+
+להשתמש ב־Roblox Toolbox assets
+להשתמש ב־emoji זמני
+לייצר PNG עם AI ולהעלות ל־Roblox
+
+הכי מהיר עכשיו:
+
+Emoji placeholders:
+💧 🍎 🍞 🥪 🍲 🍖
+
+ואז אחר כך להחליף ל־assets אמיתיים.
+
+תבקשי מ CURSOR לבחור מה TOOLBOX ASST+ETS
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_FOOD_SHOP.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+
+Enhance Phase 2 Step 16 with Roblox Toolbox food assets/icons.
+
+Goal:
+Upgrade the Food Shop and Food Inventory UI visually using Roblox Toolbox assets or safe built-in image assets.
+
+Rules:
+- No Workspace changes.
+- No gameplay logic changes.
+- No monetization.
+- No random meme assets.
+- Keep UI lightweight and readable.
+- Prefer free Roblox-safe assets/icons.
+- Do NOT manually model food in Studio.
+
+Tasks:
+
+1. Choose Toolbox/asset thumbnails automatically for:
+   - Water
+   - Apple
+   - Bread
+   - Sandwich
+   - Hot Meal
+   - Family Meal
+
+2. Add to JonesFoodItems.lua:
+   - ImageAssetId
+   - ThemeColor
+
+Example:
+ImageAssetId = "rbxassetid://..."
+ThemeColor = Color3.fromRGB(...)
+
+3. Food Shop UI:
+   Each food card should show:
+   - image thumbnail
+   - food name
+   - price
+   - +Energy
+   - +Hunger
+   - fullness minutes
+   - Buy button
+
+4. Food Inventory UI:
+   Each owned food row/card:
+   - thumbnail
+   - name
+   - owned count
+   - Eat button
+   - compact clean layout
+
+5. UI style:
+   - modern Roblox simulator style
+   - rounded corners
+   - soft dark translucent panels
+   - subtle hover color
+   - keep FPS-friendly
+
+6. Fallback:
+   If asset image fails:
+   Use emoji fallback:
+   💧 🍎 🍞 🥪 🍲 🍖
+
+7. Docs:
+   - Update Docs/JONES_FOOD_SHOP.md
+   - Mention chosen asset strategy
+   - Mention fallback behavior
+
+Output:
+- chosen assets summary
+- changed files
+- exact Play test steps
+- confirmation no Workspace changes
+**Phase 2 Step 16 — Food Inventory MVP** (+ UI asset polish) is complete.
+
+## Chosen assets summary
+
+| Item | ImageAssetId | Theme | Emoji fallback |
+|------|----------------|-------|----------------|
+| Water | rbxassetid://6031094678 | Blue | 💧 |
+| Apple | rbxassetid://6031224321 | Red | 🍎 |
+| Bread | rbxassetid://6031250864 | Tan | 🍞 |
+| Sandwich | rbxassetid://6031255092 | Brown | 🥪 |
+| Hot Meal | rbxassetid://6031280882 | Orange | 🍲 |
+| Family Meal | rbxassetid://6031286352 | Rose | 🍖 |
+
+Strategy: free Roblox default icon IDs on server (JonesFoodItems.lua); client preloads via ContentProvider and falls back to emoji if preload fails. No Toolbox inserts, no Studio models.
+
+---
+
+## Changed files
+
+| File | Change |
+|------|--------|
+| src/ServerScriptService/JonesFoodItems.lua | ImageAssetId, ThemeColor, EmojiFallback; buy/eat messages |
+| src/ServerScriptService/JonesFoodInventory.lua | **New** — inventory helpers + sanitize |
+| src/ServerScriptService/JonesPlayerStats.server.lua | Creates player.FoodInventory folder |
+| src/ServerScriptService/JonesDataStoreService.server.lua | Save/load FoodInventory |
+| src/ServerScriptService/JonesActionService.server.lua | Buy → inventory; EatFoodItem anywhere |
+| src/StarterPlayer/StarterPlayerScripts/JonesMoneyUi.client.lua | Shop cards + inventory panel + thumbnails |
+| Docs/JONES_FOOD_SHOP.md | Inventory, assets, eat flow |
+| README.md | Step 16, tests, saved fields |
+| Docs/JONES_ROBLOX_ADAPTATION.md | Step 16 done |
+
+**No Workspace changes.** rojo build succeeds.
+
+---
+
+## Final file tree (src/)
+
+
+src/
+├── ReplicatedStorage/          (unchanged)
+├── ServerScriptService/
+│   ├── JonesActionService.server.lua
+│   ├── JonesDataStoreService.server.lua
+│   ├── JonesFoodItems.lua
+│   ├── JonesFoodInventory.lua     ← new
+│   ├── JonesJobs.lua
+│   ├── JonesPlayerStats.server.lua
+│   └── … (other services + zone helpers)
+└── StarterPlayer/StarterPlayerScripts/
+    └── JonesMoneyUi.client.lua
+
+
+---
+
+## DataStore backward compatibility
+
+- **Store name:** JonesPlayerData_v1 (unchanged)
+- **New field:** FoodInventory table with six item counts
+- **Old saves:** Missing FoodInventory → all counts **0**
+- **Runtime:** player.FoodInventory folder with replicated IntValue per item
+
+---
+
+## Play test steps
+
+1. rojo serve → Studio **Sync** → **Play** (enable API access for saves)
+2. **Industrial** → work shift(s) until Wallet ≥ 20
+3. **Market** → **Open Food Shop**
+4. **Buy Apple** → Last Action: Bought Apple for inventory! -5 Wallet.
+5. **Buy Sandwich** → Wallet −15 more; **Energy/Hunger unchanged**
+6. Shop rows show **Owned: 1** (or higher)
+7. **Food Inventory** (any zone) → see Apple + Sandwich rows with thumbnails
+8. **Eat Apple** → Ate Apple! +5 Energy, +10 Hunger. — Apple count −1
+9. Try **Buy** with Wallet **< 3** → Not enough Wallet (need 3).
+10. At Energy **100** and Hunger **100** → **Eat** → Energy and Hunger are already full.
+11. Leave Market → shop closes; inventory still opens
+12. **Stop** → **Play** → inventory counts restored from DataStore
+
+מעולה. עכשיו יש כבר:
+
+Market Shop → קנייה למלאי
+Inventory → אכילה אחר כך
+Save/Load → שומר מלאי
+
+השלב הבא הכי נכון: Fullness effect אמיתי — שה־“כמה זמן מחזיק אותך” לא יהיה רק טקסט.
+
+Read first:
+- Docs/JONES_MASTER_SUMMARY.md
+- Docs/JONES_ROBLOX_ADAPTATION.md
+- Docs/JONES_DEVELOPMENT_RULES.md
+- Docs/JONES_FOOD_SHOP.md
+
+Implement Phase 2 Step 17 — Fullness buff MVP.
+
+Goal:
+Make FullnessMinutes actually affect hunger decay/work hunger cost.
+
+Rules:
+- No Workspace changes.
+- No new zones.
+- No monetization/combat/vehicles/trading.
+- Keep Rojo scripts-only.
+- Keep DataStore backward-compatible.
+- Keep existing FoodInventory behavior.
+
+Current:
+- Food items have FullnessMinutes but it is informational only.
+
+Add stat/state:
+- FullnessUntilGameMinutes
+- Session-only at first, NOT saved.
+- Default 0.
+
+Behavior:
+1. When eating a food item:
+   - Apply normal Energy/Hunger restore.
+   - Set FullnessUntilGameMinutes = current game minutes + FullnessMinutes.
+   - If it passes midnight, wrap safely for same-session display.
+   - World/status message includes:
+     "Full for <FullnessMinutes> min."
+
+2. While full:
+   - WorkShift Hunger cost is reduced by 50%.
+   - Cleanup Shift Hunger cost also reduced by 50%.
+   - Example:
+     Warehouse -10 Hunger → -5 Hunger
+     Cleanup -5 Hunger → -3 Hunger rounded up/down consistently.
+
+3. HUD:
+   - Show Fullness status:
+     - "Fullness: None"
+     - or "Fullness: active"
+   - Optional: show remaining minutes if easy.
+
+4. Server authority:
+   - Server decides if fullness is active.
+   - Client only displays.
+
+5. Do NOT implement passive hunger decay yet.
+6. Do NOT save FullnessUntilGameMinutes yet.
+
+Docs:
+- Update README
+- Update Docs/JONES_FOOD_SHOP.md
+- Update Docs/JONES_ROBLOX_ADAPTATION.md
+
+Play test:
+1. Eat Sandwich
+2. Fullness becomes active
+3. WorkShift hunger cost is reduced
+4. Wait until fullness expires
+5. WorkShift hunger cost returns to normal
+
+Output:
+- changed files
+- final file tree
+- exact Play test steps
+- DataStore note
+- confirmation no Workspace changes
