@@ -20,6 +20,19 @@ These PNG files are the **source art** for Food Shop and Food Inventory UI thumb
 | HotMeal | `hot_meal.png` |
 | FamilyMeal | `family_meal.png` |
 
+## Uploaded Roblox asset IDs
+
+| FoodId | Local PNG | Roblox ImageAssetId | Status |
+|--------|-----------|---------------------|--------|
+| Water | `water.png` | `rbxassetid://103271145720137` | active |
+| Apple | `apple.png` | `rbxassetid://79360984269983` | active |
+| Bread | `bread.png` | `rbxassetid://84892713452962` | active |
+| Sandwich | `sandwich.png` | `rbxassetid://91888167350450` | active |
+| HotMeal | `hot_meal.png` | `rbxassetid://97078004998911` | active |
+| FamilyMeal | `family_meal.png` | `rbxassetid://99673651923906` | active |
+
+Also referenced in `JonesFoodItems.lua` and `JonesMoneyUi.client.lua`. `EmojiFallback` remains if preload fails.
+
 ## Manual upload workflow
 
 1. Open **Creator Dashboard** → **Development Items** → **Images**.

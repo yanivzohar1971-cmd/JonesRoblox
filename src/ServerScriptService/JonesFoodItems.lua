@@ -24,7 +24,7 @@ JonesFoodItems.Water = {
 	FullnessMinutes = 10,
 	-- Custom PNG source: Assets/FoodIcons/water.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031094678",
+	ImageAssetId = "rbxassetid://103271145720137",
 	ThemeColor = Color3.fromRGB(100, 180, 255),
 	EmojiFallback = "💧",
 } :: FoodItem
@@ -38,7 +38,7 @@ JonesFoodItems.Apple = {
 	FullnessMinutes = 30,
 	-- Custom PNG source: Assets/FoodIcons/apple.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031224321",
+	ImageAssetId = "rbxassetid://79360984269983",
 	ThemeColor = Color3.fromRGB(220, 80, 80),
 	EmojiFallback = "🍎",
 } :: FoodItem
@@ -52,7 +52,7 @@ JonesFoodItems.Bread = {
 	FullnessMinutes = 45,
 	-- Custom PNG source: Assets/FoodIcons/bread.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031250864",
+	ImageAssetId = "rbxassetid://84892713452962",
 	ThemeColor = Color3.fromRGB(210, 170, 100),
 	EmojiFallback = "🍞",
 } :: FoodItem
@@ -66,7 +66,7 @@ JonesFoodItems.Sandwich = {
 	FullnessMinutes = 90,
 	-- Custom PNG source: Assets/FoodIcons/sandwich.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031255092",
+	ImageAssetId = "rbxassetid://91888167350450",
 	ThemeColor = Color3.fromRGB(180, 140, 90),
 	EmojiFallback = "🥪",
 } :: FoodItem
@@ -80,7 +80,7 @@ JonesFoodItems.HotMeal = {
 	FullnessMinutes = 180,
 	-- Custom PNG source: Assets/FoodIcons/hot_meal.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031280882",
+	ImageAssetId = "rbxassetid://97078004998911",
 	ThemeColor = Color3.fromRGB(255, 140, 60),
 	EmojiFallback = "🍲",
 } :: FoodItem
@@ -94,7 +94,7 @@ JonesFoodItems.FamilyMeal = {
 	FullnessMinutes = 300,
 	-- Custom PNG source: Assets/FoodIcons/family_meal.png
 	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
-	ImageAssetId = "rbxassetid://6031286352",
+	ImageAssetId = "rbxassetid://99673651923906",
 	ThemeColor = Color3.fromRGB(200, 100, 120),
 	EmojiFallback = "🍖",
 } :: FoodItem

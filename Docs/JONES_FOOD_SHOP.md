@@ -47,16 +47,16 @@ Server-side food catalog, inventory, and purchase/eat flow. Definitions live in 
 
 ## Image asset strategy
 
-HUD cards use **Roblox default icon asset IDs** (free, simulator-style thumbnails):
+HUD cards use **uploaded custom food icon** Roblox Image asset IDs (source PNGs in `Assets/FoodIcons/`):
 
 | Item | ImageAssetId |
 |------|----------------|
-| Water | `rbxassetid://6031094678` |
-| Apple | `rbxassetid://6031224321` |
-| Bread | `rbxassetid://6031250864` |
-| Sandwich | `rbxassetid://6031255092` |
-| Hot Meal | `rbxassetid://6031280882` |
-| Family Meal | `rbxassetid://6031286352` |
+| Water | `rbxassetid://103271145720137` |
+| Apple | `rbxassetid://79360984269983` |
+| Bread | `rbxassetid://84892713452962` |
+| Sandwich | `rbxassetid://91888167350450` |
+| Hot Meal | `rbxassetid://97078004998911` |
+| Family Meal | `rbxassetid://99673651923906` |
 
 **Fallback:** Client runs `ContentProvider:PreloadAsync` on each image. If preload fails, the card shows the **emoji** from `EmojiFallback` instead. No Studio models or Workspace assets required.
 
@@ -66,18 +66,16 @@ HUD cards use **Roblox default icon asset IDs** (free, simulator-style thumbnail
 
 Source PNGs live in [`Assets/FoodIcons/`](../Assets/FoodIcons/) — see [`Assets/FoodIcons/README.md`](../Assets/FoodIcons/README.md).
 
-Roblox still uses placeholder `ImageAssetId` values until each PNG is uploaded and IDs are pasted into `JonesFoodItems.lua`.
+Custom icons are **uploaded and active** in `JonesFoodItems.lua` and `JonesMoneyUi.client.lua`.
 
-| FoodId | Local PNG | Roblox ImageAssetId placeholder | Upload status |
-|--------|-----------|----------------------------------|---------------|
-| Water | `Assets/FoodIcons/water.png` | pending | not uploaded |
-| Apple | `Assets/FoodIcons/apple.png` | pending | not uploaded |
-| Bread | `Assets/FoodIcons/bread.png` | pending | not uploaded |
-| Sandwich | `Assets/FoodIcons/sandwich.png` | pending | not uploaded |
-| HotMeal | `Assets/FoodIcons/hot_meal.png` | pending | not uploaded |
-| FamilyMeal | `Assets/FoodIcons/family_meal.png` | pending | not uploaded |
-
-After upload, replace `pending` with `rbxassetid://...` in this table and in `JonesFoodItems.lua`.
+| FoodId | Local PNG | Roblox ImageAssetId | Upload status |
+|--------|-----------|---------------------|---------------|
+| Water | `Assets/FoodIcons/water.png` | `rbxassetid://103271145720137` | uploaded |
+| Apple | `Assets/FoodIcons/apple.png` | `rbxassetid://79360984269983` | uploaded |
+| Bread | `Assets/FoodIcons/bread.png` | `rbxassetid://84892713452962` | uploaded |
+| Sandwich | `Assets/FoodIcons/sandwich.png` | `rbxassetid://91888167350450` | uploaded |
+| HotMeal | `Assets/FoodIcons/hot_meal.png` | `rbxassetid://97078004998911` | uploaded |
+| FamilyMeal | `Assets/FoodIcons/family_meal.png` | `rbxassetid://99673651923906` | uploaded |
 
 ---
 

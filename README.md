@@ -174,7 +174,7 @@ Studio zone setup: [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_S
 
 **Blender asset pipeline:** Scripts and headless export live under `Assets/Blender/` — see [Docs/BLENDER_ASSET_PIPELINE.md](Docs/BLENDER_ASSET_PIPELINE.md). The pipeline exists for **future asset generation** (food props, lane decor). **Generated GLB/FBX files must be manually reviewed before any Roblox Studio import** — never auto-import into the live place.
 
-**Food UI icons:** Custom source PNGs live under [`Assets/FoodIcons/`](Assets/FoodIcons/README.md) — see [Assets/FoodIcons/README.md](Assets/FoodIcons/README.md). Roblox `ImageAssetId` values in `JonesFoodItems.lua` are still **pending upload**; placeholder IDs and emoji fallbacks remain active until you upload each PNG and paste the asset IDs.
+**Food UI icons:** Custom source PNGs live under [`Assets/FoodIcons/`](Assets/FoodIcons/README.md) — see [Assets/FoodIcons/README.md](Assets/FoodIcons/README.md). Uploaded Roblox `ImageAssetId` values are **active** in `JonesFoodItems.lua` and `JonesMoneyUi.client.lua`; `EmojiFallback` remains if preload fails.
 
 **Zone detection:** CollectionService tags **or** Part name fallback (`Zone_Home`, `Zone_Industrial`, `Zone_Market`, `Zone_Bank`). Tags preferred; names work if Tag Editor fails.
 
