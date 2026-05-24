@@ -21,6 +21,7 @@ A Roblox port of **Jones In The Lane** — a life simulation in a city lane (wor
 | [Docs/MANUAL_ZONE_STABILIZATION_PLAN.md](Docs/MANUAL_ZONE_STABILIZATION_PLAN.md) | **Manual zone plan** — Studio placement + helper removal |
 | [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md) | Beginner click-by-click zone setup in Studio |
 | [Docs/BLENDER_ASSET_PIPELINE.md](Docs/BLENDER_ASSET_PIPELINE.md) | Blender CLI asset pipeline (GLB export, Studio import checklist) |
+| [Assets/FoodIcons/README.md](Assets/FoodIcons/README.md) | Custom food UI icon source PNGs + Roblox upload workflow |
 | [Docs/jones_game_idea_pack/](Docs/jones_game_idea_pack/) | Source-of-truth idea pack (web vision, modules, roadmap) |
 
 ---
@@ -172,6 +173,8 @@ Status line always shows: **Loop: Work → Food → Rest**
 Studio zone setup: [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md) · Stabilization plan: [Docs/MANUAL_ZONE_STABILIZATION_PLAN.md](Docs/MANUAL_ZONE_STABILIZATION_PLAN.md)
 
 **Blender asset pipeline:** Scripts and headless export live under `Assets/Blender/` — see [Docs/BLENDER_ASSET_PIPELINE.md](Docs/BLENDER_ASSET_PIPELINE.md). The pipeline exists for **future asset generation** (food props, lane decor). **Generated GLB/FBX files must be manually reviewed before any Roblox Studio import** — never auto-import into the live place.
+
+**Food UI icons:** Custom source PNGs live under [`Assets/FoodIcons/`](Assets/FoodIcons/README.md) — see [Assets/FoodIcons/README.md](Assets/FoodIcons/README.md). Roblox `ImageAssetId` values in `JonesFoodItems.lua` are still **pending upload**; placeholder IDs and emoji fallbacks remain active until you upload each PNG and paste the asset IDs.
 
 **Zone detection:** CollectionService tags **or** Part name fallback (`Zone_Home`, `Zone_Industrial`, `Zone_Market`, `Zone_Bank`). Tags preferred; names work if Tag Editor fails.
 

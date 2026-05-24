@@ -22,6 +22,8 @@ JonesFoodItems.Water = {
 	EnergyRestore = 5,
 	HungerRestore = 0,
 	FullnessMinutes = 10,
+	-- Custom PNG source: Assets/FoodIcons/water.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031094678",
 	ThemeColor = Color3.fromRGB(100, 180, 255),
 	EmojiFallback = "💧",
@@ -34,6 +36,8 @@ JonesFoodItems.Apple = {
 	EnergyRestore = 5,
 	HungerRestore = 10,
 	FullnessMinutes = 30,
+	-- Custom PNG source: Assets/FoodIcons/apple.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031224321",
 	ThemeColor = Color3.fromRGB(220, 80, 80),
 	EmojiFallback = "🍎",
@@ -46,6 +50,8 @@ JonesFoodItems.Bread = {
 	EnergyRestore = 10,
 	HungerRestore = 18,
 	FullnessMinutes = 45,
+	-- Custom PNG source: Assets/FoodIcons/bread.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031250864",
 	ThemeColor = Color3.fromRGB(210, 170, 100),
 	EmojiFallback = "🍞",
@@ -58,6 +64,8 @@ JonesFoodItems.Sandwich = {
 	EnergyRestore = 25,
 	HungerRestore = 35,
 	FullnessMinutes = 90,
+	-- Custom PNG source: Assets/FoodIcons/sandwich.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031255092",
 	ThemeColor = Color3.fromRGB(180, 140, 90),
 	EmojiFallback = "🥪",
@@ -70,6 +78,8 @@ JonesFoodItems.HotMeal = {
 	EnergyRestore = 40,
 	HungerRestore = 60,
 	FullnessMinutes = 180,
+	-- Custom PNG source: Assets/FoodIcons/hot_meal.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031280882",
 	ThemeColor = Color3.fromRGB(255, 140, 60),
 	EmojiFallback = "🍲",
@@ -82,6 +92,8 @@ JonesFoodItems.FamilyMeal = {
 	EnergyRestore = 60,
 	HungerRestore = 100,
 	FullnessMinutes = 300,
+	-- Custom PNG source: Assets/FoodIcons/family_meal.png
+	-- Replace ImageAssetId after uploading PNG to Roblox and receiving asset id.
 	ImageAssetId = "rbxassetid://6031286352",
 	ThemeColor = Color3.fromRGB(200, 100, 120),
 	EmojiFallback = "🍖",

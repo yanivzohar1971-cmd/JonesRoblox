@@ -62,6 +62,25 @@ HUD cards use **Roblox default icon asset IDs** (free, simulator-style thumbnail
 
 ---
 
+## Custom Food Icons
+
+Source PNGs live in [`Assets/FoodIcons/`](../Assets/FoodIcons/) — see [`Assets/FoodIcons/README.md`](../Assets/FoodIcons/README.md).
+
+Roblox still uses placeholder `ImageAssetId` values until each PNG is uploaded and IDs are pasted into `JonesFoodItems.lua`.
+
+| FoodId | Local PNG | Roblox ImageAssetId placeholder | Upload status |
+|--------|-----------|----------------------------------|---------------|
+| Water | `Assets/FoodIcons/water.png` | pending | not uploaded |
+| Apple | `Assets/FoodIcons/apple.png` | pending | not uploaded |
+| Bread | `Assets/FoodIcons/bread.png` | pending | not uploaded |
+| Sandwich | `Assets/FoodIcons/sandwich.png` | pending | not uploaded |
+| HotMeal | `Assets/FoodIcons/hot_meal.png` | pending | not uploaded |
+| FamilyMeal | `Assets/FoodIcons/family_meal.png` | pending | not uploaded |
+
+After upload, replace `pending` with `rbxassetid://...` in this table and in `JonesFoodItems.lua`.
+
+---
+
 ## Inventory (runtime + saved)
 
 **Runtime:** `player.FoodInventory` folder with one `IntValue` per food id (replicates to client).

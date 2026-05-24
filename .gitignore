@@ -6,3 +6,5 @@ Assets/Blender/exports/*.blend
 # Keep empty exports folder in repo
 !Assets/Blender/exports/
 !Assets/Blender/exports/.gitkeep
+
+# FoodIcons source PNGs (Assets/FoodIcons/*.png) are intentionally tracked — do not ignore
