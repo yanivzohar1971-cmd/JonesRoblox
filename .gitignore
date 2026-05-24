@@ -1,0 +1,8 @@
+# Blender exports — local/generated; regenerate with Assets/Blender/run-test-export.ps1
+Assets/Blender/exports/*.glb
+Assets/Blender/exports/*.fbx
+Assets/Blender/exports/*.blend
+
+# Keep empty exports folder in repo
+!Assets/Blender/exports/
+!Assets/Blender/exports/.gitkeep

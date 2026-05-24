@@ -20,6 +20,7 @@ A Roblox port of **Jones In The Lane** — a life simulation in a city lane (wor
 | [Docs/JONES_CURRENT_STATUS.md](Docs/JONES_CURRENT_STATUS.md) | **MVP checkpoint** — loop, stats, zones, publish checklist |
 | [Docs/MANUAL_ZONE_STABILIZATION_PLAN.md](Docs/MANUAL_ZONE_STABILIZATION_PLAN.md) | **Manual zone plan** — Studio placement + helper removal |
 | [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md) | Beginner click-by-click zone setup in Studio |
+| [Docs/BLENDER_ASSET_PIPELINE.md](Docs/BLENDER_ASSET_PIPELINE.md) | Blender CLI asset pipeline (GLB export, Studio import checklist) |
 | [Docs/jones_game_idea_pack/](Docs/jones_game_idea_pack/) | Source-of-truth idea pack (web vision, modules, roadmap) |
 
 ---
@@ -138,7 +139,7 @@ Buttons may show **(Closed)** when outside hours; server always rejects invalid 
 
 **Wallet vs bank:** HUD shows **Wallet** (spending cash) and **Bank** (stored balance). Food shop uses Wallet only. Bank zone moves money between them.
 
-**Food shop + inventory:** Buy at Market into inventory; **Eat** anywhere. **Food Shop** and **Food Inventory** use **centered card-grid modals** (responsive 2–3 column tiles, full-width Buy/Eat buttons). **HUD layout:** **Stats** panel (status/objectives/messages) · **Inventory** quick button (any zone) · **Actions** panel (zone-specific only) · **Modals** (shop/inventory). **Fullness** halves job Hunger cost and **pauses passive Hunger decay**. Hunger drops **−1 every 30 real seconds** when not full. **Low Hunger:** at **≤30** pay is reduced **20%** on Warehouse/Cleanup; at **≤10** those jobs are blocked until you eat. No health/death penalties yet. See [Docs/JONES_FOOD_SHOP.md](Docs/JONES_FOOD_SHOP.md).
+**Food shop + inventory:** Buy at Market into inventory; **Eat** anywhere. **Food Shop** and **Food Inventory** follow the **premium card-grid modal design reference** — centered dark glass panels, responsive 2–3 column tiles, illustrated thumbnails, and full-width Buy/Eat buttons. **HUD layout:** **Stats** panel (status/objectives/messages) · **Inventory** quick button (any zone) · **Actions** panel (zone-specific only) · **Modals** (shop/inventory). **Fullness** halves job Hunger cost and **pauses passive Hunger decay**. Hunger drops **−1 every 30 real seconds** when not full. **Low Hunger:** at **≤30** pay is reduced **20%** on Warehouse/Cleanup; at **≤10** those jobs are blocked until you eat. No health/death penalties yet. See [Docs/JONES_FOOD_SHOP.md](Docs/JONES_FOOD_SHOP.md).
 
 **Needs Status (client HUD):** `Needs: OK` · `Needs: Hungry — eat soon` (≤30) · `Needs: Starving — eat now` (≤10).
 
@@ -169,6 +170,8 @@ Status line always shows: **Loop: Work → Food → Rest**
 | **Bank** | **Withdraw 25** | Move 25 BankBalance → Wallet (need ≥25 in bank) |
 
 Studio zone setup: [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md](Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md) · Stabilization plan: [Docs/MANUAL_ZONE_STABILIZATION_PLAN.md](Docs/MANUAL_ZONE_STABILIZATION_PLAN.md)
+
+**Blender asset pipeline:** Scripts and headless export live under `Assets/Blender/` — see [Docs/BLENDER_ASSET_PIPELINE.md](Docs/BLENDER_ASSET_PIPELINE.md). The pipeline exists for **future asset generation** (food props, lane decor). **Generated GLB/FBX files must be manually reviewed before any Roblox Studio import** — never auto-import into the live place.
 
 **Zone detection:** CollectionService tags **or** Part name fallback (`Zone_Home`, `Zone_Industrial`, `Zone_Market`, `Zone_Bank`). Tags preferred; names work if Tag Editor fails.
 
@@ -375,17 +378,17 @@ Requires zone Parts in Studio — see [Docs/STUDIO_ZONE_SETUP_CLICK_BY_CLICK.md]
 7. **None** zone → Actions panel hidden
 8. **Inventory** opens centered modal from any zone; Food Shop still Market-only under Actions
 
-### Test Food Shop + Inventory (card-grid modals)
+### Test Food Shop + Inventory (premium card-grid modals)
 
 1. **Play** → click **Food Inventory** with no food → **No food in inventory yet.**
-2. Walk to **Market** → **Open Food Shop** → items appear as **card tiles** in a grid (not wide rows)
-3. Confirm **Buy** buttons are full-width at card bottom and fully visible
-4. **Buy Apple** and **Sandwich** → Owned counts update on shop cards
-5. Open **Food Inventory** → shop closes; owned items show as cards with **xN** count
-6. **Eat** an item → count decreases
+2. Walk to **Market** → **Open Food Shop** → centered dark glass modal with icon title and **×** close button
+3. Confirm **3-column** card grid on wide viewport; thumbnails top-left; **🪙 price Buy** buttons full-width and not clipped
+4. **Buy Water**, **Apple**, and **Sandwich** → Owned counts update on shop cards
+5. Open **Food Inventory** → shop closes; matching premium modal with **xN** counts and green **Eat** buttons
+6. **Eat** an item → count decreases; stats update
 7. Walk out of Market → shop closes; inventory can stay open
-8. Resize Studio viewport smaller → cards reflow to **2 columns**; remain scrollable and usable
-9. Widen viewport → grid may expand to **3 columns** when modal width ≥ 500px
+8. Resize Studio viewport smaller → cards reflow to **2 columns**; vertical scroll works; no horizontal overflow
+9. Widen viewport → grid expands to **3 columns** when modal width ≥ 500px
 10. With insufficient Wallet, **Buy** fails; at full stats **Eat** fails
 11. **Stop** → **Play** → inventory counts restored from DataStore
 
