@@ -8,3 +8,6 @@ Assets/Blender/exports/*.blend
 !Assets/Blender/exports/.gitkeep
 
 # FoodIcons source PNGs (Assets/FoodIcons/*.png) are intentionally tracked — do not ignore
+
+# Generated Rojo build output
+JonesRoblox.rbxlx
